@@ -1,2 +1,2 @@
 # gavinschmidt47.github.io
-Under Construction
+The repository for my portfolio website.
