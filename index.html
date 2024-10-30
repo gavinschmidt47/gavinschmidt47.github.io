@@ -37,10 +37,137 @@
             <p>Create armies for each of your commanders to fight enemy commanders by adding cards, or “units”, underneath each commander. Your commanders are Ace, King, Queen, and Jack. Using unit synergy can provide boosts to your battle dice to give your army a leg up against the opponent(s). After recruiting your units, each commander will compete against its respective arch nemesis (Ace will fight all enemy Aces, King will fight all enemy Kings, etc.). Whoever survives the most skirmishes wins the War of Faces.</p>
             <a href="FACES COMMANDERS.pdf" download>Download FACES: COMMANDERS rules</a>
         </div>
+        <!--<div class="project">
+            <h3>Unity Tutorial: FPS</h3>
+            <p>An FPS game I tweaked and changed to be learn Unity.</p>
+            <p>FIRST CHANGE:</p>
+            <p></p>
+            <a href="FACES COMMANDERS.pdf" download>Download FACES: COMMANDERS rules</a>
+        </div>-->
+        <div class="project">
+            <h3>Breadth First Search</h3>
+            <p>The first line of input contains two space separated integers, r (2 ≤ r ≤ 1000) and c (2 ≤ c ≤ 1000), representing the number of rows and number of columns in the grid, respectively.</p>
+            <p>The following r lines contain c characters each. The ith line of these lines contains the contents of the ith row of the grid, from left to right.</p>
+            <p>It is guaranteed that exactly one of the grid characters will be ‘*’ and exactly one of the grid characters will be ‘$’. All grid characters that represent regular squares will be labeled with the character ‘.’. All forbidden squares will be represented with the grid character ‘!’. All other squares will be capital letters, representing various teleportation squares. If a letter appears in the grid, then it will appear in at least two separate grid squares.</p>
+            <p>The Output (standard console output): If Gustavo can get out of the maze, output a single integer representing the fewest number of moves it will takehim to get out. If he can’t get out, output “Call 911”.</p>
+            <pre><code>import java.util.*;
+
+                class Main {
+                    final public static int[] DR = {-1,0,1,0};
+                    final public static int[] DC = {0,-1,0,1};
+                
+                    public static int r;
+                    public static int c;
+                    public static char[][] maze;
+                
+                    public static void main(String[] args) {
+                        Scanner in = new Scanner(System.in);
+                
+                        r = in.nextInt();
+                        c = in.nextInt();
+                
+                        maze = new char[r][c];
+                
+                        for(int i=0; i < r; ++i){
+                            maze[i] = in.next().toCharArray();
+                        }
+                
+                        int start = find('*');
+                
+                        int result = bfs(start, '$');
+                        if (result == -1)
+                            System.out.println("Call 911");
+                        else
+                            System.out.println(result);
+                    }
+                
+                    public static int bfs(int s, char e){
+                        LinkedList<Integer> q = new LinkedList<Integer>();
+                        q.offer(s);
+                        
+                        int[] dist = new int[r*c];
+                        Arrays.fill(dist, -1);
+                        dist[s] = 0;
+                
+                        while(q.size()>0){
+                            int curr = q.poll();
+                
+                            int currR = curr / c;
+                            int currC = curr % c;
+                
+                            char currL = maze[currR][currC];
+                
+                            if (currL == e) return dist[curr];
+                
+                            for (int i=0; i<DR.length; i++) {
+                                int nR = currR + DR[i];
+                                int nC = currC + DC[i];
+                
+                                if (!inbounds(nR, nC)) continue;
+                                if (maze[nR][nC] == '!') continue;
+                                if (dist[nR*c+nC] != -1) continue;
+                
+                                dist[nR*c+nC] = dist[curr] + 1;
+                                q.offer(nR*c+nC);
+                            }
+                
+                            if('A' <= currL){
+                                if(currL <= 'Z'){
+                                    int letterPlus = find((char)(currL + 1));
+                                    int letterNeg = find((char)(currL - 1));
+                                    if(letterPlus != -1){
+                                        int nR = letterPlus / c;
+                                        int nC = letterPlus % c;
+                
+                                        if (dist[letterPlus] != -1) continue;
+                
+                                        dist[letterPlus] = dist[curr] + 1;
+                                        q.offer(letterPlus);
+                                    }
+                
+                                    if(letterNeg != -1){
+                                        int nR = letterNeg / c;
+                                        int nC = letterNeg % c;
+                
+                                        if (dist[letterNeg] != -1) continue;
+                
+                                        dist[letterNeg] = dist[curr] + 1;
+                                        q.offer(letterNeg);
+                                    } 
+                                }
+                            }
+                        }
+                        return -1;
+                    }
+                
+                    public static boolean inbounds(int x, int y) {
+                        return x >= 0 && x < r && y >= 0 && y < c;
+                    }
+                
+                    public static int find(char s){
+                        for (int i=0; i < r; i++)
+                            for (int j=0; j < c; j++)
+                                if (maze[i][j] == s)
+                                    return i*c + j;
+                        return -1;
+                    }
+                
+                    // FOR TESTING
+                    public static void printMaze(){
+                        for(int i=0; i < r; ++i){
+                            for(int j=0; j < c; ++j){
+                                System.out.print(maze[i][j]);
+                            }
+                            System.out.println();
+                        }
+                    }
+                }
+            </pre></code>
+        </div>
         <div class="project">
             <h3>Dijkstra's Algorithm</h3>
             <p>The first line of input contains 3 space separated integers, C (2 ≤C≤105), R (C-1 ≤ R≤ min(105, n(n-1)/2), S (1 ≤ S ≤ N), representing the number of cities, number of roads, and the city number that represents the capital, respectively.</p>
-            <p>Then the next R lines contain the descriptions of the roads. Each of them contains 3 space separated integers vi, ui, wi (1 ≤ vi, ui ≤ n, vi ≠ ui, 1 ≤ wi ≤ 1000), where vi, ui are numbers of the cities connected by this road and wi is its length. The last input line contains integer L (0 ≤ l ≤ 109) — the distance from the capital to the places where the treasures are located. It is guaranteed that:
+            <p>Then the next R lines contain the descriptions of the roads. Each of them contains 3 space separated integers vi, ui, wi (1 ≤ vi, ui ≤ n, vi ≠ ui, 1 ≤ wi ≤ 1000), where vi, ui are numbers of the cities connected by this road and wi is its length. The last input line contains integer L (0 ≤ l ≤ 109) — the distance from the capital to the places where the treasures are located. It is guaranteed that:</p>
             <p>• between any two cities no more than one road exists.</p>
             <p>• each road connects two different cities.</p>
             <p>• from each city there is at least one way to any other city by the roads.</p>
