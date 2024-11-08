@@ -37,132 +37,1159 @@
             <p>Create armies for each of your commanders to fight enemy commanders by adding cards, or “units”, underneath each commander. Your commanders are Ace, King, Queen, and Jack. Using unit synergy can provide boosts to your battle dice to give your army a leg up against the opponent(s). After recruiting your units, each commander will compete against its respective arch nemesis (Ace will fight all enemy Aces, King will fight all enemy Kings, etc.). Whoever survives the most skirmishes wins the War of Faces.</p>
             <a href="FACES COMMANDERS.pdf" download>Download FACES: COMMANDERS rules</a>
         </div>
-        <!--<div class="project">
+        <div class="project">
+            <h3 style="color: brown">Dungeons and Dragons: Character Sheet in Java</h3>
+            <p>Java Code to help store information that goes into making a DND Character</p>
+            <a href="DND Character Sheet.zip" download>Download DND Character Sheet Tracker</a>
+            <details>
+                <summary>Code</summary>
+            <pre><code>
+                import java.util.Scanner;
+                public class DND_5e_character{
+                    public static void main(String[] args){
+                        characterStats player = new characterStats();
+                    }
+                }
+                
+                class character{
+                    public String name;
+                    public int level;
+                    public String background;
+                    public String alignment;
+                    public String uClass;
+                    public String race;
+                    public String pName;
+                    public String[] languages;
+                    public String[] equipment;
+                    public int[] wealth = new int[5];
+                
+                    public character(){
+                        Scanner input = new Scanner(System.in);
+                        System.out.print("Hello. What is your name?: ");
+                        pName = input.next();
+                        System.out.println("Welcome " + pName);
+                
+                        System.out.print("Enter the character's name: ");
+                        name = input.next();
+                
+                        System.out.print("Enter the class: " );
+                        uClass = input.next();
+                
+                        System.out.print("Enter the race: ");
+                        race = input.next();
+                
+                        System.out.print("Enter the level: ");
+                        level = input.nextInt();
+                
+                        System.out.print("Enter alignment: ");
+                        alignment = input.next();
+                
+                        System.out.print("Enter background: ");
+                        background = input.next();
+                
+                        System.out.print("How many languages does " + name + " known?: ");
+                        int amount = input.nextInt();
+                        languages = new String[amount];
+                        System.out.print("Enter the languages one-by-one: ");
+                        for(int i = 0; i < amount; ++i){
+                            languages[i] = input.next();
+                        }
+                
+                        System.out.print("How much equipment does " + name + " have?: ");
+                        amount = input.nextInt();
+                        equipment = new String[amount];
+                        System.out.print("Enter the equipment one-by-one: ");
+                        for(int i = 0; i < amount; ++i){
+                            equipment[i] = input.next();
+                        }
+                
+                        System.out.print("How much copper does " + name + " have?: ");
+                        wealth[0] = input.nextInt();
+                        System.out.print("How much silver does " + name + " have?: ");
+                        wealth[1] = input.nextInt();
+                        System.out.print("How much electrum does " + name + " have?: ");
+                        wealth[2] = input.nextInt();
+                        System.out.print("How much gold does " + name + " have?: ");
+                        wealth[3] = input.nextInt();
+                        System.out.print("How much platinum does " + name + " have?: ");
+                        wealth[4] = input.nextInt();
+                
+                        if(wealth[4] == 0 && wealth[3] < 100){
+                            System.out.println("It's okay. I'm not very rich either.");
+                        }
+                    }
+                }
+                
+                class characterStats extends character{
+                    public int strength;
+                    public int dexterity;
+                    public int constitution;
+                    public int intelligence;
+                    public int wisdom;
+                    public int charisma;
+                
+                    public int strengthMod;
+                    public int[] strengthSave = new int[2];
+                    public int[] athletics = new int[2];
+                    public int dexterityMod;
+                    public int[] dexteritySave = new int[2];
+                    public int[] acrobatics = new int[2];
+                    public int[] sleightOfHand = new int[2];
+                    public int[] stealth = new int[2];
+                    public int constitutionMod;
+                    public int[] constitutionSave = new int[2];
+                    public int intelligenceMod;
+                    public int[] intelligenceSave = new int[2];
+                    public int[] arcana = new int[2];
+                    public int[] history = new int[2];
+                    public int[] investigation = new int[2];
+                    public int[] nature = new int[2];
+                    public int[] religion = new int[2];
+                    public int wisdomMod;
+                    public int[] wisdomSave = new int[2];
+                    public int[] animalHandling = new int[2];
+                    public int[] insight = new int[2];
+                    public int[] medicine = new int[2];
+                    public int[] perception = new int[2];
+                    public int[] survival = new int[2];
+                    public int charismaMod;
+                    public int[] charismaSave = new int[2];
+                    public int[] deception = new int[2];
+                    public int[] intimidation = new int[2];
+                    public int[] performance = new int[2];
+                    public int[] persuasion = new int[2];
+                
+                    public int passiveWisdom;
+                    public int speed;
+                    public int profBonus;
+                    public int maxHP;
+                
+                    public characterStats(){
+                        Scanner input = new Scanner(System.in);
+                        System.out.print("Enter Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma scores (after any racial bonuses): ");
+                        strength = input.nextInt();
+                        dexterity = input.nextInt();
+                        constitution = input.nextInt();
+                        intelligence = input.nextInt();
+                        wisdom = input.nextInt();
+                        charisma = input.nextInt();
+                
+                        System.out.print("What is " + name + "'s speed?: ");
+                        speed = input.nextInt();
+                
+                        System.out.println("What are " + name + "'s Saving Throws?:\n1. Strength\n2. Dexterity\n3. Constitution\n4. Intelligence\n5. Wisdom\n6. Charisma");
+                        int choice = input.nextInt();
+                        switch (choice) {
+                            case 1:
+                                strengthSave[1] = 1;
+                                dexteritySave[1] = 0;
+                                constitutionSave[1] = 0;
+                                intelligenceSave[1] = 0;
+                                wisdomSave[1] = 0;
+                                charismaSave[1] = 0;
+                                break;
+                            case 2:
+                                strengthSave[1] = 0;
+                                dexteritySave[1] = 1;
+                                constitutionSave[1] = 0;
+                                intelligenceSave[1] = 0;
+                                wisdomSave[1] = 0;
+                                charismaSave[1] = 0;
+                                break;
+                            case 3:
+                                strengthSave[1] = 0;
+                                dexteritySave[1] = 0;
+                                constitutionSave[1] = 1;
+                                intelligenceSave[1] = 0;
+                                wisdomSave[1] = 0;
+                                charismaSave[1] = 0;
+                                break;
+                            case 4:
+                                strengthSave[1] = 0;
+                                dexteritySave[1] = 0;
+                                constitutionSave[1] = 0;
+                                intelligenceSave[1] = 1;
+                                wisdomSave[1] = 0;
+                                charismaSave[1] = 0;
+                                break;
+                            case 5:
+                                strengthSave[1] = 0;
+                                dexteritySave[1] = 0;
+                                constitutionSave[1] = 0;
+                                intelligenceSave[1] = 0;
+                                wisdomSave[1] = 1;
+                                charismaSave[1] = 0;
+                                break;
+                            case 6:
+                                strengthSave[1] = 0;
+                                dexteritySave[1] = 0;
+                                constitutionSave[1] = 0;
+                                intelligenceSave[1] = 0;
+                                wisdomSave[1] = 0;
+                                charismaSave[1] = 1;
+                                break;
+                
+                            default:
+                                break;
+                        }
+                
+                        choice = input.nextInt();
+                
+                        switch (choice) {
+                            case 1:
+                                strengthSave[1] = 1;
+                                break;
+                            case 2:
+                                dexteritySave[1] = 1;
+                                break;
+                            case 3:
+                                constitutionSave[1] = 1;
+                                break;
+                            case 4:
+                                intelligenceSave[1] = 1;
+                                break;
+                            case 5:
+                                wisdomSave[1] = 1;
+                                break;
+                            case 6:
+                                charismaSave[1] = 1;
+                                break;
+                
+                            default:
+                                break;
+                        }
+                
+                        System.out.print("What is the proficiency bonus: ");
+                        profBonus = input.nextInt();
+                
+                        strengthMod = modFinder(strength);
+                        dexterityMod = modFinder(dexterity);
+                        constitutionMod = modFinder(constitution);
+                        intelligenceMod = modFinder(intelligence);
+                        wisdomMod = modFinder(wisdom);
+                        charismaMod = modFinder(charisma);
+                
+                        athletics[1] = 0;
+                        acrobatics[1] = 0;
+                        sleightOfHand[1] = 0;
+                        stealth[1] = 0;
+                        arcana[1] = 0;
+                        history[1] = 0;
+                        investigation[1] = 0;
+                        nature[1] = 0;
+                        religion[1] = 0;
+                        animalHandling[1] = 0;
+                        insight[1] = 0;
+                        medicine[1] = 0;
+                        perception[1] = 0;
+                        survival[1] = 0;
+                        deception[1] = 0;
+                        intimidation[1] = 0;
+                        performance[1] = 0;
+                        persuasion[1] = 0;
+                
+                        System.out.print("How many proficiencies does " + name + " have?: ");
+                        int amount = input.nextInt();
+                        System.out.println("What are " + name + "'s proficiencies?:\n1. Athletics\n2. Acrobatics\n3. Sleight-of-Hand\n4. Stealth\n5. Arcana\n6. History\n7. Investigation\n8. Nature\n9. Religion\n10. Animal Handling\n11. Insight\n12. Medicine\n13. Perception\n14. Survival\n15. Deception\n16. Intimidation\n17. Performance\n18. Persuasion");
+                        for(int i = 0; i < amount; ++i){
+                            choice = input.nextInt();
+                            switch (choice) {
+                                case 1:
+                                    athletics[1] = 1;
+                                    break;
+                                case 2:
+                                    acrobatics[1] = 1;
+                                    break;
+                                case 3:
+                                    sleightOfHand[1] = 1;
+                                    break;
+                                case 4:
+                                    stealth[1] = 1;
+                                    break;
+                                case 5:
+                                    arcana[1] = 1;
+                                    break;
+                                case 6:
+                                    history[1] = 1;
+                                    break;
+                                case 7:
+                                    investigation[1] = 1;
+                                    break;
+                                case 8:
+                                    nature[1] = 1;
+                                    break;
+                                case 9:
+                                    religion[1] = 1;
+                                    break;
+                                case 10:
+                                    animalHandling[1] = 1;
+                                    break;
+                                case 11:
+                                    insight[1] = 1;
+                                    break;
+                                case 12:
+                                    medicine[1] = 1;
+                                    break;
+                                case 13:
+                                    perception[1] = 1;
+                                    break;
+                                case 14:
+                                    survival[1] = 1;
+                                    break;
+                                case 15:
+                                    deception[1] = 1;
+                                    break;
+                                case 16:
+                                    intimidation[1] = 1;
+                                    break;
+                                case 17:
+                                    performance[1] = 1;
+                                    break;
+                                case 18:
+                                    persuasion[1] = 1;
+                                    break;
+                            
+                                default:
+                                    break;
+                            }
+                        }
+                
+                        skillModFinder(strengthSave, strengthMod);
+                        skillModFinder(athletics, strengthMod);
+                        skillModFinder(dexteritySave, dexterityMod);
+                        skillModFinder(acrobatics, dexterityMod);
+                        skillModFinder(sleightOfHand, dexterityMod);
+                        skillModFinder(stealth, dexterityMod);
+                        skillModFinder(intelligenceSave, intelligenceMod);
+                        skillModFinder(arcana, intelligenceMod);
+                        skillModFinder(history, intelligenceMod);
+                        skillModFinder(investigation, intelligenceMod);
+                        skillModFinder(nature, intelligenceMod);
+                        skillModFinder(religion, intelligenceMod);
+                        skillModFinder(wisdomSave, wisdomMod);
+                        skillModFinder(animalHandling, wisdomMod);
+                        skillModFinder(insight, wisdomMod);
+                        skillModFinder(medicine, wisdomMod);
+                        skillModFinder(perception, wisdomMod);
+                        skillModFinder(survival, wisdomMod);
+                        skillModFinder(charismaSave, charismaMod);
+                        skillModFinder(deception, charismaMod);
+                        skillModFinder(intimidation, charismaMod);
+                        skillModFinder(performance, charismaMod);
+                        skillModFinder(persuasion, charismaMod);
+                
+                        passiveWisdom = 10 + wisdomMod + perception[0];
+                
+                        System.out.print("What is the max HP?: ");
+                        maxHP = input.nextInt();
+                    }
+                
+                    public int modFinder(int stat){
+                        if(stat == 1){
+                            return -5;
+                        }
+                        else if(stat == 2 || stat == 3){
+                            return -4;
+                        }
+                        else if(stat == 4 || stat == 5){
+                            return -3;
+                        }
+                        else if(stat == 6 || stat == 7){
+                            return -2;
+                        }
+                        else if(stat == 8 || stat == 9){
+                            return -1;
+                        }
+                        else if(stat == 10 || stat == 11){
+                            return 0;
+                        }
+                        else if(stat == 12 || stat == 13){
+                            return 1;
+                        }
+                        else if(stat == 14 || stat == 15){
+                            return 2;
+                        }
+                        else if(stat == 16 || stat == 17){
+                            return 3;
+                        }
+                        else if(stat == 18 || stat == 19){
+                            return 4;
+                        }
+                        else if(stat == 20 || stat == 21){
+                            return 5;
+                        }
+                        else if(stat == 22 || stat == 23){
+                            return 6;
+                        }
+                        else if(stat == 24 || stat == 25){
+                            return 7;
+                        }
+                        else if(stat == 26 || stat == 27){
+                            return 8;
+                        }
+                        else if(stat == 28 || stat == 29){
+                            return 9;
+                        }
+                        else if(stat == 30){
+                            return 10;
+                        }
+                        return -111;
+                    }
+                
+                    public void skillModFinder(int[] skill, int mod){
+                        if(skill[1] == 0){
+                            skill[0] = mod;
+                        }
+                        else if(skill[1] == 1){
+                            skill[0] = mod + profBonus;
+                        }
+                    }
+                
+                    public String p(int skill[]){
+                        if(skill[1] == 1){
+                            return "np";
+                        }
+                        else{
+                            return "p";
+                        }
+                
+                    }
+                
+                    public void printPC(Armor ac){
+                        System.out.println(name);
+                        System.out.println("level: " + level + "\tclass: " + uClass + "\trace: " + race);
+                        System.out.println("Background: " + background + "\tAlignment: " + alignment + "\tplayer: " + pName);
+                        System.out.println(" ________ \t _________________ \t ________   ________   ________");
+                        System.out.println("|Strength|\t|Proficiency Bonus|\t|   " + ac.AC + "   | |   " + speed + "   | |   " + maxHP + "   |");
+                        System.out.println("|   " + strength + "   |\t|        " + profBonus + "        |\t|   AC   | | Speed  | |   HP   |");
+                        System.out.println("|   " + strengthMod + "   |\t -----------------\t --------   --------   --------");
+                        System.out.println(" --------\t _____________ \t ___________________ ");
+                        System.out.println("");
+                
+                    }
+                }
+                class Armor{
+                    public int AC;
+                
+                
+                }
+            </code>
+        </details>
+        </div>
+        <div class="project">
+            <h3 style="color: darkmagenta">Mastermind in C</h3>
+            <p>A code version of the classic game of Mastermind. Coded in C.</p>
+            <details>
+                <summary>Code</summary>
+            <pre><code>
+                    #include <stdio.h>
+                    #include <stdlib.h>
+                    #include <time.h>
+                    #include <ctype.h>
+                    #include <string.h>
+                    
+                    // global constants
+                    #define COLORS 8
+                    #define THREE 3
+                    #define FOUR 4
+                    #define TEN 10
+                    #define NINE 9
+                    #define TRUE 1
+                    #define FALSE 0
+                    #define ZERO 0
+                    #define INVALID -1
+                    
+                    // function prototypes
+                    void welcomeScreen();
+                    void clearScreen();
+                    void displayBoard();
+                    int getColor();
+                    void convertColor(int color);
+                    void populateColorArray(char colors[COLORS]);
+                    void setCode(int secretCode[FOUR]);
+                    void initializeArray(int array[TEN][FOUR]);
+                    void getGuess(int guesses[TEN][FOUR], char colors[COLORS]);
+                    int isDuplicate(char guess[TEN]);
+                    int isValid(char colors[COLORS], char color);
+                    void displayBoard(int guesses[TEN][FOUR], int clues[TEN][FOUR]);
+                    void getClues(int guesses[TEN][FOUR], int clues[TEN][FOUR], int secretCode[FOUR], char colors[COLORS]);
+                    int searchArray(int guesses[TEN][FOUR], char color, int row);
+                    void evaluatePegs(int red, int white, int clues[TEN][FOUR]);
+                    int checkWin(int clues[TEN][FOUR]);
+                    
+                    // enumeration
+                    enum color
+                    {
+                        BLACK,
+                        GREEN,
+                        NAVY,
+                        ORANGE,
+                        PINK,
+                        RED,
+                        VIOLET,
+                        WHITE
+                    };
+                    
+                    // main function
+                    int main()
+                    {
+                        int win;
+                    
+                        // array of valid colors as characters
+                        char colors[COLORS];
+                    
+                        // array for the secret code
+                        int secretCode[FOUR];
+                    
+                        // array for the player guesses
+                        int guesses[TEN][FOUR];
+                    
+                        // array for the code maker clues
+                        int clues[TEN][FOUR];
+                        for(int i = 0; i < TEN; ++i)
+                        {
+                            for(int j = 0; j < FOUR; ++j)
+                            {
+                                clues[i][j] = INVALID;
+                            }
+                        }
+                    
+                        // seed the random
+                        srand(time(NULL));
+                    
+                        // display welcome screen
+                        welcomeScreen();
+                    
+                        // clear the screen
+                        clearScreen();
+                    
+                        // set secret code
+                        setCode(secretCode);
+                    
+                        // clear the screen
+                        clearScreen();
+                    
+                        // populate the color array with the single character color
+                        populateColorArray(colors);
+                    
+                        // initialize the guesses array
+                        initializeArray(guesses);
+                    
+                        // initialize the clues array
+                        initializeArray(clues);
+                    
+                        // display the initial board
+                        displayBoard(guesses, clues);
+                    
+                        // get player guess
+                        // this only performs one turn of the game
+                        for(int turn = 0; turn < TEN; turn++)
+                        {
+                            getGuess(guesses, colors);
+                            getClues(guesses, clues, secretCode, colors);
+                            displayBoard(guesses, clues);
+                            win = checkWin(clues);
+                            if (win == TRUE)
+                            {
+                                printf("You guessed the secret code!:\n", secretCode);
+                                for(int i = 0; i < FOUR; i++)
+                                {
+                                    convertColor(secretCode[i]);
+                                    printf(" ");
+                                }
+                                printf("\n");
+                                turn = TEN;
+                            }
+                            else if (win == FALSE && turn == 9){
+                                printf("You did not guess the secret code!:\n", secretCode);
+                                for(int i = 0; i < FOUR; i++)
+                                {     
+                                    convertColor(secretCode[i]);
+                                    printf(" ");
+                                }
+                                printf("\n");
+                            }
+                        }
+                    
+                        return 0;
+                    }
+                    
+                    // welcome screen
+                    void welcomeScreen()
+                    {
+                        printf("\t\t##########################################################\n");
+                        printf("\t\t##########################################################\n");
+                        printf("\t\t############                                  ############\n");
+                        printf("\t\t############            Mastermind            ############\n");
+                        printf("\t\t############                                  ############\n");
+                        printf("\t\t##########################################################\n");
+                        printf("\t\t##########################################################\n");
+                    
+                        printf("Rules:\n");
+                        printf("1. The Codemaker sets a secret code\n");
+                        printf("2. The Codebreaker tries to match the code using logic and deduction\n");
+                        printf("3. After each move, the Codemaker gives clues to the Codebreaker\n");
+                        printf("4. The Codebreaker has 10 attempts to guess the secret code\n");
+                    
+                    }
+                    
+                    // clear the screen
+                    void clearScreen()
+                    {
+                        char enter;
+                    
+                        printf("\n\t\t\t\t < Hit Enter to continue >\n\n");
+                    
+                        scanf("%c", &enter);
+                    
+                        // windows
+                        system("cls");
+                    
+                        // linux and mac
+                    //    system("clear");
+                    }
+                    
+                    // Mastermind board
+                    void displayBoard(int guesses[TEN][FOUR], int clues[TEN][FOUR])
+                    {
+                    
+                        printf("+----------------------------------------+ \n");
+                        printf("|            SECRET CODE                 | \n");
+                        printf("+----------------------------------------+ \n");
+                        printf("|          ?    ?    ?    ?              | \n");
+                        printf("+----------------------------------------+ \n");
+                        printf("|     PLAYER GUESS        |    CLUES     | \n");
+                        printf("+----------------------------------------+ \n");
+                    
+                        for(int row = NINE; row >= ZERO; row--)
+                        {
+                            printf("|   ");
+                            for(int col = 0; col < FOUR; col++)
+                                if(guesses[row][col] == INVALID)
+                                    printf("?    ");
+                                else
+                                    printf("%c    ", guesses[row][col]);
+                    
+                            printf("  |  ");
+                    
+                            for(int col = 0; col < FOUR; col++)
+                                if(clues[row][col] == INVALID)
+                                    printf("?  ");
+                                else
+                                    printf("%c  ", clues[row][col]);
+                    
+                            printf("| \n");
+                            printf("+----------------------------------------+ \n");
+                        }
+                    }
+                    
+                    // Code Maker creates the secret code
+                    void setCode(int secretCode[FOUR])
+                    {
+                        int code;
+                        int isUsed[COLORS] = {INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID};
+                        const int USED = 1;
+                        int color;
+                    
+                        for(code = 0; code < FOUR; code++)
+                        {
+                            secretCode[code] = INVALID;
+                        }
+                    
+                        for(code = ZERO; code < FOUR; code++)
+                        {
+                            color = getColor();
+                    
+                            if (isUsed[color] == INVALID)
+                            {
+                                isUsed[color] = USED;
+                                secretCode[code] = color;
+                            }
+                            else
+                            {
+                                code--;
+                            }
+                    
+                        }
+                    
+                    
+                    
+                        // randomly select four colors to be the secret code
+                        for(code = 0; code < FOUR; code++)
+                        {
+                            secretCode[code] = getColor();
+                        }
+                    
+                        printf("Integer Secret Code\n");
+                    
+                        for(code = 0; code < FOUR; code++)
+                        {
+                            printf("%d ", secretCode[code]);
+                        }
+                    
+                        printf("\n");
+                    
+                        printf("\nColor Secret Code\n");
+                    
+                        for(code = 0; code < FOUR; code++)
+                        {
+                            convertColor(secretCode[code]);
+                        }
+                    }
+                    
+                    // randomly select a member of enum color
+                    int getColor()
+                    {
+                        // returns a random color from enum
+                        int color = rand() % COLORS;
+                        return color;
+                    }
+                    
+                    // convert the integer color to a string
+                    void convertColor(int color)
+                    {
+                        switch(color)
+                        {
+                            case BLACK:
+                                printf("Black ");
+                                break;
+                            case GREEN:
+                                printf("Green ");
+                                break;
+                            case NAVY:
+                                printf("Navy ");
+                                break;
+                            case ORANGE:
+                                printf("Orange ");
+                                break;
+                            case PINK:
+                                printf("Pink ");
+                                break;
+                            case RED:
+                                printf("Red ");
+                                break;
+                            case VIOLET:
+                                printf("Violet ");
+                                break;
+                            case WHITE:
+                                printf("White ");
+                                break;
+                        }
+                    }
+                    
+                    // populate the character array with single letters for the player to enter
+                    void populateColorArray(char colors[COLORS])
+                    {
+                        int color;
+                    
+                        for(color = BLACK; color <= WHITE; color++)
+                        {
+                            switch(color)
+                            {
+                                case BLACK:
+                                    colors[color] = 'B';
+                                    break;
+                                case GREEN:
+                                    colors[color] = 'G';
+                                    break;
+                                case NAVY:
+                                    colors[color] = 'N';
+                                    break;
+                                case ORANGE:
+                                    colors[color] = 'O';
+                                    break;
+                                case PINK:
+                                    colors[color] = 'P';
+                                    break;
+                                case RED:
+                                    colors[color] = 'R';
+                                    break;
+                                case VIOLET:
+                                    colors[color] = 'V';
+                                    break;
+                                case WHITE:
+                                    colors[color] = 'W';
+                                    break;
+                            }
+                        }
+                    }
+                    
+                    // initialize the array to be all -1
+                    void initializeArray(int arrays[TEN][FOUR])
+                    {
+                        int row;
+                        int col;
+                    
+                        // this is a nested loop to traverse a 2-d array
+                        for(row = 0; row < TEN; row++)
+                            for(col = 0; col < FOUR; col++)
+                                arrays[row][col] = -1;
+                    }
+                    
+                    // prompt the Code Breaker for their guess
+                    void getGuess(int guesses[TEN][FOUR], char colors[COLORS])
+                    {
+                        // use static variable to keep track of the turn number
+                        // turn number is the row index for the array
+                        static int row = 0;
+                        int col;
+                        char guess[TEN];
+                        int valid = FALSE;
+                    
+                        printf("\nCharacter colors are \n");
+                    
+                        for(col = 0; col < COLORS; col++)
+                        {
+                            printf("%c ", colors[col]);
+                        }
+                    
+                        while(!valid)
+                        {
+                            printf("\nEnter your guess of four colors (no spaces, no duplicates): \n");
+                    
+                            scanf("%s", guess);
+                            printf("You entered %s\n", guess);
+                    
+                            if(strlen(guess) == FOUR)
+                            {
+                                for(col = 0; col < FOUR; col++)
+                                {
+                                    guess[col] = toupper(guess[col]);
+                    
+                                    if(isalpha(guess[col]))
+                                    {
+                                        if(isValid(colors, guess[col]) && !isDuplicate(guess))
+                                        {
+                                            guesses[row][col] = guess[col];
+                    
+                                            if(col == THREE)
+                                                valid = TRUE;
+                                        }
+                                        else
+                                        {
+                                            printf("getGuess: Invalid value entered %c, try again\n", guess[col]);
+                                            valid = FALSE;
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        printf("getGuess: Invalid value entered %c, try again\n", guess[col]);
+                                        valid = FALSE;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                printf("getGuess: Incorrect number of letters entered\n");
+                                valid = FALSE;
+                            }
+                        }
+                    
+                        row++;
+                    }
+                    
+                    int isDuplicate(char guess[TEN]) 
+                    {
+                        int row;
+                        int col;
+                    
+                        for (row = ZERO; row < strlen(guess); row++)
+                        {
+                            for (col = row + 1; col < strlen(guess); col++)
+                            {
+                                if ((guess[row]) == (guess[col]))
+                                { 
+                                    return TRUE; 
+                                }
+                            }
+                        }
+                        return FALSE;
+                    }
+                    
+                    // check if the Code Breaker's guess is valid
+                    int isValid(char colors[COLORS], char color)
+                    {
+                        int c;
+                        // initialize valid to false, 0
+                        int valid = FALSE;
+                    
+                        for(c = 0; c < COLORS; c++)
+                        {
+                            if(color == colors[c])
+                            {
+                                return TRUE;
+                            }
+                        }
+                    
+                        return FALSE;
+                    }
+                    
+                    void getClues(int guesses[TEN][FOUR], int clues[TEN][FOUR], int secretCode[FOUR], char colors[COLORS]){
+                        static int row = 0;
+                        int redPegs = 0;
+                        int whitePegs = 0;
+                        int idx;
+                        int col;
+                        int color;
+                    
+                        for (col = 0; col < FOUR; ++col)
+                        {
+                            switch(secretCode[col])
+                            {
+                                case BLACK:
+                                    color = 66;
+                                    break;
+                                case GREEN:
+                                    color = 71;
+                                    break;
+                                case NAVY:
+                                    color = 78;
+                                    break;
+                                case ORANGE:
+                                    color = 79;
+                                    break;
+                                case PINK:
+                                    color = 80;
+                                    break;
+                                case RED:
+                                    color = 82;
+                                    break;
+                                case VIOLET:
+                                    color = 86;
+                                    break;
+                                case WHITE:
+                                    color = 87;
+                                    break;
+                            }
+                    
+                            idx = INVALID;
+                            idx = searchArray(guesses, color, row);
+                            if(idx == col)
+                            {
+                                ++redPegs;
+                            }
+                            else if((idx != INVALID) && (idx != col))
+                            {
+                                ++whitePegs;
+                            }
+                        }
+                        evaluatePegs(redPegs, whitePegs, clues);
+                        ++row;
+                    }
+                    
+                    int searchArray(int guesses[TEN][FOUR], char color, int row){
+                        int idx = INVALID;
+                        int col; 
+                    
+                        for(col = 0; col < FOUR; col++)
+                        {
+                            if(guesses[row][col] == color)
+                            {
+                                idx = col;
+                            }
+                        }
+                        return idx;
+                    }
+                    
+                    void evaluatePegs(int red, int white, int clues[TEN][FOUR]) {
+                        static int row = ZERO;
+                        int col;
+                    
+                        if (red > 0 && white == 0)
+                        {
+                            for(col = 0; col < red; col++)
+                            {
+                                clues[row][col] = 'R'; 
+                            }
+                        }
+                        if (white > 0 && red > 0)
+                        {
+                            for(col = 0; col < white; col++)
+                            {
+                                clues[row][col] = 'W';
+                            }
+                            for(col = white; col < (red + white); col++)
+                            {
+                                clues[row][col] = 'R';
+                            }
+                        }
+                        if (white > 0 && red == 0)
+                        {
+                            for(col = 0; col < white; col++)
+                            {
+                                clues[row][col] = 'W'; 
+                            }
+                        }
+                        ++row;
+                    }
+                    
+                    int checkWin(int clues[TEN][FOUR]) 
+                    {
+                        static int row = ZERO;
+                        int count = ZERO;
+                    
+                        for(int i = 0; i < FOUR; i++)
+                        {
+                            if(clues[row][i] == 'R')
+                            {
+                                count++; 
+                            }
+                        }
+                        row++;
+                        if(count == FOUR)
+                        { 
+                            return TRUE;
+                        }
+                        else
+                        {
+                            return FALSE;
+                        }
+                    }
+            </pre></code>
+        </details>
+        </div>
+        <div class="project">
+            <h3 style="color: #Ff4500">Two Person Microgame</h3>
+            <p>A small microgame made by me and Egor Nikiforov. The README has credit for what each of us contributed to the overall project.</p>
+            <a href="https://github.com/ElusiveChicken47/Partner-Microgame">Partner Microgame GitHub Repository</a>
+        </div>
+        <div class="project">
             <h3>Unity Tutorial: FPS</h3>
             <p>An FPS game I tweaked and changed to be learn Unity.</p>
             <p>FIRST CHANGE:</p>
-            <p></p>
-            <a href="FACES COMMANDERS.pdf" download>Download FACES: COMMANDERS rules</a>
-        </div>-->
+            <p>I have added two new assets; the Sniper Rifle and an 'Elusive Chicken'. I also changed the pickup SFX for health pickups to be shorter and more electronic and the sniper pickup SFX to be less tingy and quicker. I have added background music I composed myself using Musescore. I used the Mg3D_Food and MgFPS_SniperRifle assets from Unity and grabbed the Pickup/Plastic Sound by Vinrax and the Pacman-clone wakka sound by remaxim from OpenGameArt.</p>
+            <p>SECOND CHANGE:</p>
+            <p>I added three lights in the alter room, two spotlights behind the alter and one point light on the chicken. I also added spotlights to the hoverbot enemies and a big red point light on the main turret boss.I made the chicken in the alter room bounce up and down and made the sniper pickup and health pickups spin slower than they previously were.</p>
+            <p>THIRD CHANGE:</p>
+            <p>For this mod assignment I have added an establishing shot that  begins before you play the game to show off the whole map. I have also added a green particle effect around enemy's dropped health pick ups, as well as adding rain particles and increasing the dust particles to cover the whole map.</p>
+            <p>FOURTH CHANGE:</p>
+            <p>For this assignment I have created a much more dystopian and dark feel to my game. My post processing added a dark green filter, used ACES lighting, and increased bloom and vignette.</p>
+            <a href="https://github.com/ElusiveChicken47/Unity-Tutorial-FPS">Unity Tutorial: FPS GitHub Repository</a>
+        </div>
         <div class="project">
             <h3>Breadth First Search</h3>
             <p>The first line of input contains two space separated integers, r (2 ≤ r ≤ 1000) and c (2 ≤ c ≤ 1000), representing the number of rows and number of columns in the grid, respectively.</p>
             <p>The following r lines contain c characters each. The ith line of these lines contains the contents of the ith row of the grid, from left to right.</p>
             <p>It is guaranteed that exactly one of the grid characters will be ‘*’ and exactly one of the grid characters will be ‘$’. All grid characters that represent regular squares will be labeled with the character ‘.’. All forbidden squares will be represented with the grid character ‘!’. All other squares will be capital letters, representing various teleportation squares. If a letter appears in the grid, then it will appear in at least two separate grid squares.</p>
             <p>The Output (standard console output): If Gustavo can get out of the maze, output a single integer representing the fewest number of moves it will takehim to get out. If he can’t get out, output “Call 911”.</p>
+            <details>
+                <summary>Code</summary>
             <pre><code>import java.util.*;
 
-                class Main {
-                    final public static int[] DR = {-1,0,1,0};
-                    final public static int[] DC = {0,-1,0,1};
+class Main {
+    final public static int[] DR = {-1,0,1,0};
+    final public static int[] DC = {0,-1,0,1};
                 
-                    public static int r;
-                    public static int c;
-                    public static char[][] maze;
+    public static int r;
+    public static int c;
+    public static char[][] maze;
                 
-                    public static void main(String[] args) {
-                        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
                 
-                        r = in.nextInt();
-                        c = in.nextInt();
+        r = in.nextInt();
+        c = in.nextInt();
                 
-                        maze = new char[r][c];
+        maze = new char[r][c];
                 
-                        for(int i=0; i < r; ++i){
-                            maze[i] = in.next().toCharArray();
-                        }
+        for(int i=0; i < r; ++i){
+            maze[i] = in.next().toCharArray();
+        }
                 
-                        int start = find('*');
+        int start = find('*');
                 
-                        int result = bfs(start, '$');
-                        if (result == -1)
-                            System.out.println("Call 911");
-                        else
-                            System.out.println(result);
-                    }
+        int result = bfs(start, '$');
+        if (result == -1)
+            System.out.println("Call 911");
+        else
+            System.out.println(result);
+    }
                 
-                    public static int bfs(int s, char e){
-                        LinkedList<Integer> q = new LinkedList<Integer>();
-                        q.offer(s);
+    public static int bfs(int s, char e){
+        LinkedList<Integer> q = new LinkedList<Integer>();
+        q.offer(s);
                         
-                        int[] dist = new int[r*c];
-                        Arrays.fill(dist, -1);
-                        dist[s] = 0;
+        int[] dist = new int[r*c];
+        Arrays.fill(dist, -1);
+        dist[s] = 0;
                 
-                        while(q.size()>0){
-                            int curr = q.poll();
+        while(q.size()>0){
+            int curr = q.poll();
                 
-                            int currR = curr / c;
-                            int currC = curr % c;
+            int currR = curr / c;
+            int currC = curr % c;
                 
-                            char currL = maze[currR][currC];
+            char currL = maze[currR][currC];
                 
-                            if (currL == e) return dist[curr];
+            if (currL == e) return dist[curr];
                 
-                            for (int i=0; i<DR.length; i++) {
-                                int nR = currR + DR[i];
-                                int nC = currC + DC[i];
+            for (int i=0; i < DR.length; i++) {
+                int nR = currR + DR[i];
+                int nC = currC + DC[i];
                 
-                                if (!inbounds(nR, nC)) continue;
-                                if (maze[nR][nC] == '!') continue;
-                                if (dist[nR*c+nC] != -1) continue;
+                if (!inbounds(nR, nC)) continue;
+                if (maze[nR][nC] == '!') continue;
+                if (dist[nR*c+nC] != -1) continue;
                 
-                                dist[nR*c+nC] = dist[curr] + 1;
-                                q.offer(nR*c+nC);
-                            }
+                dist[nR*c+nC] = dist[curr] + 1;
+                q.offer(nR*c+nC);
+            }
                 
-                            if('A' <= currL){
-                                if(currL <= 'Z'){
-                                    int letterPlus = find((char)(currL + 1));
-                                    int letterNeg = find((char)(currL - 1));
-                                    if(letterPlus != -1){
-                                        int nR = letterPlus / c;
-                                        int nC = letterPlus % c;
+            if('A' <= currL){
+                if(currL <= 'Z'){
+                    int letterPlus = find((char)(currL + 1));
+                    int letterNeg = find((char)(currL - 1));
+                    if(letterPlus != -1){
+                        int nR = letterPlus / c;
+                        int nC = letterPlus % c;
+            
+                        if (dist[letterPlus] != -1) continue;
                 
-                                        if (dist[letterPlus] != -1) continue;
-                
-                                        dist[letterPlus] = dist[curr] + 1;
-                                        q.offer(letterPlus);
-                                    }
-                
-                                    if(letterNeg != -1){
-                                        int nR = letterNeg / c;
-                                        int nC = letterNeg % c;
-                
-                                        if (dist[letterNeg] != -1) continue;
-                
-                                        dist[letterNeg] = dist[curr] + 1;
-                                        q.offer(letterNeg);
-                                    } 
-                                }
-                            }
-                        }
-                        return -1;
+                        dist[letterPlus] = dist[curr] + 1;
+                        q.offer(letterPlus);
                     }
                 
-                    public static boolean inbounds(int x, int y) {
-                        return x >= 0 && x < r && y >= 0 && y < c;
-                    }
+                    if(letterNeg != -1){
+                        int nR = letterNeg / c;
+                        int nC = letterNeg % c;
                 
-                    public static int find(char s){
-                        for (int i=0; i < r; i++)
-                            for (int j=0; j < c; j++)
-                                if (maze[i][j] == s)
-                                    return i*c + j;
-                        return -1;
-                    }
+                        if (dist[letterNeg] != -1) continue;
                 
-                    // FOR TESTING
-                    public static void printMaze(){
-                        for(int i=0; i < r; ++i){
-                            for(int j=0; j < c; ++j){
-                                System.out.print(maze[i][j]);
-                            }
-                            System.out.println();
-                        }
-                    }
+                        dist[letterNeg] = dist[curr] + 1;
+                        q.offer(letterNeg);
+                    } 
                 }
+            }
+        }
+        return -1;
+    }
+                
+    public static boolean inbounds(int x, int y) {
+        return x >= 0 && x < r && y >= 0 && y < c;
+    }
+                
+    public static int find(char s){
+        for (int i=0; i < r; i++)
+            for (int j=0; j < c; j++)
+                if (maze[i][j] == s)
+                    return i*c + j;
+                return -1;
+    }
+                
+    // FOR TESTING
+    public static void printMaze(){
+        for(int i=0; i < r; ++i){
+            for(int j=0; j < c; ++j){
+                System.out.print(maze[i][j]);
+            }
+            System.out.println();
+        }
+    }
+}
             </pre></code>
+            </details>
         </div>
         <div class="project">
             <h3>Dijkstra's Algorithm</h3>
@@ -172,142 +1199,142 @@
             <p>• each road connects two different cities.</p>
             <p>• from each city there is at least one way to any other city by the roads.</p>
             <p>The Output (standard console output): Print two numbers — the number of treasures in the cities and the number of treasures on the roads in Monster land.</p>
+            <details>
+                <summary>Code</summary>
             <pre><code>import java.util.*;
 
-                class Main {
-                    //global variables
-                    public static int C;
-                    public static int R;
-                    public static int CAPITAL;
-                    public static int[][] graph;
-                    public static int L;
-                    public static void main(String[] args) {
-                        Scanner in = new Scanner(System.in);
+class Main {
+    //global variables
+    public static int C;
+    public static int R;
+    public static int CAPITAL;
+    public static int[][] graph;
+    public static int L;
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
                 
-                        //getting num of cities, roads, and where capital
-                        C = in.nextInt();
-                        R = in.nextInt();
-                        CAPITAL = in.nextInt() - 1;
+        //getting num of cities, roads, and where capital
+        C = in.nextInt();
+        R = in.nextInt();
+        CAPITAL = in.nextInt() - 1;
                 
-                        //setup adjacency matrix
-                        graph = new int[C][C];
+        //setup adjacency matrix
+        graph = new int[C][C];
                 
                 
-                        //integers to setup up matrix
-                        int tempC1;
-                        int tempC2;
-                        int length;
+        //integers to setup up matrix
+        int tempC1;
+        int tempC2;
+        int length;
                 
-                        //build matrix
-                        for(int i = 0; i < R; ++i){
-                            tempC1 = in.nextInt() - 1;
-                            tempC2 = in.nextInt() - 1;
-                            length = in.nextInt();
+        //build matrix
+        for(int i = 0; i < R; ++i){
+            tempC1 = in.nextInt() - 1;
+            tempC2 = in.nextInt() - 1;
+            length = in.nextInt();
                 
-                            //into matrix
-                            graph[tempC1][tempC2] = length;
-                            graph[tempC2][tempC1] = length;
-                        }
+            //into matrix
+            graph[tempC1][tempC2] = length;
+            graph[tempC2][tempC1] = length;
+        }
                 
-                        //getting L
-                        L = in.nextInt();
+        //getting L
+        L = in.nextInt();
                 
-                        //close input
-                        in.close();
+        //close input
+        in.close();
                 
-                        Dijkstra();
-                    }
-                    public static void Dijkstra() {
-                        //three lists to track during algorithm
-                        PriorityQueue<City> minHeap = new PriorityQueue<City>(C, new City());
-                        int[] D = new int[C];
-                        Set<Integer> S = new HashSet<Integer>();
+        Dijkstra();
+    }
+    public static void Dijkstra() {
+        //three lists to track during algorithm
+        PriorityQueue<City> minHeap = new PriorityQueue<City>(C, new City());
+        int[] D = new int[C];
+        Set<Integer> S = new HashSet<Integer>();
                 
-                        //three lists to track treasure
-                        int[] roadT = new int[C];
-                        int tCity = 0;
-                        int tRoad = 0;
+        //three lists to track treasure
+        int[] roadT = new int[C];
+        int tCity = 0;
+        int tRoad = 0;
                 
-                        //start all distances at INF
-                        Arrays.fill(D,Integer.MAX_VALUE);
+        //start all distances at INF
+        Arrays.fill(D,Integer.MAX_VALUE);
                 
-                        //start with capital
-                        minHeap.add(new City(CAPITAL, 0));
-                        D[CAPITAL] = 0;
+        //start with capital
+        minHeap.add(new City(CAPITAL, 0));
+        D[CAPITAL] = 0;
                 
-                        int prevD;
+        int prevD;
                 
-                        while (S.size() != C){
-                            //visit next node in minHeap
-                            int next = minHeap.poll().c;
+        while (S.size() != C){
+            //visit next node in minHeap
+            int next = minHeap.poll().c;
                 
-                            if(S.contains(next)){
-                                continue;
-                            }
+            if(S.contains(next))
+                continue;
                 
-                            //add to visited list
-                            S.add(next);
+            //add to visited list
+            S.add(next);
                 
-                            for(int i = 0; i < C; ++i){
-                                if(graph[next][i] > 0 && i != CAPITAL){
+            for(int i = 0; i < C; ++i){
+                if(graph[next][i] > 0 && i != CAPITAL){
                                     
-                                    //if treasure is on road
-                                    //System.out.println(next + ": " + D[next] + " " + i + ": " + D[i]);
-                                    if(D[next] < L && (D[next] + graph[next][i]) > L){
-                                        roadT[next] = L - D[next];
-                                            if(roadT[next] != roadT[i] || roadT[next] != graph[next][i] / 2){
-                                                //System.out.println("adding");
-                                                tRoad++;
-                                            }
-                                        }
-                
-                                    //if smaller, update D, add to minHeap
-                                    if(D[i] > (D[next] + graph[next][i])){
-                                        prevD = D[i];
-                                        D[i] = D[next] + graph[next][i];
-                                        minHeap.add(new City(i, D[i]));
-                
-                                        //treasure found
-                                        if(D[i] == L){
-                                            ++tCity;
-                                        } 
-                                        if(prevD == L && D[i] != L){
-                                            --tCity;
-                                        }
-                                        
-                                    } 
-                                    //System.out.println(next + ": " + D[next] + " " + i + ": " + D[i]);
-                                }
-                            }
+                    //if treasure is on road
+                    //System.out.println(next + ": " + D[next] + " " + i + ": " + D[i]);
+                    if(D[next] < L && (D[next] + graph[next][i]) > L){
+                        roadT[next] = L - D[next];
+                        if(roadT[next] != roadT[i] || roadT[next] != graph[next][i] / 2){
+                            //System.out.println("adding");
+                            tRoad++;
                         }
-                        System.out.println("In city: " + tCity);
-                        System.out.println("On the road: " + tRoad);
                     }
+                
+                    //if smaller, update D, add to minHeap
+                    if(D[i] > (D[next] + graph[next][i])){
+                        prevD = D[i];
+                        D[i] = D[next] + graph[next][i];
+                        minHeap.add(new City(i, D[i]));
+                
+                        //treasure found
+                        if(D[i] == L)
+                            ++tCity; 
+                        if(prevD == L && D[i] != L)
+                            --tCity;
+                                        
+                    } 
+                    //System.out.println(next + ": " + D[next] + " " + i + ": " + D[i]);
                 }
+            }
+        }
+        System.out.println("In city: " + tCity);
+        System.out.println("On the road: " + tRoad);
+    }
+}
                 
-                //object for minheap
-                class City implements Comparator<City>{
-                    public int c;
-                    public int d;
+//object for minheap
+class City implements Comparator<City>{
+    public int c;
+    public int d;
                 
-                    public City(){
-                    }
+    public City(){
+    }
                 
-                    public City(int c, int d){
-                        this.c = c;
-                        this.d = d;
-                    }
+    public City(int c, int d){
+        this.c = c;
+        this.d = d;
+    }
                 
-                    @Override
-                    public int compare(City node1, City node2) {
-                    if (node1.d < node2.d)
-                       return -1;
-                    if (node1.d > node2.d)
-                        return 1;
-                    return 0;
-                    }
-                }
+    @Override
+    public int compare(City node1, City node2) {
+        if (node1.d < node2.d)
+            return -1;
+        if (node1.d > node2.d)
+            return 1;
+        return 0;
+    }
+}
             </pre></code>
+        </details>
         </div>
         <div class="project">
             <h3>Dynamic Programming 6</h3>
@@ -315,40 +1342,43 @@
             <p>The second line of the input contains n integers p1,1,p1,2,...,p1,n,(1≤p1,i≤109), where p1,i is the number of problems solved by the ith student in the first row.</p>
             <p>The third line of the input contains n integers p2,1,p2,2,...,p2,n,(1≤p2,i≤109), where p2,i is the number of problems solved by the ith student in the second row.</p>
             <p>The Output (standard console output): Print one number — the maximum possible total problem solved by the selected group of students.</p>
+            <details>
+                <summary>Code</summary>
             <pre><code>import java.util.*;
 
-                public class Main {
-                    public static int[][] candidates;
-                    public static int size;
-                    public static void main(String [] args){
-                        Scanner in = new Scanner(System.in);
+public class Main {
+    public static int[][] candidates;
+    public static int size;
+    public static void main(String [] args){
+        Scanner in = new Scanner(System.in);
                 
-                        size = in.nextInt();
-                        candidates = new int[size][2];
+        size = in.nextInt();
+        candidates = new int[size][2];
                 
-                        for(int i = 0; i < size; ++i)
-                            candidates[i][0] = in.nextInt();
+        for(int i = 0; i < size; ++i)
+            candidates[i][0] = in.nextInt();
                         
-                        for(int i = 0; i < size; ++i)
-                            candidates[i][1] = in.nextInt();
+        for(int i = 0; i < size; ++i)
+            candidates[i][1] = in.nextInt();
                 
-                        System.out.println(DP());
-                    }
+        System.out.println(DP());
+    }
                 
-                    public static int DP(){
-                        int[][] dp = new int[size][2];
+    public static int DP(){
+        int[][] dp = new int[size][2];
                 
-                        dp[0][0] = candidates[0][0];
-                        dp[0][1] = candidates[0][1];
+        dp[0][0] = candidates[0][0];
+        dp[0][1] = candidates[0][1];
                 
-                        for (int i = 1; i < size; ++i){
-                            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + candidates[i][0]);
-                            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] + candidates[i][1]);
-                        }
-                        return Math.max(dp[size-1][0], dp[size-1][1]);
-                    }
-                }
+        for (int i = 1; i < size; ++i){
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + candidates[i][0]);
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] + candidates[i][1]);
+        }
+        return Math.max(dp[size-1][0], dp[size-1][1]);
+    }
+}
             </pre></code>
+        </details>
         </div>
     </section>
     <section id="contact">
