@@ -12,6 +12,94 @@ header {
     text-align: center;
 }
 
+.headshot {
+    vertical-align: top;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1rem solid #ADD8E6;
+    background-color: #ADD8E6;
+    background-image: url('Media/Headshot.jpg');
+    background-size: cover;
+    background-position: center;
+    float: right;
+    margin: 1rem;
+}
+
+#about {
+    min-height: 250px;
+    padding: 2rem;
+    background-color: #fff;
+}
+
+.skills {
+    display: flex;
+    justify-content: space-around;
+}
+
+.collumn {
+    width: 30%;
+}
+.collumn h3 {
+    font-size: 1.5rem;
+}
+.collumn li {
+    background-color: #fff;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 25% 10%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    font-weight: bold;
+}
+.collumn li img {
+    display: block;
+    margin: 0 auto 1rem;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 10%;
+}
+.collumn li p {
+    text-align: center;
+    font-weight: normal;
+}
+
+#featured-projects {
+    background-color: black; 
+    color: white; 
+    padding: 20px;
+}
+
+.Fprojects {
+    display: flex; 
+    justify-content: space-around; 
+    flex-wrap: wrap;
+}
+
+.Fproject{
+    background-color: #333; 
+    padding: 20px; 
+    margin: 10px; 
+    border-radius: 10px; width: 30%; 
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.Fproject img {
+    height: 100px;
+    border-radius: 10px;
+}
+
+.button {
+    color: white; 
+    text-decoration: none; 
+    background-color: #555; 
+    padding: 10px 20px; 
+    border-radius: 5px;
+}
+
 h2 {
     color: #00072D;
 }
