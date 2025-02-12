@@ -37,10 +37,24 @@ section {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+}
+
+ul {
+    list-style-position: outside;
+    padding: 0;
+    text-align: center;
+}
+
+ul li {
+    display: grid;
+    width: 100%;
 }
 
 .project {
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .video-container {
