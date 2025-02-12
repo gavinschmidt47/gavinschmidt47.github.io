@@ -71,6 +71,13 @@ header {
     padding: 20px;
 }
 
+#projects {
+    background-color: darkgray; 
+    color: white; 
+    padding: 20px;
+    text-align: center;
+}
+
 .Fprojects {
     display: flex; 
     justify-content: space-around; 
@@ -88,8 +95,10 @@ header {
     text-align: center;
 }
 .Fproject img {
-    height: 100px;
+    height: 200px;
     border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .button {
@@ -178,6 +187,10 @@ ul li {
 
 .button img:hover {
     transform: scale(1.1);
+}
+
+#contact {
+    text-align: center;
 }
 
 footer {
