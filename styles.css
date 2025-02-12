@@ -19,9 +19,10 @@ header {
     border-radius: 50%;
     border: 1rem solid #ADD8E6;
     background-color: #ADD8E6;
-    background-image: url('Media/Headshot.jpg');
+    background-image: url('Media/Headshot.JPG');
     background-size: cover;
     background-position: center;
+    background-clip: padding-box;
     float: right;
     margin: 1rem;
 }
