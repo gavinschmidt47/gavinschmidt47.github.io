@@ -44,15 +44,12 @@ section {
 }
 
 .video-container {
-    margin-top: 1rem;
     position: relative;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
     max-width: 100%;
     background: #000;
-    width: 320px; /* Adjust the width */
-    height: 180px; /* Adjust the height */
 }
 
 .video-container iframe {
