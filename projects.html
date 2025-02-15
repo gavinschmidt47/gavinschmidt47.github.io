@@ -68,6 +68,271 @@
         </div>
         <h2>EDUCATIONAL PROJECTS</h2>
         <div class="project">
+            <h3 style="color: #F6BE00">Desert Scene</h3>
+            <p>C# SCRIPTING</p>
+            <p>This is some code to create a scene using Unity's primitive creation code and random values.</p>
+            <details>
+                <summary>Code</summary>
+            <pre><code>using System.Collections;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using JetBrains.Annotations;
+using Unity.Mathematics;
+using UnityEngine;
+
+public class DesertScene : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        GameObject baseObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        baseObject.transform.position = new Vector3(0, 0, 0);
+        baseObject.AddComponent<Renderer>();
+        baseObject.GetComponent<Renderer>().material.color = Color.yellow;
+
+        GameObject forest = new GameObject("Forest");
+
+        int x = UnityEngine.Random.Range(5, 10);
+        for (int i = 0; i < x; i++)
+        {
+            int objectType = UnityEngine.Random.Range(0, 2);
+            GameObject tree;
+            float height = UnityEngine.Random.Range(0.8f, 2);
+            if (objectType == 0)
+            {
+                tree = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                tree.transform.parent = forest.transform;
+                
+                tree.transform.position = new Vector3(UnityEngine.Random.Range(-4, 0), height/2, UnityEngine.Random.Range(-4, 0));
+                tree.transform.localScale = new Vector3(UnityEngine.Random.Range(0.1f, 0.6f), height, UnityEngine.Random.Range(0.1f, 0.6f));
+
+                tree.AddComponent<Renderer>();
+                tree.GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0.33f, 0.33f, UnityEngine.Random.Range(0.3f, 0.5f), UnityEngine.Random.Range(0.6f, 1));
+            }
+            else
+            {
+                tree = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+
+                tree.transform.parent = forest.transform;
+            
+                tree.transform.position = new Vector3(UnityEngine.Random.Range(-4, 0), height, UnityEngine.Random.Range(-4, 0));
+                tree.transform.localScale = new Vector3(UnityEngine.Random.Range(0.1f, 0.6f), height, UnityEngine.Random.Range(0.1f, 0.6f));
+
+                tree.AddComponent<Renderer>();
+                tree.GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0.33f, 0.33f, UnityEngine.Random.Range(0.3f, 0.5f), UnityEngine.Random.Range(0.6f, 1));
+            }
+            
+        }
+
+        StartCoroutine(GeneratePyramid());
+
+    }
+
+    IEnumerator GeneratePyramid()
+    {
+        
+        GameObject pyramid = new GameObject("Pyramid");
+
+        for (int i = 0; i < 5; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    for(int j = 0; j < 5; j++)
+                    {
+                        for(int k = 0; k < 5; k++)
+                        {
+                            yield return new WaitForSeconds(0.2f);
+                            GameObject brick = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            brick.transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
+                            brick.transform.parent = pyramid.transform;
+                            brick.transform.position = new Vector3(k, 0.425f, j);
+                            brick.AddComponent<Renderer>();
+                            brick.GetComponent<Renderer>().material.color = Color.red;
+                        }
+                    }
+                    break;
+                case 1:
+                    for(int j = 0; j < 4; j++)
+                    {
+                        for(int k = 0; k < 4; k++)
+                        {
+                            yield return new WaitForSeconds(0.2f);
+                            GameObject brick = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            brick.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                            brick.transform.parent = pyramid.transform;
+                            brick.transform.position = new Vector3(k + 0.5f, 1.25f, j + 0.5f);
+                            brick.AddComponent<Renderer>();
+                            brick.GetComponent<Renderer>().material.color = Color.yellow;
+                        }
+                    }
+                    break;
+                case 2:
+                    for(int j = 0; j < 3; j++)
+                    {
+                        for(int k = 0; k < 3; k++)
+                        {
+                            yield return new WaitForSeconds(0.2f);
+                            GameObject brick = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            brick.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
+                            brick.transform.parent = pyramid.transform;
+                            brick.transform.position = new Vector3(k + 1, 2f, j + 1);
+                            brick.AddComponent<Renderer>();
+                            brick.GetComponent<Renderer>().material.color = Color.green;
+                        }
+                    }
+                    break;
+                case 3:
+                for(int j = 0; j < 2; j++)
+                    {
+                        for(int k = 0; k < 2; k++)
+                        {
+                            yield return new WaitForSeconds(0.2f);
+                            GameObject brick = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            brick.transform.localScale = new Vector3(0.55f, 0.55f, 0.55f);
+                            brick.transform.parent = pyramid.transform;
+                            brick.transform.position = new Vector3(k + 1.5f, 2.64f, j + 1.5f);
+                            brick.AddComponent<Renderer>();
+                            brick.GetComponent<Renderer>().material.color = Color.blue;
+                        }
+                    }
+                    break;
+                case 4:
+                            yield return new WaitForSeconds(0.2f);
+                            GameObject topBrick = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            topBrick.transform.localScale = new Vector3(0.45f, 0.45f, 0.45f);
+                            topBrick.transform.parent = pyramid.transform;
+                            topBrick.transform.position = new Vector3(2, 3.22f, 2);
+                            topBrick.AddComponent<Renderer>();
+                            topBrick.GetComponent<Renderer>().material.color = Color.white;
+                    break;
+            }
+        }
+        yield break;
+    }
+}
+            </pre></code>
+            </details> 
+            <p><b>Credit:</b> Gavin Schmidt and Jadyn Englett</P>
+        </div>
+        <div class="project">
+            <h3 style="color: red">DND Character Using Classes And Structs</h3>
+            <p>C# SCRIPTING</p>
+            <p>This is some code to create a DND character using inputs from the inspector, using classes and structs.</p>
+            <details>
+                <summary>Code</summary>
+            <pre><code>using UnityEngine;
+using System.Collections.Generic;
+
+public class SolutionTwo : MonoBehaviour
+{
+    public bool Tough;
+    public bool HillDwarf;
+    public bool RolledHP;
+    public string charClass;
+    public int inLevel;
+    public int CON;
+    public string name;
+
+    private int hp;
+    private StructVariable myChar;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        myChar = new StructVariable(HillDwarf, RolledHP, Tough, charClass, inLevel, CON, name);
+        
+        if (!StructVariable.classes.Contains(myChar.className) || myChar.level < 1 || myChar.level > 20 || myChar.con < 1 || myChar.con > 30 || myChar.charName == "")
+        {
+            Debug.Log("Invalid input");
+            return;
+        }
+        
+        myChar.SetHP((int)CalcHP());
+        Debug.Log(DisplayMessage());
+    }
+
+    public float CalcHP()
+    {
+        float maxHP = 0;
+
+        maxHP = StructVariable.hitDie[myChar.className];
+        maxHP += StructVariable.ConMod[myChar.con - 1];
+
+        if (myChar.level > 1)
+        {
+            for (int i = 0; i < myChar.level; i++)
+            {
+                if (myChar.isRolledHP) maxHP += Random.Range(1, (int)StructVariable.hitDie[myChar.className] + 1);
+                else maxHP += ((StructVariable.hitDie[myChar.className] + 1f) / 2f) + 0.5f;    
+            }
+        }
+
+        if (myChar.hasTough)
+            maxHP += 2 * myChar.level;
+        if (myChar.isHillDwarf)
+            maxHP += myChar.level;
+
+        return maxHP;
+    }
+
+    public string DisplayMessage()
+    {
+        return $"My character {myChar.charName} is a level {myChar.level} {myChar.className} with a CON score of {myChar.con} and {(myChar.isHillDwarf ? "is" : "is not")} a Hill Dwarf and {(myChar.hasTough ? "has" : "does not have")} the Tough feat. I want the HP {(myChar.isRolledHP ? "rolled" : "averaged")}. HP: {myChar.hp}";
+    }
+}
+
+[System.Serializable]
+public struct StructVariable
+{
+    public bool hasTough;
+    public bool isHillDwarf;
+    public bool isRolledHP;
+    public string className;
+    public int level;
+    public int con;
+    public string charName;
+
+    public int hp;
+    //Dictionary of classes and their hit die
+    public static readonly Dictionary<string, float> hitDie = new Dictionary<string, float>()
+    {
+        { "Artificer", 8f },{ "Barbarian", 12f },{ "Bard", 8f },{ "Cleric", 8f },{ "Druid", 8f },
+        { "Fighter", 10f },{ "Monk", 8f },{ "Ranger", 10f },{ "Rogue", 8f },{ "Paladin", 10f },
+        { "Sorcerer", 6f },{ "Wizard", 6f },{ "Warlock", 8f }
+
+    };
+    //List of classes
+    public static List<string> classes = new List<string>()
+    {
+        "Artificer", "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", 
+        "Ranger", "Rogue", "Paladin", "Sorcerer", "Wizard", "Warlock"
+    };
+    //Array of Con Mods
+    public static float[] ConMod = { -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10 };
+
+    public StructVariable(bool isHillDwarf, bool rolledHP, bool hasTough, string charClass, int level, int con, string name)
+    {
+        this.isHillDwarf = isHillDwarf;
+        this.isRolledHP = rolledHP;
+        this.hasTough = hasTough;
+        this.className = charClass;
+        this.level = level;
+        this.con = con;
+        this.charName = name;
+        this.hp = 0;
+    }
+
+    public void SetHP(int hp)
+    {
+        this.hp = hp;
+    }
+}         
+            </pre></code>
+            <p><b>Credit:</b> Gavin Schmidt, Miguel Pineda, Samuel Drastal, and Brandon Wahl</P>
+        </div>
+        <div class="project">
             <h3 style="color: #Ff4500">Two Person Microgame</h3>
             <p>MODIFIED TUTORIAL GAME</p>
             <p>This 2D top-down shooter microgame was collaboratively developed by myself and Egor Nikiforov. The game features moving enemies, NPC dialogue, and environmental hazards. Detailed credits for our individual contributions can be found in the README file.</p>
@@ -75,7 +340,7 @@
             <p><b>Credit:</b> Projectile Particles, UI, In-level Sounds, Ammo System, Level Design: Gavin Schmidt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Scenery, Win/Lose Screen Music/UI, Damage Zones: Egor Nikiforov</P>
         </div>
         <div class="project">
-            <h3>Unity Tutorial: FPS</h3>
+            <h3 style="color: #00008b">Unity Tutorial: FPS</h3>
             <p>ORIGINAL MUSIC</p>
             <p>My objective was to compose a triumphal gladiatorial melody, subsequently interspersed with elements of uncertainty and foreboding. Given the game's dark and enigmatic nature, I meticulously crafted both the atmospheric design and the music's darker harmonies to evoke an enduring sense of dread.</p>
             <iframe frameborder="0" src="https://itch.io/embed/3231642" width="552" height="167"><a href="https://elusivechicken47.itch.io/unity-tutorial-game">Unity Tutorial Game by ElusiveChicken47</a></iframe>
