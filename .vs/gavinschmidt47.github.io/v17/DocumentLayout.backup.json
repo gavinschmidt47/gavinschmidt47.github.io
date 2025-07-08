@@ -3,11 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\Projects\\School\\Java\\COP3330\\Project\\DND_5e_character.java||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\projects.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:projects.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\index.html||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\CC.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CC.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\IE.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:IE.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\IHL.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:IHL.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\BS.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BS.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -17,33 +34,83 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DND_5e_character.java",
-              "DocumentMoniker": "C:\\Users\\gavin\\Documents\\Projects\\School\\Java\\COP3330\\Project\\DND_5e_character.java",
-              "RelativeDocumentMoniker": "..\\..\\Projects\\School\\Java\\COP3330\\Project\\DND_5e_character.java",
-              "ToolTip": "C:\\Users\\gavin\\Documents\\Projects\\School\\Java\\COP3330\\Project\\DND_5e_character.java",
-              "RelativeToolTip": "..\\..\\Projects\\School\\Java\\COP3330\\Project\\DND_5e_character.java",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-08T03:42:44.004Z",
+              "DocumentIndex": 1,
+              "Title": "CC.html",
+              "DocumentMoniker": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\CC.html",
+              "RelativeDocumentMoniker": "CC.html",
+              "ToolTip": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\CC.html",
+              "RelativeToolTip": "CC.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-08T02:46:57.354Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "IE.html",
+              "DocumentMoniker": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\IE.html",
+              "RelativeDocumentMoniker": "IE.html",
+              "ToolTip": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\IE.html",
+              "RelativeToolTip": "IE.html",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAADEAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-08T02:45:07.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "projects.html",
+              "DocumentMoniker": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\projects.html",
+              "RelativeDocumentMoniker": "projects.html",
+              "ToolTip": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\projects.html",
+              "RelativeToolTip": "projects.html",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADQAAACJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-08T02:34:34.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BS.html",
+              "DocumentMoniker": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\BS.html",
+              "RelativeDocumentMoniker": "BS.html",
+              "ToolTip": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\BS.html",
+              "RelativeToolTip": "BS.html",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-06-09T17:38:02.767Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IHL.html",
+              "DocumentMoniker": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\IHL.html",
+              "RelativeDocumentMoniker": "IHL.html",
+              "ToolTip": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\IHL.html",
+              "RelativeToolTip": "IHL.html",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAAEUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-06-09T17:12:58.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "index.html",
               "DocumentMoniker": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\index.html",
               "RelativeDocumentMoniker": "index.html",
               "ToolTip": "C:\\Users\\gavin\\Documents\\GitHub\\gavinschmidt47.github.io\\index.html",
               "RelativeToolTip": "index.html",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAADEAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-01-08T02:52:24.014Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T17:11:53.258Z"
             }
           ]
         }
