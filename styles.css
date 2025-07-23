@@ -10,6 +10,9 @@ header {
     color: #fff;
     padding: 1rem 0;
     text-align: center;
+    width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .headshot {
@@ -31,27 +34,37 @@ header {
     min-height: 250px;
     padding: 2rem;
     background-color: #fff;
+    width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .skills {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .collumn {
-    width: 30%;
+    flex: 1 1 150px;
+    max-width: 250px;
+    min-width: 120px;
 }
 .collumn h3 {
     font-size: 1.5rem;
 }
 .collumn li {
     background-color: #fff;
-    padding: 1rem;
-    margin: 0.5rem 0;
+    padding: 0.8rem;
+    margin: 0.4rem 0;
     border-radius: 25% 10%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 200px;
+    max-width: 180px;
     font-weight: bold;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 0.9rem;
 }
 .collumn li img {
     display: block;
@@ -64,6 +77,7 @@ header {
 .collumn li p {
     text-align: center;
     font-weight: normal;
+    padding-right: 1rem;
 }
 
 #featured-projects {
@@ -81,25 +95,47 @@ header {
 
 .Fprojects {
     display: flex; 
-    justify-content: space-around; 
+    justify-content: center; 
     flex-wrap: wrap;
+    gap: 20px;
 }
 
 .Fproject{
     background-color: #333; 
     padding: 20px; 
     margin: 10px; 
-    border-radius: 10px; width: 30%; 
+    border-radius: 10px; 
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
     text-align: center;
+    flex: 1 1 300px;
+    max-width: 400px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
 }
+
+.Fproject p {
+    padding: 10px 0;
+    background-color: #e0e0e0;
+    color: #222;
+    border-radius: 6px;
+}
+
 .Fproject img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.Fproject iframe {
+    width: 100%;
     height: 200px;
     border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-bottom: 10px;
 }
 
 .button {
@@ -137,6 +173,9 @@ section {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     align-items: center;
     justify-content: center;
+    width: 100vw;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 ul {
@@ -208,4 +247,20 @@ details {
     text-align: left;
     color: white;
     outline: none
+}
+
+.youtube-embed-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 51%;
+    height: 0;
+    overflow: hidden;
+}
+
+.youtube-embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
