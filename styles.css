@@ -166,6 +166,51 @@ nav ul li a {
     text-decoration: none;
 }
 
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-menu.active {
+    display: flex;
+}
+
 section {
     padding: 2rem;
     margin: 1rem 0;
@@ -309,5 +354,165 @@ details {
     .Fproject {
         flex: 1 1 100%;
         max-width: 100%;
+    }
+    
+    .headshot {
+        float: none;
+        display: block;
+        margin: 1rem auto;
+        width: 150px;
+        height: 150px;
+    }
+    
+    #about {
+        padding: 1rem;
+    }
+    
+    section {
+        padding: 1rem;
+    }
+    
+    .contact-buttons {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 0.5rem 0;
+        position: relative;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #00072D;
+        border-top: 1px solid rgba(255,255,255,0.2);
+        z-index: 999;
+    }
+    
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav ul li {
+        display: block;
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    nav ul li:last-child {
+        border-bottom: none;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 1rem;
+        background-color: transparent;
+        border-radius: 0;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        transition: background-color 0.3s;
+    }
+    
+    nav ul li a:hover {
+        background-color: rgba(255,255,255,0.1);
+    }
+    
+    .headshot {
+        width: 120px;
+        height: 120px;
+        border: 0.5rem solid #ADD8E6;
+    }
+    
+    #about {
+        padding: 0.5rem;
+        text-align: center;
+    }
+    
+    section {
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+    }
+    
+    .collumn {
+        margin-bottom: 1rem;
+    }
+    
+    .collumn h3 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .collumn li {
+        max-width: 100%;
+        margin: 0.5rem auto;
+        font-size: 0.8rem;
+    }
+    
+    .collumn li img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .Fproject {
+        margin: 0.5rem 0;
+        padding: 1rem;
+        min-height: auto;
+    }
+    
+    .Fproject h3 {
+        font-size: 1.1rem;
+    }
+    
+    .Fproject iframe {
+        height: 180px;
+    }
+    
+    .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button {
+        padding: 1rem 2rem;
+        margin: 0.5rem 0;
+        display: block;
+        text-align: center;
+        min-width: 200px;
+    }
+    
+    footer {
+        padding: 1rem;
+        font-size: 0.9rem;
     }
 }
