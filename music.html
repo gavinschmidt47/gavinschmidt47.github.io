@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - Music</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; }
+        header { background: #222; color: #fff; padding: 1rem; text-align: center; }
+        .container { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 8px; }
+        h2 { border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: white; }
+        .songs { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+        .song { flex: 1 1 250px; background: #f0f0f0; border-radius: 6px; padding: 1rem; }
+        .song audio { width: 100%; margin-top: 0.5rem; }
+        .spotify-embed { margin-top: 2rem; text-align: center; }
+        @media (max-width: 600px) {
+            .songs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gavin Schmidt's Portfolio</h1>
+        
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="resume.html" target="_blank">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Original Game Music Compositions</h2>
+            <div class="songs">
+                <div class="song">
+                    <strong>Abode</strong>
+                    <p>Ambient composition for creating a sense of home and comfort in game environments.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Abode.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Anticipation</strong>
+                    <p>Building tension and suspense through escalating musical elements.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Anticipation.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>City Danger</strong>
+                    <p>Urban-themed composition with elements of danger and urgency.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/City_Danger.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>FPS Game Theme</strong>
+                    <p>Triumphal gladiatorial melody with elements of uncertainty and foreboding for Unity Tutorial FPS game. Crafted atmospheric design and darker harmonies to evoke dread.</p>
+                    <audio controls>
+                        <source src="Pieces/Unity Tutorial/FPS.mp3" type="audio/mpeg">
+                        <source src="Pieces/Unity Tutorial/FPS.wav" type="audio/ogg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Inked</strong>
+                    <p>Musical composition for Ink.exe - a 2D wave-based hack and slash game.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Inked.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Massive</strong>
+                    <p>Epic and grandiose composition with powerful orchestral elements.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Massive.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Shmooving</strong>
+                    <p>Smooth and groovy track with rhythmic elements perfect for gameplay.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Shmooving.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Spook (Base)</strong>
+                    <p>Foundation horror theme with subtle atmospheric elements.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Spook_Base.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Spook (Chase)</strong>
+                    <p>High-intensity chase sequence with escalating horror elements.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Spook_Chase.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Spook (Full)</strong>
+                    <p>Complete horror composition combining atmospheric and intense elements.</p>
+                    <audio controls>
+                        <source src="Pieces/Music/Spook_Full.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="song">
+                    <strong>Bysen Says - Super Bionic Bash</strong>
+                    <p>Original music composed for the "Bysen Says" minigame created for Limbitless Solutions' Super Bionic Bash International Game Jam with University of Skövde.</p>
+                    <audio controls>
+                        <source src="Pieces/Bysen Says/bysen-says-music.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="spotify-embed">
+                <h2>My Spotify</h2>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/4lEffrCcK3eOvkzvV1sikh?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gavin Schmidt's Portfolio</p>
+    </footer>
+
+    <script src="hamburger.js"></script>
+</body>
+</html>
