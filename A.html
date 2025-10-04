@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songs For Ash</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #f9f1f6;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding-top: 20vh;
+            color: #333;
+        }
+        
+        .heart {
+            position: absolute;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            background-color: #ff5a8c;
+            transform: rotate(45deg);
+        }
+        
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff5a8c;
+            border-radius: 50%;
+        }
+        
+        .heart::before {
+            left: -10px;
+        }
+        
+        .heart::after {
+            top: -10px;
+        }
+        
+        @keyframes falling {
+            0% {
+                transform: translateY(-10vh) rotate(45deg) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(45deg) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Hi Ash &lt;3</h1>
+        <p>Here's some songs that remind me of you:</p>
+        <ul>
+            <li>"The One" by Limp Bizkit
+                <audio controls>
+                    <source src="audio/the_one.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </li>
+            <li>"Don't Ever Let It End" by Nickelback
+                <audio controls>
+                    <source src="audio/dont_ever_let_it_end.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </li>
+            <li>"Iris" by Goo Goo Dolls
+                <audio controls>
+                    <source src="audio/iris.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+        </ul>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Random position, size and duration
+            const size = Math.random() * 20 + 10;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 6 + 4;
+            const delay = Math.random() * 5;
+            
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            heart.style.left = `${left}vw`;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `${delay}s`;
+            heart.style.animationName = 'falling';
+            heart.style.animationTimingFunction = 'linear';
+            heart.style.animationIterationCount = 'infinite';
+            
+            // Set the same size for pseudo-elements
+            document.styleSheets[0].insertRule(`.heart:nth-child(${document.querySelectorAll('.heart').length + 1})::before, 
+                                               .heart:nth-child(${document.querySelectorAll('.heart').length + 1})::after 
+                                               { width: ${size}px; height: ${size}px; }`, 0);
+            
+            document.body.appendChild(heart);
+            
+            // Remove hearts after animation completes to prevent memory issues
+            setTimeout(() => {
+                heart.remove();
+            }, (duration + delay) * 1000);
+        }
+        
+        // Create initial hearts
+        for (let i = 0; i < 20; i++) {
+            createHeart();
+        }
+        
+        // Continue creating hearts
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
