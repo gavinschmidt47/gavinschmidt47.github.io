@@ -66,8 +66,7 @@
         <h1>Hi Ash &lt;3</h1>
         <p>You mean more to me than I should probably put into words so soon. This playlist represents a little bit of that:</p>
         <div class="spotify-embed">
-                <h2>Ash &lt;3</h2>
-                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5lQqMGJrQmM9z7dUUko6g6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5lQqMGJrQmM9z7dUUko6g6?utm_source=generator&theme=0" width="80%" height="420" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
     </div>
 
@@ -80,26 +79,22 @@
             const size = Math.random() * 20 + 10;
             const left = Math.random() * 100;
             const duration = Math.random() * 6 + 4;
-            const delay = Math.random() * 5;
             
             heart.style.width = `${size}px`;
             heart.style.height = `${size}px`;
             heart.style.left = `${left}vw`;
-            heart.style.animationDuration = `${duration}s`;
-            heart.style.animationDelay = `${delay}s`;
-            heart.style.animationName = 'falling';
-            heart.style.animationTimingFunction = 'linear';
-            heart.style.animationIterationCount = 'infinite';
+            heart.style.top = "-20px";
+            heart.style.animation = `falling ${duration}s linear 1`;
             
-            // Set custom property for pseudo-elements to use
+            // Apply size to pseudo-elements
             heart.style.setProperty('--heart-size', `${size}px`);
             
             document.body.appendChild(heart);
             
-            // Remove hearts after animation completes to prevent memory issues
+            // Remove hearts after animation completes
             setTimeout(() => {
-            heart.remove();
-            }, (duration + delay) * 1000);
+                heart.remove();
+            }, duration * 1000);
         }
         
         // Create initial hearts
