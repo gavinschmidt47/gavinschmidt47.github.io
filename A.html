@@ -55,16 +55,25 @@
         .heart::after {
             top: -10px;
         }
+
+        @keyframes falling-heart {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px) rotate(45deg);
+                opacity: 0;
+            }
+        }
         
         @keyframes falling {
             0% {
                 transform: translateY(-10vh) translateX(0);
-                --heart-rotate: 45deg;
                 opacity: 1;
             }
             100% {
                 transform: translateY(100vh) translateX(100px);
-                --heart-rotate: 45deg;
                 opacity: 0;
             }
         }
@@ -94,7 +103,7 @@
             heart.style.height = `${size}px`;
             heart.style.left = `${left}vw`;
             heart.style.top = "-20px";
-            heart.style.animation = `falling ${duration}s linear 1`;
+            heart.style.animation = `falling-heart ${duration}s linear 1`;
             
             // Apply size to pseudo-elements
             heart.style.setProperty('--heart-size', `${size}px`);
