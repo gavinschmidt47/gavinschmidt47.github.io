@@ -30,6 +30,14 @@
             background-color: #ff5a8c;
             transform: rotate(45deg);
         }
+
+        .floating-png {
+            position: absolute;
+            top: 0;
+            width: 32px;
+            height: 32px;
+            pointer-events: none;
+        }
         
         .heart::before,
         .heart::after {
@@ -49,13 +57,13 @@
             top: -10px;
         }
         
-        @keyframes falling {
+        @keyframes falling-heart {
             0% {
-                transform: translateY(-10vh) rotate(45deg) translateX(0);
+                transform: translateY(-10vh) translateX(0);
                 opacity: 1;
             }
             100% {
-                transform: translateY(100vh) rotate(45deg) translateX(100px);
+                transform: translateY(100vh) translateX(100px);
                 opacity: 0;
             }
         }
@@ -71,7 +79,8 @@
     </div>
 
     <script>
-        function createHeart() {
+        function createHeart() 
+        {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             
@@ -84,6 +93,7 @@
             heart.style.height = `${size}px`;
             heart.style.left = `${left}vw`;
             heart.style.top = "-20px";
+            heart.style.transform = "rotate(45deg)";
             heart.style.animation = `falling ${duration}s linear 1`;
             
             // Apply size to pseudo-elements
@@ -96,14 +106,42 @@
                 heart.remove();
             }, duration * 1000);
         }
+
+        function spawnRandomPNG()
+        {
+            // Initialize and set properties for the image
+            const img = document.createElement('img');
+            const images = ['Media/A/Franky.png', 'Media/A/LostInStarlight.png', 'Media/A/Tangerine.png', 'Media/A/Swan.png', 'Media/A/RainbowDash.png', 'Media/A/Arcane.png', 'Media/A/Quinnie.png', 'Media/A/Frog.png', 'Media/A/GerardWay.png', 'Media/A/Monkey.png', 'Media/A/WhoMe.png', 'Media/A/Markiplier.png', 'Media/A/Jojo.png', 'Media/A/Gyro.png', 'Media/A/Zoro.png', 'Media/A/Shadow.png'];
+            const duration = Math.random() * 6 + 4;
+
+            // Randomly select an image
+            img.src = images[Math.floor(Math.random() * images.length)];
+            img.classList.add('floating-png');
+
+            // Random position and animation
+            const maxX = window.innerWidth - 32;
+            img.style.top = "-32px";
+            img.style.left = `${Math.random() * maxX}px`;
+            img.style.animation = `falling ${duration}s linear 1`;
+            document.body.appendChild(img);
+
+            // Remove images after animation completes
+            setTimeout(() => {
+                img.remove();
+            }, duration * 1000);
+        }
         
-        // Create initial hearts
+        // Create initial objects
         for (let i = 0; i < 20; i++) {
             createHeart();
         }
+        for (let i = 0; i < 5; i++) {
+            spawnRandomPNG();
+        }
         
-        // Continue creating hearts
+        // Continue creating objects
         setInterval(createHeart, 300);
+        setInterval(spawnRandomPNG, 2000);
     </script>
 </body>
 </html>
