@@ -34,8 +34,8 @@
         .floating-png {
             position: absolute;
             top: 0;
-            width: 64px;
-            height: 64px;
+            width: 96px;
+            height: 96px;
             pointer-events: none;
         }
         
@@ -110,7 +110,7 @@
         {
             // Initialize and set properties for the image
             const img = document.createElement('img');
-            const images = ['Media/A/Franky.png', 'Media/A/LostInStarlight.png', 'Media/A/Tangerine.png', 'Media/A/Swan.png', 'Media/A/RainbowDash.png', 'Media/A/Arcane.png', 'Media/A/Quinnie.png', 'Media/A/Frog.png', 'Media/A/GerardWay.png', 'Media/A/Monkey.png', 'Media/A/WhoMe.png', 'Media/A/Markiplier.png', 'Media/A/Jojo.png', 'Media/A/Gyro.png', 'Media/A/Zoro.png', 'Media/A/Shadow.png'];
+            const images = ['Media/A/Franky.png', 'Media/A/LostInStarlight.png', 'Media/A/Tangerine.png', 'Media/A/Swan.png', 'Media/A/RainbowDash.png', 'Media/A/Arcane.png', 'Media/A/Quinnie.png', 'Media/A/Frog.png', 'Media/A/GerardWay.png', 'Media/A/Monkey.png', 'Media/A/WhoMe.png', 'Media/A/Markiplier.png', 'Media/A/Jojo.png', 'Media/A/Gyro.png', 'Media/A/Zoro.png', 'Media/A/Shadow.png', 'Media/A/Bat.png', 'Media/A/Killua.png', 'Media/A/ChocolateStarfish.png', 'Media/A/SunsetDog.jpg', 'Media/A/SideEyeCat.png'];
             const duration = Math.random() * 6 + 4;
 
             // Randomly select an image
@@ -140,7 +140,7 @@
         
         // Continue creating objects
         setInterval(createHeart, 300);
-        setInterval(spawnRandomPNG, 2000);
+        setInterval(spawnRandomPNG, 1500);
     </script>
 </body>
 </html>
