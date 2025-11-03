@@ -40,6 +40,13 @@
             height: 96px;
             pointer-events: none;
         }
+
+        .lyrics {
+            position: absolute;
+            z-index: 1;
+            white-space: normal;
+            font-weight: bold;
+        }
         
         .heart::before,
         .heart::after {
@@ -85,7 +92,7 @@
 <body>
     <div class="content">
         <h1>Hi Ash &lt;3</h1>
-        <p>You mean more to me than I should probably put into words, so here's a little playlist of songs that make me think of you (All of them have a little story to them I will tell you at some point):</p>
+        <p>You mean more to me than I should probably put into words, so here's a little playlist of songs that make me think of you:</p>
         <div class="spotify-embed">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5lQqMGJrQmM9z7dUUko6g6?utm_source=generator&theme=0" width="80%" height="420" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
@@ -93,29 +100,21 @@
         <ol>
             <li>
                 <h2>Crave</h2>
-                <b>I crave you in every way shape and form.</b>
-                <p><i>General:</i> I found Crave while creating this playlist and I immediately knew that I had to add it. There is no better description for how I feel about being with you and wanting to be close to you than to 'crave'.</p><
+                <p>I found Crave while creating this playlist. To me, the song represents the longing and desire to spend and cherish the moments together before they are gone. It feels to me like a reminder to enjoy the time we have together and never take it for granted.</p>
             </li>
-            <li>Lost In Starlight</li>
-            <li>Tangerine</li>
-            <li>Swan</li>
-            <li>Rainbow Dash</li>
-            <li>Arcane</li>
-            <li>Quinnie</li>
-            <li>Frog</li>
-            <li>Gerard Way</li>
-            <li>Monkey</li>
-            <li>Who Me</li>
-            <li>Markiplier</li>
-            <li>Jojo</li>
-            <li>Gyro</li>
-            <li>Zoro</li>
-            <li>Shadow</li>
-            <li>Bat</li>
-            <li>Killua</li>
-            <li>Chocolate Starfish</li>
-            <li>Sunset Dog</li>
-            <li>SideEye Cat</li>
+            <li>
+                <h2>Anna Molly</h2>
+                <p>Anna Molly or 'Anomaly' reflects my feelings that you are an anomaly in my life in all the best ways. I truly never expected someone like you, who brings such unique joy and whimsy, to randomly appear in my life. But I am forever greatful for how much you 'put me back together' and 'make me right'</p>
+            </li>
+            <li>
+                <h2>Dear Maria, Count Me In</h2>
+                <p>Dear Maria feels representative of infatuation and the desire to throw yourself into the life of someone special. It displays my pure fascination and desire to be by your side.</p>
+            </li>
+            <li>
+                <h2>Kiss Me Now</h2>
+                <img src="Media/A/MatchingMusic.png" alt="Us Matching Music" width="35%">
+                <p>I did some research on this song. Vic wrote this for his wife to talk about how life moves too fast and sometimes you can miss the best moments waiting for the "perfect" moment. I think this is another very special song for me because I am always afraid of not being in the moment with you and enjoying what we have in it. Every moment with you is so special and I cherish every second, every kiss, every word, every hug, and every laugh.</p>
+            </li>
         </ol>
     </div>
 
@@ -151,7 +150,40 @@
         {
             // Initialize and set properties for the image
             const img = document.createElement('img');
-            const images = ['Media/A/Franky.png', 'Media/A/LostInStarlight.png', 'Media/A/Tangerine.png', 'Media/A/Swan.png', 'Media/A/RainbowDash.png', 'Media/A/Arcane.png', 'Media/A/Quinnie.png', 'Media/A/Frog.png', 'Media/A/GerardWay.png', 'Media/A/Monkey.png', 'Media/A/WhoMe.png', 'Media/A/Markiplier.png', 'Media/A/Jojo.png', 'Media/A/Gyro.png', 'Media/A/Zoro.png', 'Media/A/Shadow.png', 'Media/A/Bat.png', 'Media/A/Killua.png', 'Media/A/ChocolateStarfish.png', 'Media/A/SunsetDog.jpg', 'Media/A/SideEyeCat.png'];
+            const images = ['Media/A/Franky.png', 
+            'Media/A/LostInStarlight.png', 
+            'Media/A/Tangerine.png', 
+            'Media/A/Swan.png', 
+            'Media/A/RainbowDash.png', 
+            'Media/A/Arcane.png', 
+            'Media/A/Quinnie.png', 
+            'Media/A/Frog.png', 
+            'Media/A/GerardWay.png', 
+            'Media/A/Monkey.png', 
+            'Media/A/WhoMe.png', 
+            'Media/A/Markiplier.png', 
+            'Media/A/Jojo.png', 
+            'Media/A/Gyro.png', 
+            'Media/A/Zoro.png', 
+            'Media/A/Shadow.png', 
+            'Media/A/Bat.png', 
+            'Media/A/Killua.png', 
+            'Media/A/ChocolateStarfish.png', 
+            'Media/A/SunsetDog.jpg', 
+            'Media/A/SideEyeCat.png',
+            'Media/A/MatchingMusic.png',
+            'Media/A/MeDrawing.jpg',
+            'Media/A/UsEmoNightCar.jpg',
+            'Media/A/UsGarage.jpg',
+            'Media/A/BeforeFairvilla.png',
+            'Media/A/EmoRaveLuke.png',
+            'Media/A/EmoRaveRae.png',
+            'Media/A/EmoRaveTop.png',
+            'Media/A/Masks.png',
+            'Media/A/UsGoblin.png',
+            'Media/A/UsLegos.png',
+            'Media/A/UsMog.png',
+            'Media/A/UsPonies.png'];
             const duration = Math.random() * 6 + 4;
 
             // Randomly select an image
@@ -170,17 +202,58 @@
                 img.remove();
             }, duration * 1000);
         }
+
+        function spawnLyrics()
+        {
+            const lyrics = document.createElement('div');
+            lyrics.classList.add('lyrics');
+            const lyricChoices = [
+                "I can't wait to memorize this day. Oh, a picture could not contain the way it feels",
+                "You say, 'Live in the present' I'm already dreamin' of how it begins",
+                "I romanticize even the worst of times when all it took to make me cry was bein' alive",
+                "I picture your face at the back of my eyes. A fire in the attic, proof of the prize",
+                "Wish you were here, I'm a wounded satellite. I need you now, put me back together, make me right",
+                "Not one of the others could ever compare",
+                "Make every second last",
+                "I got your picture I'm coming with you"
+            ];
+
+            lyrics.innerText = lyricChoices[Math.floor(Math.random() * lyricChoices.length)]; // Randomly select a lyric
+
+            // Random position, size and duration
+            const maxX = window.innerWidth - 32;
+            const size = Math.random() * 20 + 20;
+            const left = Math.random() * 50;
+            const duration = Math.random() * 6 + 4;
+
+            lyrics.style.fontSize = `${size}px`;
+            lyrics.style.color = "#333";
+            lyrics.style.left = `${Math.random() * maxX}px`;
+            lyrics.style.top = "-20px";
+            lyrics.style.animation = `falling ${duration}s linear 1`;
+
+            document.body.appendChild(lyrics);
+
+            // Remove lyrics after animation completes
+            setTimeout(() => {
+                lyrics.remove();
+            }, duration * 1000);
+        }
         
         // Create initial objects
         for (let i = 0; i < 20; i++) {
             createHeart();
         }
+
+        spawnLyrics();
+
         for (let i = 0; i < 5; i++) {
             spawnRandomPNG();
         }
         
         // Continue creating objects
         setInterval(createHeart, 300);
+        setInterval(spawnLyrics, 1800);
         setInterval(spawnRandomPNG, 1500);
     </script>
 </body>
