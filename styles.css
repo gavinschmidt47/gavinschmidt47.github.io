@@ -151,11 +151,6 @@ h2 {
     color: #00072D;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
 nav ul li {
     display: inline;
     margin: 0 1rem;
@@ -163,7 +158,6 @@ nav ul li {
 
 nav ul li a {
     color: #fff;
-    text-decoration: none;
 }
 
 /* Hamburger Menu Styles */
