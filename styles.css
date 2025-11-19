@@ -1,7 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #f4f4f4;
 }
 
@@ -10,9 +8,7 @@ header {
     color: #fff;
     padding: 1rem 0;
     text-align: center;
-    width: 100vw;
-    margin: 0;
-    box-sizing: border-box;
+    width: 100%;
 }
 
 .headshot {
@@ -20,11 +16,11 @@ header {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 1rem solid #ADD8E6;
+    border: 1rem double #ADD8E6;
     background-color: #ADD8E6;
     background-image: url('Media/Headshot.JPG');
     background-size: cover;
-    background-position: center;
+    background-position: bottom 40%;
     background-clip: padding-box;
     float: right;
     margin: 1rem;
@@ -32,53 +28,47 @@ header {
 
 #about {
     min-height: 250px;
-    padding: 2rem;
     background-color: #fff;
     width: 100vw;
-    margin: 0;
     box-sizing: border-box;
 }
 
+#about p {
+    padding: 1em 5%;
+}
+
 .skills {
-    display: flex;
-    justify-content: space-around;
+    display: inline-flex;
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 50%;
 }
 
 .collumn {
-    flex: 1 1 150px;
-    max-width: 250px;
-    min-width: 120px;
+    max-width: 5vw;
+    flex: 1 2 auto;
 }
 .collumn h3 {
     font-size: 1.5rem;
 }
 .collumn li {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 0.8rem;
-    margin: 0.6rem 0;
     border-radius: 25% 10%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 180px;
     font-weight: bold;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    font-size: 0.9rem;
+    word-wrap: normal;
 }
 .collumn li img {
+    filter: grayscale(100%);
     display: block;
     margin: 0 auto 1rem;
     width: 50px;
     height: 50px;
     object-fit: contain;
     border-radius: 10%;
-}
-.collumn li p {
-    text-align: center;
-    font-weight: normal;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
 }
 
 #featured-projects {
@@ -258,6 +248,7 @@ ul li {
 }
 
 .button img {
+    filter: grayscale(100%);
     width: 40px;
     height: 40px;
     object-fit: cover;
@@ -341,8 +332,9 @@ details {
 
 @media screen and (max-width: 768px) {
     .collumn {
-        flex: 1 1 100%;
-        max-width: 100%;
+        flex: 0 0 auto;
+        min-width: 200px;
+        max-width: 250px;
     }
     
     .Fproject {
@@ -460,6 +452,9 @@ details {
     
     .collumn {
         margin-bottom: 1rem;
+        flex: 0 0 auto;
+        min-width: 180px;
+        max-width: 200px;
     }
     
     .collumn h3 {
