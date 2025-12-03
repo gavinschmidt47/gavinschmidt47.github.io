@@ -14,10 +14,1544 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Gavin Schmidt's Portfolio - Fearosis</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
 </head>
 <body>
     <header>
         <h1>Gavin Schmidt's Portfolio</h1>
+        <ul>
+            <li>Stat-based simulation system with dynamic events and reactive spreadability</li>
+                <div class="code-container">
+                    <details>
+                    <summary>Parent Point Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.Events;
+
+public class Point : MonoBehaviour
+{
+    //Total of all points
+    public int numPointsTotal;
+    //Starting points from defining trait
+    public int numPointsStart;
+
+    //Points gained today
+    public int numPointsGainedToday;
+
+    //Points from modifiable sources
+    public int numPointsFromBlood;
+    public int numPointsFromPhysical;
+    public int numPointsFromBehavior;
+    public int numPointsFromPsychological;
+
+    //Event modifiers
+    public float eventStatModifier;
+    public float eventBloodModifier;
+    public float eventPhysicalModifier;
+    public float eventBehaviorModifier;
+    public float eventPsychologicalModifier;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        numPointsFromBlood = 0;
+        numPointsFromPhysical = 0;
+        numPointsFromBehavior = 0;
+        numPointsFromPsychological = 0;
+
+        eventStatModifier = 1.0f;
+        eventBloodModifier = 1.0f;
+        eventPhysicalModifier = 1.0f;
+        eventBehaviorModifier = 1.0f;
+        eventPsychologicalModifier = 1.0f;
+
+        numPointsTotal = numPointsStart;
+    }
+
+    public virtual void GainPoints(int pointsToGain, string source)
+    {
+        numPointsGainedToday += pointsToGain;
+
+        if (pointsToGain >= 0)
+        {
+            //Add to source-specific points
+            switch (source)
+            {
+                case "Blood":
+                    numPointsFromBlood += pointsToGain;
+                    break;
+                case "Physical":
+                    numPointsFromPhysical += pointsToGain;
+                    break;
+                case "Behavior":
+                    numPointsFromBehavior += pointsToGain;
+                    break;
+                case "Psychological":
+                    numPointsFromPsychological += pointsToGain;
+                    break;
+                default:
+                    Debug.Log("Error: Invalid source for points.");
+                    break;
+            }
+        }
+    }
+
+    public void AddStatModifier(float modifier)
+    {
+        //Add event modifier
+        eventStatModifier += modifier;
+    }
+
+    public void AddSourceModifier(float modifier, string source)
+    {
+        //Add event modifier to specific source
+        switch (source)
+        {
+            case "Blood":
+                eventBloodModifier += modifier;
+                break;
+            case "Physical":
+                eventPhysicalModifier += modifier;
+                break;
+            case "Behavior":
+                eventBehaviorModifier += modifier;
+                break;
+            case "Psychological":
+                eventPsychologicalModifier += modifier;
+                break;
+            default:
+                Debug.Log("Error: Invalid source for points.");
+                break;
+        }
+    }
+
+    //Math to calculate total points with modifiers
+    public int GetTotalPoints()
+    {
+        numPointsTotal = Mathf.RoundToInt((numPointsFromBlood * eventBloodModifier
+        + numPointsFromPhysical * eventPhysicalModifier
+        + numPointsFromBehavior * eventBehaviorModifier 
+        + numPointsFromPsychological * eventPsychologicalModifier) 
+        * eventStatModifier) + numPointsStart;
+        return numPointsTotal;
+    }
+
+    //Helper function to apply modifier and round to nearest integer
+    public int GetModifiedPoints(int basePoints, float modifier)
+    {
+        return Mathf.RoundToInt(basePoints * modifier);
+    }
+
+    public int GetPointsGainedToday()
+    {
+        return numPointsGainedToday;
+    }
+    
+    public void ErasePointsGainedToday()
+    {
+        numPointsGainedToday = 0;
+    }
+}
+
+                        </code></pre>
+                    </details>
+                    <details>
+                    <summary>Day Handler Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.Events;
+
+public class DayHandler : MonoBehaviour
+{
+    //Infection rate modifier
+    public float infectionRate;
+    public float populationInfluenceModifier;
+    public int hunterThreshold;
+    public int huntersPerThreshold;
+    public int painThreshold;
+
+    //References to other scripts
+    private Fear fearScript;
+    private Notoriety notorietyScript;
+    private Prejudice prejudiceScript;
+    private Pain painScript;
+    private Influence influenceScript;
+    private FullGameStats fullGameStatsScript;
+
+    //Day-specific variables
+    public int numInfectedToGain;
+    public int numInfluenceToGain;
+
+    //Unity event on day start
+    public UnityEvent dayStartEvent = new UnityEvent();
+
+    public void Start()
+    {
+        //Initialize references and variables
+        fearScript = FindAnyObjectByType&lt;Fear&gt;();
+        notorietyScript = FindAnyObjectByType&lt;Notoriety&gt;();
+        prejudiceScript = FindAnyObjectByType&lt;Prejudice&gt;();
+        painScript = FindAnyObjectByType&lt;Pain&gt;();
+        influenceScript = FindAnyObjectByType&lt;Influence&gt;();
+        fullGameStatsScript = FindAnyObjectByType&lt;FullGameStats&gt;();
+        numInfectedToGain = 0;
+    }
+
+    public void OnNextDay()
+    {
+        //Get stats
+        int numFear = fearScript.GetTotalPoints();
+        int numNotoriety = notorietyScript.GetTotalPoints();
+        int numPrejudice = prejudiceScript.GetTotalPoints();
+        int numPain = painScript.GetTotalPoints();
+        int instability = Mathf.Abs(numNotoriety - numPrejudice);
+
+        //Calculate new infections
+        numInfectedToGain += Mathf.RoundToInt(numFear + Random.Range(Mathf.Max(numFear - instability, 0), numFear + instability) * infectionRate);
+
+        //Update full game stats script
+        Debug.Log($"Infected to gain: {numInfectedToGain}");
+        fullGameStatsScript.AddInfected(numInfectedToGain);
+
+        //Calculate hunter kills
+        fullGameStatsScript.KillInfected(fullGameStatsScript.hunters);
+
+        //Calculate pain kills
+        if (numPain >= painThreshold)
+        {
+            fullGameStatsScript.KillInfected(numPain - painThreshold);
+        }
+
+        //Influence logic
+        int populationModifiedInfectionInfluence = Mathf.Max(Mathf.RoundToInt(numInfectedToGain / populationInfluenceModifier), 1);
+        Debug.Log($"Population modified infection influence: {populationModifiedInfectionInfluence}");
+        numInfluenceToGain = Mathf.Max(Mathf.RoundToInt(numPain*.67f + populationModifiedInfectionInfluence + Mathf.Max(numNotoriety*.50f, 1)), 5);
+        influenceScript.influencePoints += numInfluenceToGain;
+
+        //Hunter logic
+        if (instability > hunterThreshold)
+        {
+            int numHuntersToAdd = instability * huntersPerThreshold;
+            fullGameStatsScript.hunters += numHuntersToAdd;
+        }
+
+        //Call day start event
+        dayStartEvent.Invoke();
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            <li>Dynamic and reactive upgrade tree</li>
+                <div class="code-container">
+                    <details>
+                    <summary>Upgrade Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.Events;
+using System.Collections.Generic;
+using System;
+
+public class Upgrade : MonoBehaviour
+{
+    public string upgradeName;
+    public string upgradeDescription;
+    public int upgradeCost;
+    public bool isFirstUpgrade;
+
+    [Header("Add prerequisite upgrades (if applicable)")]
+    public GameObject[] prerequisiteUpgrades;
+    [SerializeField]
+    public bool isPurchased = false;
+    public event Action upgradePurchased;
+    public event Action upgradeUnlocked;
+
+    [Header("Add value you wish to buff")]
+    [SerializeField]
+    private int fearBuff;
+    [SerializeField]
+    private int notorietyBuff;
+    [SerializeField]
+    private int prejudiceBuff;
+    [SerializeField]
+    private int painBuff;
+
+    private enum SourceType
+    {
+        Blood,
+        Physical,
+        Behavior,
+        Psychological
+    };
+    [SerializeField]
+    private SourceType source;
+
+    private Fear fearScript;
+    private Notoriety notorietyScript;
+    private Prejudice prejudiceScript;
+    private Pain painScript;
+    private Influence influenceScript;
+    private InfectedUIHandler infectedUIHandler;
+
+    void Awake()
+    {
+        fearScript = FindAnyObjectByType&lt;Fear&gt;();
+        notorietyScript = FindAnyObjectByType&lt;Notoriety&gt;();
+        prejudiceScript = FindAnyObjectByType&lt;Prejudice&gt;();
+        painScript = FindAnyObjectByType&lt;Pain&gt;();
+        influenceScript = FindAnyObjectByType&lt;Influence&gt;();
+        infectedUIHandler = FindAnyObjectByType&lt;InfectedUIHandler&gt;();
+
+        if (prerequisiteUpgrades.Length > 0)
+        {
+            foreach (GameObject prereq in prerequisiteUpgrades)
+            {
+                Upgrade prereqStatus = prereq.GetComponent&lt;Upgrade&gt;();
+                prereqStatus.upgradePurchased += this.CheckPrerequisites;
+            }
+        }
+
+        upgradePurchased += infectedUIHandler.UpdateInfluenceText;
+    }
+
+    void OnDisable()
+    {
+        if (prerequisiteUpgrades != null)
+        {
+            foreach (GameObject prereq in prerequisiteUpgrades)
+            {
+                Upgrade prereqStatus = prereq.GetComponent&lt;Upgrade&gt;();
+                prereqStatus.upgradePurchased -= this.CheckPrerequisites;
+            }
+        }
+    }
+
+    public void ApplyUpgrade()
+    {
+        Debug.Log("Applying upgrade: " + upgradeName);
+        if (fearBuff > 0)
+        {
+            Debug.Log("Gaining fear points: " + fearBuff);
+            fearScript.GainPoints(fearBuff, source.ToString());
+        }
+        if (notorietyBuff > 0)
+        {
+            Debug.Log("Gaining notoriety points: " + notorietyBuff);
+            notorietyScript.GainPoints(notorietyBuff, source.ToString());
+        }
+        if (prejudiceBuff > 0)
+        {
+            Debug.Log("Gaining prejudice points: " + prejudiceBuff);
+            prejudiceScript.GainPoints(prejudiceBuff, source.ToString());
+        }
+        if (painBuff > 0)
+        {
+            Debug.Log("Gaining pain points: " + painBuff);
+            painScript.GainPoints(painBuff, source.ToString());
+        }
+    }
+
+    public void Purchase()
+    {
+        if (!isPurchased && influenceScript.influencePoints >= upgradeCost)
+        {
+            influenceScript.influencePoints -= upgradeCost;
+
+            isPurchased = true;
+            Debug.Log(upgradeName + " purchased!");
+            upgradePurchased?.Invoke();
+
+            ApplyUpgrade();
+        }
+    }
+
+    public void CheckPrerequisites() 
+    {
+        bool unlockable = true;
+        if (prerequisiteUpgrades != null)
+        {
+            Debug.Log ("Checking");
+            foreach (GameObject prereq in prerequisiteUpgrades) 
+            {
+                Upgrade prereqStatus = prereq.GetComponent&lt;Upgrade&gt;();
+                if (prereqStatus.isPurchased == false)
+                    {
+                        Debug.Log("Check failed. Remain Locked.");
+                        unlockable = false;
+                        break;
+                    }
+            }
+        }
+
+        if (unlockable)
+        {
+            Debug.Log("Unlocking");
+            upgradeUnlocked?.Invoke();
+        }
+
+    }
+}
+
+                        </code></pre>
+                    </details>
+                    <details>
+                    <summary>Upgrade Tree Adapter Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class UpgradeUIHandler : MonoBehaviour
+{
+    public GameObject namePanel;
+    public GameObject descriptionPanel;
+    public GameObject costPanel;
+    public GameObject activateButton;
+    public GameObject iconPanel;
+
+    [HideInInspector]
+    public Upgrade upgradeScript;
+
+    private Sprite icon;
+
+    void OnEnable()
+    {
+        descriptionPanel.SetActive(false);
+        activateButton.SetActive(false);
+
+        namePanel.GetComponent&lt;TextMeshProUGUI&gt;().text = "Select an Upgrade";
+
+        upgradeScript = null;
+    }
+
+    public void ChosenUpgrade(Upgrade upgrade, Sprite icon)
+    {
+        descriptionPanel.SetActive(true);
+        upgradeScript = upgrade;
+        this.icon = icon;
+
+        namePanel.GetComponent&lt;TextMeshProUGUI&gt;().text = upgradeScript.upgradeName;
+        descriptionPanel.GetComponent&lt;TextMeshProUGUI&gt;().text = upgradeScript.upgradeDescription;
+        
+        if (upgradeScript.isPurchased)
+        {
+            activateButton.SetActive(false);
+            iconPanel.GetComponent&lt;Image&gt;().sprite = icon;
+            iconPanel.SetActive(true);
+            costPanel.GetComponent&lt;TextMeshProUGUI&gt;().text = "Upgrade Purchased";
+        }
+        else
+        {
+            activateButton.SetActive(true);
+            iconPanel.SetActive(false);
+            costPanel.GetComponent&lt;TextMeshProUGUI&gt;().text = "Cost: " + upgradeScript.upgradeCost.ToString() + " Influence Points";
+        }
+        
+    }
+
+    public void PurchaseUpgrade()
+    {
+        upgradeScript.Purchase();
+
+        if (upgradeScript.isPurchased)
+        {
+            activateButton.SetActive(false);
+            iconPanel.GetComponent&lt;Image&gt;().sprite = icon;
+            iconPanel.SetActive(true);
+            costPanel.GetComponent&lt;TextMeshProUGUI&gt;().text = "Upgrade Purchased";
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                    <summary>Upgrade Tree Manager Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UpgradeButtonHandler : MonoBehaviour
+{
+    public Upgrade upgradeScript;
+    public UpgradeUIHandler upgradeUIHandler;
+
+    private LockIconManager lockIcon;
+    private Image image;
+    private void Awake()
+    {
+        // Get the Button component
+        Button button = GetComponent<UnityEngine.UI.Button>();
+
+        image = GetComponent<UnityEngine.UI.Image>();
+
+        lockIcon = GetComponentInChildren<LockIconManager>();
+
+        // Add listener for button click
+        button.onClick.AddListener(OnButtonPress);
+
+        lockIcon.SetLockColor(new Color32(255, 255, 255, 255));
+        image.color = new Color32(120, 120, 120, 255);
+
+        upgradeScript.upgradeUnlocked += () =>
+        {
+            lockIcon.SetLockColor(new Color32(255, 255, 255, 0));
+        };
+
+        upgradeScript.upgradePurchased += () =>
+        {
+            image.color = new Color32(255, 255, 255, 255);
+            lockIcon.SetLockColor(new Color32(255, 255, 255, 0));
+        };
+
+        if (upgradeScript.isFirstUpgrade)
+        {
+            image.color = new Color32(120, 120, 120, 255);
+            lockIcon.SetLockColor(new Color32(255, 255, 255, 0));
+        }
+    }
+
+    public void OnButtonPress()
+    {
+        upgradeUIHandler.ChosenUpgrade(upgradeScript, image.sprite);
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            <li>A* pathfinding algorithm</li>
+                <div class="code-container">
+                    <details>
+                    <summary>Grid Class</summary>
+                        <pre><code class="language-csharp">
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PoissonDiscGrid : MonoBehaviour
+{
+    public static PoissonDiscGrid Instance { get; private set; }
+
+    //Must be edited in code, not in the Unity Editor, as this is a static class
+    public int numRows = 70;
+    public int numCols = 80;
+    private float cellSize = 0.1f;
+
+    private Bounds mapBounds;
+    public Node[,] validPoints;
+
+    private float xMultiplier;
+    private float yMultiplier;
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        mapBounds = GameObject.FindGameObjectWithTag("Map").GetComponent&lt;SpriteRenderer&gt;().bounds;
+        validPoints = GeneratePoints();
+    }
+
+    private Node[,] GeneratePoints()
+    {
+        //Poisson Disc Sampling algorithm
+        Node[,] points = new Node[numCols, numRows];
+
+        xMultiplier = mapBounds.size.x / numCols;
+        yMultiplier = mapBounds.size.y / numRows;
+
+        //Generate grid of points
+        for (int i = 0; i < numCols; i++)
+        {
+            for (int j = 0; j < numRows; j++)
+            {
+                Vector2 pointPosition = new Vector2(mapBounds.min.x + i * xMultiplier, mapBounds.min.y + j * yMultiplier);
+                points[i, j] = new Node(pointPosition, i, j, false, false);
+
+                //Check if the point is valid
+                if (IsPointValid(points[i, j]))
+                {
+                    Debug.DrawLine(pointPosition - Vector2.one * 0.1f, pointPosition + Vector2.one * 0.1f, Color.green, 100f);
+                    points[i, j].MakeValid();
+                }
+                if (isPointInTarget(points[i, j]))
+                {
+                    Debug.DrawLine(pointPosition - Vector2.one * 0.1f, pointPosition + Vector2.one * 0.1f, Color.blue, 100f);
+                    points[i, j].inTarget = true;
+                }
+            }
+        }
+        return points;
+    }
+
+    private bool IsPointValid(Node point)
+    {
+        if (point.valid) return true;
+        //Checks for buildings and obstacles
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(point.worldPosition, cellSize);
+        if (hitColliders.Length > 0)
+        {
+            foreach (var collider in hitColliders)
+            {
+                if (collider.CompareTag("Obstacle"))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private bool isPointInTarget(Node point)
+    {
+        if (point.inTarget) return true;
+        //Checks for target zone
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(point.worldPosition, cellSize);
+        if (hitColliders.Length > 0)
+        {
+            foreach (var collider in hitColliders)
+            {
+                if (collider.CompareTag("TargetZone") && point.valid)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //Gets all neighbors within a certain radius
+    public List&lt;Node&gt; GetNeighbors(Node node)
+    {
+        //Get starting grid position
+        int startX = Mathf.Max(0, node.gridX - 1);
+        int endX = Mathf.Min(numCols - 1, node.gridX + 1);
+        int startY = Mathf.Max(0, node.gridY - 1);
+        int endY = Mathf.Min(numRows - 1, node.gridY + 1);
+
+        List&lt;Node&gt; neighbors = new List&lt;Node&gt;();
+
+        for (int x = startX; x <= endX; x++)
+        {
+            for (int y = startY; y <= endY; y++)
+            {
+                //Skip the node itself
+                if (x == node.gridX && y == node.gridY)
+                    continue;
+
+                Node neighborNode = validPoints[x, y];
+                if (neighborNode.valid)
+                {
+                    neighbors.Add(neighborNode);
+                }
+            }
+        }
+        return neighbors;
+    }
+
+    public Node GetRandomValidNode()
+    {
+        int randomX = UnityEngine.Random.Range(0, numCols);
+        int randomY = UnityEngine.Random.Range(0, numRows);
+        while (!validPoints[randomX, randomY].valid)
+        {
+            randomX = UnityEngine.Random.Range(0, numCols);
+            randomY = UnityEngine.Random.Range(0, numRows);
+        }
+        return validPoints[randomX, randomY];
+    }
+
+    public Node GetRandomTargetNode()
+    {
+        int randomX = UnityEngine.Random.Range(0, numCols);
+        int randomY = UnityEngine.Random.Range(0, numRows);
+        while (!validPoints[randomX, randomY].inTarget)
+        {
+            randomX = UnityEngine.Random.Range(0, numCols);
+            randomY = UnityEngine.Random.Range(0, numRows);
+        }
+        return validPoints[randomX, randomY];
+    }
+
+    public Node[,] GetAllNodes()
+    {
+        return validPoints;
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                    <summary>Node Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class Node
+{
+    public Vector2 worldPosition;
+    public int gridX;
+    public int gridY;
+    public bool valid;
+    public bool inTarget;
+
+    public float gCost = 0; // Cost from start node
+    public float hCost = 0; // Heuristic cost to target node
+    public Node parent = null; // For path retracing
+    public Node target = null;
+
+    public float fCost
+    {
+        get { return gCost + hCost; }
+    }
+
+    public Node(Vector2 worldPosition, int gridX, int gridY, bool valid, bool inTarget)
+    {
+        this.worldPosition = worldPosition;
+        this.gridX = gridX;
+        this.gridY = gridY;
+        this.valid = valid;
+        this.inTarget = inTarget;
+        parent = null;
+        target = null;
+    }
+
+    public void GiveReferences(Node parent, Node target)
+    {
+        this.parent = parent;
+        this.target = target;
+
+        if (parent != null)
+        {
+            gCost = parent.gCost + Mathf.Abs((worldPosition - parent.worldPosition).magnitude);
+        }
+        else
+        {
+            gCost = 0;
+        }
+
+        if (target != null)
+        {
+            hCost = Mathf.Abs((worldPosition - target.worldPosition).magnitude);
+        }
+        else
+        {
+            hCost = 0;
+        }
+    }
+
+    public void MakeValid()
+    {
+        valid = true;
+    }
+
+    public void MakeStartNode(Node target)
+    {
+        gCost = 0;
+        hCost = Mathf.Abs((worldPosition - target.worldPosition).magnitude);
+        parent = null;
+    }
+    public void MakeTargetNode(Node start)
+    {
+        gCost = Mathf.Abs((worldPosition - start.worldPosition).magnitude);
+        hCost = 0;
+    }
+    public void CleanUp()
+    {
+        gCost = 0;
+        hCost = 0;
+        parent = null;
+        target = null;
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                    <summary>A* Pathfinding Class</summary>
+                        <pre><code class="language-csharp">
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class AStar : MonoBehaviour
+{
+    private PoissonDiscGrid grid = PoissonDiscGrid.Instance;
+    public int maxSearchIterations = 1000;
+
+    public List&lt;Node&gt; FindPath(Node startNode, Node targetNode)
+    {
+
+        if (!startNode.valid || !targetNode.valid || startNode == null || targetNode == null) return null;
+
+        targetNode.MakeTargetNode(startNode);
+        startNode.MakeStartNode(targetNode);
+
+        //Initialize open and checked sets
+        List&lt;Node&gt; openSet = new List&lt;Node&gt;();
+        HashSet&lt;Node&gt; checkedSet = new HashSet&lt;Node&gt;();
+        openSet.Add(startNode);
+
+        int iterations = 0;
+
+        //fCost = gCost(Distance from start) + hCost (Distance from target)
+        while (openSet.Count > 0 && iterations < maxSearchIterations)
+        {
+            iterations++;
+
+            //Find node in openSet with lowest fCost
+            Node currentNode = openSet.OrderBy(n => n.fCost).ThenBy(n => n.hCost).First();
+
+            //Move currentNode from openSet to checkedSet
+            openSet.Remove(currentNode);
+            checkedSet.Add(currentNode);
+
+            //End condition - reached target
+            if (currentNode == targetNode) return RetracePath(startNode, currentNode);
+
+            //Check each neighbor of currentNode
+            List&lt;Node&gt; neighbors = grid.GetNeighbors(currentNode);
+            foreach (Node neighbor in neighbors)
+            {
+                if (!neighbor.valid || checkedSet.Contains(neighbor))
+                {
+                    continue; //Skip invalid or already processed nodes
+                }
+
+                //Calculate tentative gCost for this path to neighbor
+                float tentativeGCost = currentNode.gCost + (currentNode.worldPosition - neighbor.worldPosition).magnitude;
+
+                //If neighbor is not in openSet or we found a better path
+                if (!openSet.Contains(neighbor) || tentativeGCost < neighbor.gCost)
+                {
+                    //Update neighbor with better path
+                    neighbor.GiveReferences(currentNode, targetNode);
+                    neighbor.gCost = tentativeGCost;
+
+                    if (!openSet.Contains(neighbor)) openSet.Add(neighbor);
+                }
+            }
+        }
+        
+        return null; //No path found
+    }
+    
+    private List&lt;Node&gt; RetracePath(Node startNode, Node endNode)
+    {
+        List&lt;Node&gt; path = new List&lt;Node&gt;();
+        Node currentNode = endNode;
+
+        while (currentNode != startNode)
+        {
+            path.Add(currentNode);
+            if (currentNode.parent == null) break;
+            currentNode = currentNode.parent;
+        }
+        
+        // Add the start node to complete the path
+        path.Add(startNode);
+        path.Reverse();
+        
+        return path;
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            <li>Dynamic object pooling system</li>
+                <div class="code-container">
+                    <details>
+                    <summary>Object Pooler Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using System.Collections.Generic;
+using System;
+
+public class ObjectPooler : MonoBehaviour
+{
+    public static ObjectPooler Instance { get; private set; }
+    public int poolSize = 50;
+    public float infectedPoolWeight = 10f;
+
+    private Queue&lt;GameObject&gt; dayPool = new Queue&lt;GameObject&gt;();
+    private Queue&lt;GameObject&gt; nightPool = new Queue&lt;GameObject&gt;();
+    private Queue&lt;GameObject&gt; bobPool = new Queue&lt;GameObject&gt;();
+    private Queue&lt;GameObject&gt; activePool = new Queue&lt;GameObject&gt;();
+
+    [SerializeField]
+    private GameObject dayCharacter;
+    [SerializeField]
+    private GameObject nightCharacter;
+    [SerializeField]
+    private GameObject bobCharacter;
+
+    private FullGameStats fullGameStatsScript;
+    private PoissonDiscGrid grid;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        fullGameStatsScript = FindAnyObjectByType&lt;FullGameStats&gt;();
+    }
+    void Start()
+    {
+        grid = PoissonDiscGrid.Instance;
+
+        MakePool();
+    }
+
+    public void MakePool()
+    {
+        GameObject tempObj;
+        if (dayPool.Count > 0)
+        {
+            foreach (GameObject obj in dayPool)
+            {
+                Destroy(obj);
+            }
+            dayPool.Clear();
+        }
+        if (nightPool.Count > 0)
+        {
+            foreach (GameObject obj in nightPool)
+            {
+                Destroy(obj);
+            }
+            nightPool.Clear();
+        }
+        if (bobPool.Count > 0)
+        {
+            foreach (GameObject obj in bobPool)
+            {
+                Destroy(obj);
+            }
+            bobPool.Clear();
+        }
+        if (activePool.Count > 0)
+        {
+            foreach (GameObject obj in activePool)
+            {
+                Destroy(obj);
+            }
+            activePool.Clear();
+        }
+        float dayPercent = 1f - ((float)fullGameStatsScript.infected / (float)fullGameStatsScript.population);
+        float nightPercent = (float)fullGameStatsScript.infected / (float)fullGameStatsScript.population;
+
+        float nightWeight = Mathf.Lerp(1f, infectedPoolWeight, Mathf.Abs(dayPercent - nightPercent));
+
+        int nightCount = Mathf.RoundToInt(poolSize * nightPercent * nightWeight);
+        int dayCount = poolSize - nightCount;
+        Debug.Log($"Pool Sizes - Day: {dayCount}, Night: {nightCount}");
+        
+        for (int i = 0; i < dayCount; i++)
+        {
+            tempObj = Instantiate(dayCharacter, Vector3.zero, Quaternion.identity);
+            tempObj.transform.SetParent(transform);
+            dayPool.Enqueue(tempObj);
+            tempObj.SetActive(false);
+        }
+
+        for (int i = 0; i < nightCount; i++)
+        {
+            tempObj = Instantiate(nightCharacter, Vector3.zero, Quaternion.identity);
+            tempObj.transform.SetParent(transform);
+            nightPool.Enqueue(tempObj);
+            tempObj.SetActive(false);
+        }
+
+        for (int i = 0; i < fullGameStatsScript.hunters; i++)
+        {
+            tempObj = Instantiate(bobCharacter, Vector3.zero, Quaternion.identity);
+            tempObj.transform.SetParent(transform);
+            bobPool.Enqueue(tempObj);
+            tempObj.SetActive(false);
+        }
+    }
+
+    public GameObject GetObject()
+    {
+        if (dayPool.Count > 0 && nightPool.Count > 0 && bobPool.Count > 0)
+        {
+            Debug.Log("All pools have objects");
+            int random = UnityEngine.Random.Range(0, 3);
+            if (random == 0) //if day
+            {
+                return ActivateObjectFromPool(dayPool);
+            }
+            else if (random == 1) //if night
+            {
+                return ActivateObjectFromPool(nightPool);
+            }
+            else //if bob
+            {
+                return ActivateObjectFromPool(bobPool);
+            }
+        }
+        else if (dayPool.Count > 0 && nightPool.Count > 0) //if only day pool and night pool has objects
+        {
+            int random = UnityEngine.Random.Range(0, 2);
+            if (random == 0) //if day
+            {
+                return ActivateObjectFromPool(dayPool);
+            }
+            else //if night
+            {
+                return ActivateObjectFromPool(nightPool);
+            }
+        }
+        else if (nightPool.Count > 0) //if only night pool has objects
+        {
+            return ActivateObjectFromPool(nightPool);
+        }
+        else if (dayPool.Count > 0) //if only day pool has objects
+        {
+            return ActivateObjectFromPool(dayPool);
+        }
+        else if (bobPool.Count > 0) //if only bob pool has objects
+        {
+            return ActivateObjectFromPool(bobPool);
+        }
+        return null; 
+    }
+
+    private GameObject ActivateObjectFromPool(Queue&lt;GameObject&gt; pool)
+    {
+        if (pool.Count == 0)
+        {
+            return null;
+        }
+        GameObject obj = pool.Dequeue();
+        obj.SetActive(true);
+        activePool.Enqueue(obj);
+        return obj;
+    }
+
+    public void ReturnObject(GameObject obj)
+    {
+        obj.SetActive(false);
+        if (activePool.Count > 0)
+            activePool.Dequeue();
+        if (obj.CompareTag("DayCharacter"))
+        {
+            dayPool.Enqueue(obj);
+        }
+        else if (obj.CompareTag("NightCharacter"))
+        {
+            nightPool.Enqueue(obj);
+        }
+        else if (obj.CompareTag("BobCharacter"))
+        {
+            bobPool.Enqueue(obj);
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            <li>Secure save system</li>
+                <div class="code-container">
+                    <details>
+                    <summary>Save Data Class </summary>
+                        <pre><code class="language-csharp">
+using MemoryPack;
+using System.Collections.Generic;
+
+[MemoryPackable]
+public partial class SaveData
+{
+    public string sceneName;
+    
+    public int influencePoints;
+
+    public int infected;
+    public int population;
+    public int dead;
+    public int hunters;
+    public int round;
+
+    public int fearPointsTotal;
+    public int fearPointsStart;
+    public int fearPointsGainedToday;
+    public int fearPointsFromBlood;
+    public int fearPointsFromPhysical;
+    public int fearPointsFromBehavior;
+    public int fearPointsFromPsychological;
+    public float fearEventStatModifier;
+    public float fearEventBloodModifier;
+    public float fearEventPhysicalModifier;
+    public float fearEventBehaviorModifier;
+    public float fearEventPsychologicalModifier;
+
+    public int notorietyPointsTotal;
+    public int notorietyPointsStart;
+    public int notorietyPointsGainedToday;
+    public int notorietyPointsFromBlood;
+    public int notorietyPointsFromPhysical;
+    public int notorietyPointsFromBehavior;
+    public int notorietyPointsFromPsychological;
+    public float notorietyEventStatModifier;
+    public float notorietyEventBloodModifier;
+    public float notorietyEventPhysicalModifier;
+    public float notorietyEventBehaviorModifier;
+    public float notorietyEventPsychologicalModifier;
+
+    public int prejudicePointsTotal;
+    public int prejudicePointsStart;
+    public int prejudicePointsGainedToday;
+    public int prejudicePointsFromBlood;
+    public int prejudicePointsFromPhysical;
+    public int prejudicePointsFromBehavior;
+    public int prejudicePointsFromPsychological;
+    public float prejudiceEventStatModifier;
+    public float prejudiceEventBloodModifier;
+    public float prejudiceEventPhysicalModifier;
+    public float prejudiceEventBehaviorModifier;
+    public float prejudiceEventPsychologicalModifier;
+
+    public int painPointsTotal;
+    public int painPointsStart;
+    public int painPointsGainedToday;
+    public int painPointsFromBlood;
+    public int painPointsFromPhysical;
+    public int painPointsFromBehavior;
+    public int painPointsFromPsychological;
+    public float painEventStatModifier;
+    public float painEventBloodModifier;
+    public float painEventPhysicalModifier;
+    public float painEventBehaviorModifier;
+    public float painEventPsychologicalModifier;
+
+    public List&lt;Event&gt; unusedEvents;
+
+    public List&lt;Upgrade&gt; purchasedUpgrades;
+
+    public float infectionRate;
+    public float populationInfluenceModifier;
+    public int hunterThreshold;
+    public int huntersPerThreshold;
+    public int painThreshold;
+    public int numInfectedToGain;
+    public int numInfluenceToGain;
+
+    [MemoryPackConstructor]
+    public SaveData() { }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                    <summary>Save System Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using System.IO;
+using MemoryPack;
+
+public class SaveSystem : MonoBehaviour
+{
+    private string saveFilePath;
+
+    void Awake()
+    {
+        saveFilePath = Path.Combine(Application.persistentDataPath, "savefile.dat");
+    }
+
+    public void SaveGame(SaveData saveData)
+    {
+        byte[] bytes = MemoryPackSerializer.Serialize(saveData);
+        File.WriteAllBytes(saveFilePath, bytes);
+        Debug.Log("Game saved to " + saveFilePath);
+    }
+
+    public SaveData LoadGame()
+    {
+        if (!File.Exists(saveFilePath))
+        {
+            Debug.LogWarning("Save file not found at " + saveFilePath);
+            return null;
+        }
+
+        byte[] bytes = File.ReadAllBytes(saveFilePath);
+        SaveData saveData = MemoryPackSerializer.Deserialize&lt;SaveData&gt;(bytes);
+        Debug.Log("Game loaded from " + saveFilePath);
+        return saveData;
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Backend SaveData setter class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.Events;
+
+public class Saver : MonoBehaviour
+{
+    public string sceneName;
+
+    private Influence influenceScript;
+    private int influencePoints;
+
+    private FullGameStats fullGameStatsScript;
+    private int infected;
+    private int population;
+    private int dead;
+    private int hunters;
+    private int round;
+
+    private Fear fearScript;
+    private int fearPointsTotal;
+    private int fearPointsStart;
+    private int fearPointsGainedToday;
+    private int fearPointsFromBlood;
+    private int fearPointsFromPhysical;
+    private int fearPointsFromBehavior;
+    private int fearPointsFromPsychological;
+    private float fearEventStatModifier;
+    private float fearEventBloodModifier;
+    private float fearEventPhysicalModifier;
+    private float fearEventBehaviorModifier;
+    private float fearEventPsychologicalModifier;
+
+    private Notoriety notorietyScript;
+    private int notorietyPointsTotal;
+    private int notorietyPointsStart;
+    private int notorietyPointsGainedToday;
+    private int notorietyPointsFromBlood;
+    private int notorietyPointsFromPhysical;
+    private int notorietyPointsFromBehavior;
+    private int notorietyPointsFromPsychological;
+    private float notorietyEventStatModifier;
+    private float notorietyEventBloodModifier;
+    private float notorietyEventPhysicalModifier;
+    private float notorietyEventBehaviorModifier;
+    private float notorietyEventPsychologicalModifier;
+
+    private Prejudice prejudiceScript;
+    private int prejudicePointsTotal;
+    private int prejudicePointsStart;
+    private int prejudicePointsGainedToday;
+    private int prejudicePointsFromBlood;
+    private int prejudicePointsFromPhysical;
+    private int prejudicePointsFromBehavior;
+    private int prejudicePointsFromPsychological;
+    private float prejudiceEventStatModifier;
+    private float prejudiceEventBloodModifier;
+    private float prejudiceEventPhysicalModifier;
+    private float prejudiceEventBehaviorModifier;
+    private float prejudiceEventPsychologicalModifier;
+
+    private Pain painScript;
+    private int painPointsTotal;
+    private int painPointsStart;
+    private int painPointsGainedToday;
+    private int painPointsFromBlood;
+    private int painPointsFromPhysical;
+    private int painPointsFromBehavior;
+    private int painPointsFromPsychological;
+    private float painEventStatModifier;
+    private float painEventBloodModifier;
+    private float painEventPhysicalModifier;
+    private float painEventBehaviorModifier;
+    private float painEventPsychologicalModifier;
+
+    private EventHandler eventHandlerScript;
+    private List&lt;Event&gt; unusedEvents;
+
+    private CollectUpgrades collectUpgradesScript;
+    private List&lt;Upgrade&gt; purchasedUpgrades;
+
+    private DayHandler dayHandlerScript;
+    private float infectionRate;
+    private float populationInfluenceModifier;
+    private int hunterThreshold;
+    private int huntersPerThreshold;
+    private int painThreshold;
+    private int numInfectedToGain;
+    private int numInfluenceToGain;
+
+    private SaveSystem saveSystem;
+
+    void Start()
+    {
+        influenceScript = FindAnyObjectByType&lt;Influence&gt;();
+        fullGameStatsScript = FindAnyObjectByType&lt;FullGameStats&gt;();
+        fearScript = FindAnyObjectByType&lt;Fear&gt;();
+        notorietyScript = FindAnyObjectByType&lt;Notoriety&gt;();
+        prejudiceScript = FindAnyObjectByType&lt;Prejudice&gt;();
+        painScript = FindAnyObjectByType&lt;Pain&gt;();
+        eventHandlerScript = FindAnyObjectByType&lt;EventHandler&gt;();
+        collectUpgradesScript = FindAnyObjectByType&lt;CollectUpgrades&gt;();
+        dayHandlerScript = FindAnyObjectByType&lt;DayHandler&gt;();
+        saveSystem = GetComponent&lt;SaveSystem&gt;();
+
+    }
+
+    public SaveData GetSaveableObject()
+    {
+        CollectData();
+
+        SaveData saveData = new SaveData();
+
+        saveData.sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        
+        saveData.influencePoints = influencePoints;
+        saveData.infected = infected;
+        saveData.population = population;
+        saveData.dead = dead;
+        saveData.hunters = hunters;
+        saveData.round = round;
+
+        saveData.fearPointsTotal = fearPointsTotal;
+        saveData.fearPointsStart = fearPointsStart;
+        saveData.fearPointsGainedToday = fearPointsGainedToday;
+        saveData.fearPointsFromBlood = fearPointsFromBlood;
+        saveData.fearPointsFromPhysical = fearPointsFromPhysical;
+        saveData.fearPointsFromBehavior = fearPointsFromBehavior;
+        saveData.fearPointsFromPsychological = fearPointsFromPsychological;
+        saveData.fearEventStatModifier = fearEventStatModifier;
+        saveData.fearEventBloodModifier = fearEventBloodModifier;
+        saveData.fearEventPhysicalModifier = fearEventPhysicalModifier;
+        saveData.fearEventBehaviorModifier = fearEventBehaviorModifier;
+        saveData.fearEventPsychologicalModifier = fearEventPsychologicalModifier;
+
+        saveData.notorietyPointsTotal = notorietyPointsTotal;
+        saveData.notorietyPointsStart = notorietyPointsStart;
+        saveData.notorietyPointsGainedToday = notorietyPointsGainedToday;
+        saveData.notorietyPointsFromBlood = notorietyPointsFromBlood;
+        saveData.notorietyPointsFromPhysical = notorietyPointsFromPhysical;
+        saveData.notorietyPointsFromBehavior = notorietyPointsFromBehavior;
+        saveData.notorietyPointsFromPsychological = notorietyPointsFromPsychological;
+        saveData.notorietyEventStatModifier = notorietyEventStatModifier;
+        saveData.notorietyEventBloodModifier = notorietyEventBloodModifier;
+        saveData.notorietyEventPhysicalModifier = notorietyEventPhysicalModifier;
+        saveData.notorietyEventBehaviorModifier = notorietyEventBehaviorModifier;
+        saveData.notorietyEventPsychologicalModifier = notorietyEventPsychologicalModifier;
+
+        saveData.prejudicePointsTotal = prejudicePointsTotal;
+        saveData.prejudicePointsStart = prejudicePointsStart;
+        saveData.prejudicePointsGainedToday = prejudicePointsGainedToday;
+        saveData.prejudicePointsFromBlood = prejudicePointsFromBlood;
+        saveData.prejudicePointsFromPhysical = prejudicePointsFromPhysical;
+        saveData.prejudicePointsFromBehavior = prejudicePointsFromBehavior;
+        saveData.prejudicePointsFromPsychological = prejudicePointsFromPsychological;
+        saveData.prejudiceEventStatModifier = prejudiceEventStatModifier;
+        saveData.prejudiceEventBloodModifier = prejudiceEventBloodModifier;
+        saveData.prejudiceEventPhysicalModifier = prejudiceEventPhysicalModifier;
+        saveData.prejudiceEventBehaviorModifier = prejudiceEventBehaviorModifier;
+        saveData.prejudiceEventPsychologicalModifier = prejudiceEventPsychologicalModifier;
+
+        saveData.painPointsTotal = painPointsTotal;
+        saveData.painPointsStart = painPointsStart;
+        saveData.painPointsGainedToday = painPointsGainedToday;
+        saveData.painPointsFromBlood = painPointsFromBlood;
+        saveData.painPointsFromPhysical = painPointsFromPhysical;
+        saveData.painPointsFromBehavior = painPointsFromBehavior;
+        saveData.painPointsFromPsychological = painPointsFromPsychological;
+        saveData.painEventStatModifier = painEventStatModifier;
+        saveData.painEventBloodModifier = painEventBloodModifier;
+        saveData.painEventPhysicalModifier = painEventPhysicalModifier;
+        saveData.painEventBehaviorModifier = painEventBehaviorModifier;
+        saveData.painEventPsychologicalModifier = painEventPsychologicalModifier;
+
+        saveData.unusedEvents = new List&lt;Event&gt;(unusedEvents);
+        saveData.purchasedUpgrades = new List&lt;Upgrade&gt;(purchasedUpgrades);
+
+        saveData.infectionRate = infectionRate;
+        saveData.populationInfluenceModifier = populationInfluenceModifier;
+        saveData.hunterThreshold = hunterThreshold;
+        saveData.huntersPerThreshold = huntersPerThreshold;
+        saveData.painThreshold = painThreshold;
+        saveData.numInfectedToGain = numInfectedToGain;
+        saveData.numInfluenceToGain = numInfluenceToGain;
+
+        return saveData;
+    }
+
+    private void CollectData()
+    {
+        influencePoints = influenceScript.influencePoints;
+
+        infected = fullGameStatsScript.infected;
+        population = fullGameStatsScript.population;
+        dead = fullGameStatsScript.dead;
+        hunters = fullGameStatsScript.hunters;
+        round = fullGameStatsScript.round;
+
+        fearPointsTotal = fearScript.numPointsTotal;
+        fearPointsStart = fearScript.numPointsStart;
+        fearPointsGainedToday = fearScript.numPointsGainedToday;
+        fearPointsFromBlood = fearScript.numPointsFromBlood;
+        fearPointsFromPhysical = fearScript.numPointsFromPhysical;
+        fearPointsFromBehavior = fearScript.numPointsFromBehavior;
+        fearPointsFromPsychological = fearScript.numPointsFromPsychological;
+        fearEventStatModifier = fearScript.eventStatModifier;
+        fearEventBloodModifier = fearScript.eventBloodModifier;
+        fearEventPhysicalModifier = fearScript.eventPhysicalModifier;
+        fearEventBehaviorModifier = fearScript.eventBehaviorModifier;
+        fearEventPsychologicalModifier = fearScript.eventPsychologicalModifier;
+
+        notorietyPointsTotal = notorietyScript.numPointsTotal;
+        notorietyPointsStart = notorietyScript.numPointsStart;
+        notorietyPointsGainedToday = notorietyScript.numPointsGainedToday;
+        notorietyPointsFromBlood = notorietyScript.numPointsFromBlood;
+        notorietyPointsFromPhysical = notorietyScript.numPointsFromPhysical;
+        notorietyPointsFromBehavior = notorietyScript.numPointsFromBehavior;
+        notorietyPointsFromPsychological = notorietyScript.numPointsFromPsychological;
+        notorietyEventStatModifier = notorietyScript.eventStatModifier;
+        notorietyEventBloodModifier = notorietyScript.eventBloodModifier;
+        notorietyEventPhysicalModifier = notorietyScript.eventPhysicalModifier;
+        notorietyEventBehaviorModifier = notorietyScript.eventBehaviorModifier;
+        notorietyEventPsychologicalModifier = notorietyScript.eventPsychologicalModifier;
+
+        prejudicePointsTotal = prejudiceScript.numPointsTotal;
+        prejudicePointsStart = prejudiceScript.numPointsStart;
+        prejudicePointsGainedToday = prejudiceScript.numPointsGainedToday;
+        prejudicePointsFromBlood = prejudiceScript.numPointsFromBlood;
+        prejudicePointsFromPhysical = prejudiceScript.numPointsFromPhysical;
+        prejudicePointsFromBehavior = prejudiceScript.numPointsFromBehavior;
+        prejudicePointsFromPsychological = prejudiceScript.numPointsFromPsychological;
+        prejudiceEventStatModifier = prejudiceScript.eventStatModifier;
+        prejudiceEventBloodModifier = prejudiceScript.eventBloodModifier;
+        prejudiceEventPhysicalModifier = prejudiceScript.eventPhysicalModifier;
+        prejudiceEventBehaviorModifier = prejudiceScript.eventBehaviorModifier;
+        prejudiceEventPsychologicalModifier = prejudiceScript.eventPsychologicalModifier;
+
+        painPointsTotal = painScript.numPointsTotal;
+        painPointsStart = painScript.numPointsStart;
+        painPointsGainedToday = painScript.numPointsGainedToday;
+        painPointsFromBlood = painScript.numPointsFromBlood;
+        painPointsFromPhysical = painScript.numPointsFromPhysical;
+        painPointsFromBehavior = painScript.numPointsFromBehavior;
+        painPointsFromPsychological = painScript.numPointsFromPsychological;
+        painEventStatModifier = painScript.eventStatModifier;
+        painEventBloodModifier = painScript.eventBloodModifier;
+        painEventPhysicalModifier = painScript.eventPhysicalModifier;
+        painEventBehaviorModifier = painScript.eventBehaviorModifier;
+        painEventPsychologicalModifier = painScript.eventPsychologicalModifier;
+
+        foreach (Event unusedEvent in eventHandlerScript.unusedEvents)
+        {
+            unusedEvents.Add(unusedEvent);
+        }
+
+        purchasedUpgrades = collectUpgradesScript.CollectPurchasedUpgrades();
+
+        infectionRate = dayHandlerScript.infectionRate;
+        populationInfluenceModifier = dayHandlerScript.populationInfluenceModifier;
+        hunterThreshold = dayHandlerScript.hunterThreshold;
+        huntersPerThreshold = dayHandlerScript.huntersPerThreshold;
+        painThreshold = dayHandlerScript.painThreshold;
+        numInfectedToGain = dayHandlerScript.numInfectedToGain;
+        numInfluenceToGain = dayHandlerScript.numInfluenceToGain;
+    }
+
+    public void SaveGame()
+    {
+        saveSystem.SaveGame(this.GetSaveableObject());
+    }
+    public void LoadGame()
+    {
+        var saveData = saveSystem.LoadGame();
+        if (saveData != null)
+        {
+            // Apply loaded data to the game state
+            // Implementation depends on the structure of SaveData and game state management
+            influenceScript.influencePoints = influencePoints;
+
+            fullGameStatsScript.infected = infected;
+            fullGameStatsScript.population = population;
+            fullGameStatsScript.dead = dead;
+            fullGameStatsScript.hunters = hunters;
+            fullGameStatsScript.round = round;
+
+            fearScript.numPointsTotal = fearPointsTotal;
+            fearScript.numPointsStart = fearPointsStart;
+            fearScript.numPointsGainedToday = fearPointsGainedToday;
+            fearScript.numPointsFromBlood = fearPointsFromBlood;
+            fearScript.numPointsFromPhysical = fearPointsFromPhysical;
+            fearScript.numPointsFromBehavior = fearPointsFromBehavior;
+            fearScript.numPointsFromPsychological = fearPointsFromPsychological;
+            fearScript.eventStatModifier = fearEventStatModifier;
+            fearScript.eventBloodModifier = fearEventBloodModifier;
+            fearScript.eventPhysicalModifier = fearEventPhysicalModifier;
+            fearScript.eventBehaviorModifier = fearEventBehaviorModifier;
+            fearScript.eventPsychologicalModifier = fearEventPsychologicalModifier;
+
+            notorietyScript.numPointsTotal = notorietyPointsTotal;
+            notorietyScript.numPointsStart = notorietyPointsStart;
+            notorietyScript.numPointsGainedToday = notorietyPointsGainedToday;
+            notorietyScript.numPointsFromBlood = notorietyPointsFromBlood;
+            notorietyScript.numPointsFromPhysical = notorietyPointsFromPhysical;
+            notorietyScript.numPointsFromBehavior = notorietyPointsFromBehavior;
+            notorietyScript.numPointsFromPsychological = notorietyPointsFromPsychological;
+            notorietyScript.eventStatModifier = notorietyEventStatModifier;
+            notorietyScript.eventBloodModifier = notorietyEventBloodModifier;
+            notorietyScript.eventPhysicalModifier = notorietyEventPhysicalModifier;
+            notorietyScript.eventBehaviorModifier = notorietyEventBehaviorModifier;
+            notorietyScript.eventPsychologicalModifier = notorietyEventPsychologicalModifier;
+
+            prejudiceScript.numPointsTotal = prejudicePointsTotal;
+            prejudiceScript.numPointsStart = prejudicePointsStart;
+            prejudiceScript.numPointsGainedToday = prejudicePointsGainedToday;
+            prejudiceScript.numPointsFromBlood = prejudicePointsFromBlood;
+            prejudiceScript.numPointsFromPhysical = prejudicePointsFromPhysical;
+            prejudiceScript.numPointsFromBehavior = prejudicePointsFromBehavior;
+            prejudiceScript.numPointsFromPsychological = prejudicePointsFromPsychological;
+            prejudiceScript.eventStatModifier = prejudiceEventStatModifier;
+            prejudiceScript.eventBloodModifier = prejudiceEventBloodModifier;
+            prejudiceScript.eventPhysicalModifier = prejudiceEventPhysicalModifier;
+            prejudiceScript.eventBehaviorModifier = prejudiceEventBehaviorModifier;
+            prejudiceScript.eventPsychologicalModifier = prejudiceEventPsychologicalModifier;
+
+            painScript.numPointsTotal = painPointsTotal;
+            painScript.numPointsStart = painPointsStart;
+            painScript.numPointsGainedToday = painPointsGainedToday;
+            painScript.numPointsFromBlood = painPointsFromBlood;
+            painScript.numPointsFromPhysical = painPointsFromPhysical;
+            painScript.numPointsFromBehavior = painPointsFromBehavior;
+            painScript.numPointsFromPsychological = painPointsFromPsychological;
+            painScript.eventStatModifier = painEventStatModifier;
+            painScript.eventBloodModifier = painEventBloodModifier;
+            painScript.eventPhysicalModifier = painEventPhysicalModifier;
+            painScript.eventBehaviorModifier = painEventBehaviorModifier;
+            painScript.eventPsychologicalModifier = painEventPsychologicalModifier;
+
+            eventHandlerScript.RepopulateUnusedEvents(unusedEvents);
+
+            collectUpgradesScript.ReUpgrade();
+
+            dayHandlerScript.infectionRate = infectionRate;
+            dayHandlerScript.populationInfluenceModifier = populationInfluenceModifier;
+            dayHandlerScript.hunterThreshold = hunterThreshold;
+            dayHandlerScript.huntersPerThreshold = huntersPerThreshold;
+            dayHandlerScript.painThreshold = painThreshold;
+            dayHandlerScript.numInfectedToGain = numInfectedToGain;
+            dayHandlerScript.numInfluenceToGain = numInfluenceToGain;
+
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            <li>Advanced music loop system</li>
+                <div class="code-container">
+                    <details>
+                    <summary>Music Manager Class</summary>
+                        <pre><code class="language-csharp">
+
+        </ul>
         <nav>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="index.html">Home</a></li>

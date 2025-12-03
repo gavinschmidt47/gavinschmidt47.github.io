@@ -127,7 +127,7 @@ header {
     text-align: center;
     flex: 1 1 300px;
     max-width: 35rem;
-    max-height: 50rem;
+    max-height: 70rem;
     display: flex;
     flex-direction: column;
     gap: 2rem
@@ -231,6 +231,11 @@ section {
 .project {
     margin-bottom: 1rem;
     text-align: center;
+}
+
+.code-container {
+    max-width: 90%;
+    margin: 0 auto;
 }
 
 .video-container {
