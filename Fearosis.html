@@ -482,11 +482,11 @@ public class UpgradeButtonHandler : MonoBehaviour
     private void Awake()
     {
         // Get the Button component
-        Button button = GetComponent<UnityEngine.UI.Button>();
+        Button button = GetComponent&lt;Button&gt;();
 
-        image = GetComponent<UnityEngine.UI.Image>();
+        image = GetComponent&lt;Image&gt;();
 
-        lockIcon = GetComponentInChildren<LockIconManager>();
+        lockIcon = GetComponentInChildren&lt;LockIconManager&gt;();
 
         // Add listener for button click
         button.onClick.AddListener(OnButtonPress);
@@ -1550,17 +1550,37 @@ public class Saver : MonoBehaviour
                     <details>
                     <summary>Music Manager Class</summary>
                         <pre><code class="language-csharp">
+using System;
+using UnityEngine;
+using UnityEngine.UI;
 
+public class AudioManager : MonoBehaviour
+{
+    [SerializeField] Slider soundEffectsSlider;
+    [SerializeField] Slider musicSlider;
+
+    public Action onScreenDisable;
+
+    public void ChangeSoundEffectsVolume()
+    {
+        AudioListener.volume = soundEffectsSlider.value;
+    }
+
+    public void ChangeMusicVolume()
+    {
+        AudioListener.volume = musicSlider.value;
+    }
+
+    private void OnDisable()
+    {
+        onScreenDisable?.Invoke();
+    }
+
+}
+                        </code></pre>
+                    </details>
+                </div>
         </ul>
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </nav>
     </header>
 </body>
 </html>
