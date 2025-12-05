@@ -6,8 +6,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     width: 100vw;
-    margin: 0;
-    padding: 0;
 }
 
 h2 {
@@ -263,18 +261,6 @@ nav ul li a {
    CODE & MEDIA CONTAINERS
    ======================================== */
 
-.Project-Showcase {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.Project-Showcase img {
-    max-width: 80%;
-    height: auto;
-    margin-bottom: 1rem;
-}
-
 .code-container {
     max-width: 90%;
     margin: 0 auto;
@@ -286,8 +272,7 @@ details {
     border-radius: 5px;
     text-align: left;
     color: white;
-    max-width: 90%;
-    margin: 0 auto;
+    align-self: center;
 }
 
 .video-container {
@@ -369,20 +354,26 @@ footer {
     color: #fff;
 }
 
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
-
-/* Large Desktop (1366px and below) */
+/* Responsive Design */
 @media screen and (max-width: 1366px) {
+    .collumn {
+        flex: 1 1 200px;
+        max-width: 300px;
+        min-width: 150px;
+    }
+    
     .Fproject {
         flex: 1 1 280px;
         max-width: 350px;
     }
 }
 
-/* Tablet (1024px and below) */
 @media screen and (max-width: 1024px) {
+    .collumn {
+        flex: 1 1 250px;
+        max-width: 400px;
+    }
+    
     .Fproject {
         flex: 1 1 300px;
         max-width: 400px;
@@ -397,8 +388,13 @@ footer {
     }
 }
 
-/* Small Tablet (768px and below) */
 @media screen and (max-width: 768px) {
+    .collumn {
+        flex: 0 0 auto;
+        min-width: 200px;
+        max-width: 250px;
+    }
+    
     .Fproject {
         flex: 1 1 100%;
         max-width: 100%;
@@ -426,7 +422,6 @@ footer {
     }
 }
 
-/* Mobile (480px and below) */
 @media screen and (max-width: 480px) {
     header {
         padding: 0.5rem 0;
@@ -511,6 +506,29 @@ footer {
     section {
         padding: 0.5rem;
         margin: 0.5rem 0;
+    }
+    
+    .collumn {
+        margin-bottom: 1rem;
+        flex: 0 0 auto;
+        min-width: 180px;
+        max-width: 200px;
+    }
+    
+    .collumn h3 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .collumn li {
+        max-width: 100%;
+        margin: 0.5rem auto;
+        font-size: 0.8rem;
+    }
+    
+    .collumn li img {
+        width: 40px;
+        height: 40px;
     }
     
     .Fproject {

@@ -14,6 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Gavin Schmidt's Portfolio - Reactive Skies</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
 </head>
 <body>
     <header>
@@ -28,3 +31,383 @@
             </ul>
         </nav>
     </header>
+    <main class="Project-Showcase">
+        <img src="Media/Pieces/Reactive Skies/Reactive Skies scene.png" alt="Reactive Skies Logo" class="project-image">
+        <ul>
+            <li>Dyanmic Weather System using API</li>
+                <div class="code-container">
+                    <details>
+                        <summary>Weather Manager Class</summary>
+                        <pre><code class="language-csharp">
+using System;
+using System.Collections;
+using System.Xml.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class WeatherManager : MonoBehaviour
+{
+    public string location = "Orlando,us";
+    public Material clearDawnSkyboxMaterial;
+    public Material clearDaySkyboxMaterial;
+    public Material clearDuskSkyboxMaterial;
+    public Material clearNightSkyboxMaterial;
+    public Material rainSkyboxMaterial;
+    public Material snowSkyboxMaterial;
+    public Light directionalLight;
+    public float dawnDuskMargin;
+
+    private enum TimeOfDay
+    {
+        Dawn,
+        Day,
+        Dusk,
+        Night
+    }
+    private TimeOfDay currentTimeOfDay;
+    private string xmlApi => "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&mode=xml&appid=dc349e3935101abb942e111db21c2985";
+
+    private IEnumerator CallAPI(string url, Action&lt;XDocument&gt; callback)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.LogError($"network problem: {request.error}");
+            }
+            else if (request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError($"response error: {request.responseCode}");
+            }
+            else
+            {
+                callback(XDocument.Parse(request.downloadHandler.text));
+            }
+        }
+    }
+
+    public IEnumerator GetWeatherXML(Action&lt;XDocument&gt; callback)
+    {
+        return CallAPI(xmlApi, callback);
+    }
+
+    void Start() 
+    {
+        directionalLight.color = Color.white;
+        directionalLight.intensity = 1.0f;
+        RenderSettings.skybox = clearDaySkyboxMaterial;
+        StartCoroutine(GetWeatherXML(OnXMLDataLoaded));
+
+        DateTime now = DateTime.Now;
+    }
+
+    public void OnXMLDataLoaded(XDocument data)
+    {
+        Debug.Log(data);
+
+        if (data.Root.Element("city") != null)
+        {
+            Debug.Log("Successfully retrieved weather data for " + data.Root.Element("city").Attribute("name").Value);
+        }
+        
+        DateTime now = DateTime.Now;
+
+        XElement sun = data.Root.Element("city").Element("sun");
+        DateTime sunrise = DateTime.Parse(sun.Attribute("rise").Value).ToLocalTime();
+        DateTime sunset = DateTime.Parse(sun.Attribute("set").Value).ToLocalTime();
+
+
+        if (now < sunrise.AddMinutes(-dawnDuskMargin) || now > sunset.AddMinutes(dawnDuskMargin))
+        {
+            Debug.Log("It's night time.");
+            directionalLight.intensity = 1.3f;
+            directionalLight.color = new Color32(55, 95, 135, 255);
+            currentTimeOfDay = TimeOfDay.Night;
+        }
+        else if (now >= sunrise.AddMinutes(-dawnDuskMargin) && now <= sunrise.AddMinutes(dawnDuskMargin))
+        {
+            Debug.Log("It's dawn.");
+            directionalLight.intensity = 1.2f;
+            directionalLight.color = new Color32(255, 222, 50, 255);
+            currentTimeOfDay = TimeOfDay.Dawn;
+        }
+        else if (now >= sunset.AddMinutes(-dawnDuskMargin) && now <= sunset.AddMinutes(dawnDuskMargin))
+        {
+            Debug.Log("It's dusk.");
+            directionalLight.intensity = 1.6f;
+            directionalLight.color = new Color32(254, 180, 32, 255);
+            currentTimeOfDay = TimeOfDay.Dusk;
+        }
+        else
+        {
+            Debug.Log("It's daytime.");
+            directionalLight.intensity = 1.25f;
+            directionalLight.color = new Color32(255, 255, 224, 255);
+            currentTimeOfDay = TimeOfDay.Day;
+        }
+
+        switch (currentTimeOfDay)
+        {
+            case TimeOfDay.Dawn:
+                RenderSettings.skybox = clearDawnSkyboxMaterial;
+                break;
+            case TimeOfDay.Day:
+                RenderSettings.skybox = clearDaySkyboxMaterial;
+                break;
+            case TimeOfDay.Dusk:
+                RenderSettings.skybox = clearDuskSkyboxMaterial;
+                break;
+            case TimeOfDay.Night:
+                RenderSettings.skybox = clearNightSkyboxMaterial;
+                break;
+        }
+
+        XElement weather = data.Root.Element("precipitation");
+        if (weather != null)
+        {
+            switch (weather.Attribute("mode").Value)
+            {
+                case "rain":
+                    Debug.Log("It's raining!");
+                    RenderSettings.skybox = rainSkyboxMaterial;
+                    break;
+                case "snow":
+                    Debug.Log("It's snowing!");
+                    RenderSettings.skybox = snowSkyboxMaterial;
+                    break;
+                default:
+                    Debug.Log("No precipitation.");
+                    break;
+            }
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            
+            <li>PlayFab Login Authentication</li>
+                <div class="code-container">
+                    <details>
+                        <summary>PlayFab Login Interface</summary>
+                        <pre><code class="language-csharp">
+using PlayFab.ClientModels;
+using PlayFab;
+
+public interface ILogin
+{
+    void Login(System.Action&lt;LoginResult&gt; onSuccess, System.Action&lt;PlayFabError&gt; onError);
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>PlayFab Login Manager</summary>
+                        <pre><code class="language-csharp">
+using PlayFab.ClientModels;
+using PlayFab;
+
+public interface ILogin
+{
+    void Login(System.Action&lt;LoginResult&gt; onSuccess, System.Action&lt;PlayFabError&gt; onError);
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>PlayFab Manager</summary>
+                        <pre><code class="language-csharp">
+public class PlayFabManager
+{
+    private LoginManager loginManager;
+    private string savedEmailKey = "SavedEmail";
+    private string userEmail;
+    private void Start()
+    {
+        loginManager = new LoginManager();
+        if (PlayerPrefs.HasKey(savedEmailKey))
+        {
+            string savedEmail = PlayerPrefs.GetString(savedEmailKey);
+            EmailLoginButtonClicked(savedEmail, "SavedPassword");
+        }
+    }
+    public void EmailLoginButtonClicked(string email, string password)
+    {
+        userEmail = email;
+        loginManager.SetLoginMethod(new EmailLogin(email, password));
+        loginManager.Login(OnLoginSuccess, OnLoginFailure);
+    }
+    public void OnLoginSuccess(LoginResult result)
+    {
+        Debug.Log("Login successful!");
+        if (!string.IsNullOrEmpty(userEmail))
+            PlayerPrefs.SetString(savedEmailKey, userEmail);
+        LoadPlayerData(result.PlayFabId);
+    }
+    public void OnLoginFailure(PlayFabError error)
+    {
+        Debug.LogError("Login failed: " + error.ErrorMessage);
+    }
+    private void LoadPlayerData(string playFabId)
+    {
+        var request = new GetUserDataRequest
+        {
+            PlayFabId = playFabId
+        };
+        PlayFabClientAPI.GetUserData(request, OnDataSuccess, OnDataFailure);
+    }
+    private void OnDataSuccess(GetUserDataResult result)
+    {
+       //Load Player
+         Debug.Log("Player data loaded successfully.");
+    }
+    private void OnDataFailure(PlayFabError error)
+    {
+        Debug.LogError("Failed to load player data: " + error.ErrorMessage);
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Email Login Implementation</summary>
+                        <pre><code class="language-cpp">
+public class EmailLogin : ILogin
+{
+    public string Email { get; private set; }
+    public string Password { get; private set; }
+
+    public EmailLogin(string email, string password)
+    {
+        Email = email;
+        Password = password;
+    }
+
+    public void Login(System.Action&lt;LoginResult&gt; onSuccess, System.Action&lt;PlayFabError&gt; onError)
+    {
+        var request = new LoginWithEmailAddressRequest
+        {
+            Email = Email,
+            Password = Password
+        };
+        PlayFabClientAPI.LoginWithEmailAddress(request, onSuccess, onError);
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Device Info Class</summary>
+                        <pre><code class="language-cpp">
+using PlayFab.ClientModels;
+using PlayFab;
+using UnityEngine.iOS;
+
+public class DeviceLogin : ILogin
+{
+    private string deviceID;
+    public DeviceLogin()
+    {
+        deviceID = Device.vendorIdentifier;
+    }
+    public void Login(System.Action&lt;LoginResult&gt; onSuccess, System.Action&lt;PlayFabError&gt; onError)
+    {
+        var request = new LoginWithCustomIDRequest
+        {
+            CustomId = deviceID,
+            CreateAccount = true
+        };
+        PlayFabClientAPI.LoginWithCustomID(request, onSuccess, onError);
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            <li>Data Serialization for Storage Optimization</li>
+                <div class="code-container">
+                    <details>
+                        <summary>Billboard Image Picker</summary>
+                        <pre><code class="language-cpp">
+using System;
+using System.Collections;
+using System.IO;
+using System.Runtime.CompilerServices;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class BillboardImagePicker : MonoBehaviour
+{
+    public string billboardID;
+    public string[] imageUrls;
+
+    private string localPath;
+    private Renderer billboardRenderer;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        billboardRenderer = GetComponent&lt;Renderer&gt;();
+        int randomIndex = UnityEngine.Random.Range(0, imageUrls.Length);
+        Debug.Log("Selected image URL: " + imageUrls[randomIndex]);
+        localPath = Application.persistentDataPath + "/" + billboardID + "_" + randomIndex + ".png";
+        StartCoroutine(LoadImageFromURL(imageUrls[randomIndex], ApplyTexture));
+    }
+
+    private IEnumerator LoadImageFromURL(string url, Action&lt;Texture2D&gt; callback)
+    {
+        byte[] imageData;
+        if(!File.Exists(localPath))
+        {
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+            yield return request.SendWebRequest();
+            Debug.Log("Downloading image from URL: " + url);
+            imageData = DownloadHandlerTexture.GetContent(request).EncodeToPNG();
+            File.WriteAllBytes(localPath, imageData);
+        }
+        else
+        {
+            imageData = File.ReadAllBytes(localPath);
+        }
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(imageData);
+        callback(texture);
+    }
+
+    private void ApplyTexture(Texture2D texture)
+    {
+        billboardRenderer.material.mainTexture = texture;
+    }
+
+    public void ClearCachedImage()
+    {
+        for (int i = 0; i < imageUrls.Length; i++)
+        {
+            string path = Application.persistentDataPath + "/" + billboardID + "_" + i + ".png";
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                Debug.Log("Deleted cached image at: " + path);
+            }
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            
+            <li>Screenshot Tool</li>
+                <div class="code-container">
+                    <details>
+                        <summary>Screenshot Tool Class</summary>
+                        <pre><code class="language-csharp">
+public void TakeScreenshot()
+{
+    string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+    string filename = $"Screenshot_{timestamp}.png";
+    ScreenCapture.CaptureScreenshot(filename);
+    Debug.Log($"Screenshot saved as {filename}");
+}
+                        </code></pre>
+                    </details>
+                </div>
+        </ul>
+    </main>
+</body>
+</html>
