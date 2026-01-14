@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -12,10 +12,10 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Gavin Schmidt's Portfolio - Fearosis</title>
+    <title>Gavin Schmidt's Portfolio - Reconnection</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </head>
 <body>
@@ -26,210 +26,650 @@
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#about">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
+                <li><a href="music. html">Music</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="resume.html" target="_blank">Resume</a></li>
             </ul>
         </nav>
 
     </header>
-    <main class="Project-Showcase">
-        <img src="Media/Pieces/Reconnection/Reconnection Logo.png" alt="Reconnection Logo" class="project-image">
-        <ul>
+    <main class="reconnection-showcase">
+        <div class="hero-section">
+            <img src="Media/Pieces/Reconnection/Reconnection logo.png" alt="Reconnection Logo" class="reconnection-logo">
+            <h1 class="project-title">Reconnection</h1>
+            <p class="project-tagline">D&D-Inspired Turn-Based Combat Meets Stunning Visuals</p>
+        </div>
 
-            <li>DND-Inspired Automated Combat C++ Code</li>
+        <section class="project-overview-section">
+            <h2>🎮 Project Overview</h2>
+            <p class="overview-text">
+                Reconnection is a <strong>D&D-inspired turn-based fighting game</strong> built in Unreal Engine, 
+                combining tactical combat with beautiful visuals and dynamic narrative choices.  As <strong>Lead 
+                Programmer</strong>, I architected the entire combat system in C++, implementing dice-roll mechanics, 
+                stat-based calculations, and AI decision-making that brings tabletop RPG combat to life. 
+            </p>
+        </section>
+
+        <section class="key-features-section">
+            <h2>⚡ Technical Highlights</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎲</div>
+                    <h3>D&D Combat System</h3>
+                    <p>Automated dice rolls, attack/defense calculations, and turn management</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>Turn-Based Mechanics</h3>
+                    <p>Initiative-based turn order with strategic action choices</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Enemy AI System</h3>
+                    <p>Blueprint-extensible AI behavior for dynamic opponents</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>C++ Architecture</h3>
+                    <p>Clean, extensible parent classes with virtual functions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Buff System</h3>
+                    <p>Dynamic stat modifications for strategic depth</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Dialogue Choices</h3>
+                    <p>Player-driven narrative with branching conversations</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="code-showcase-section">
+            <h2>💻 Code Showcase</h2>
+
+			            <div class="code-feature">
+                <h3>🎨 Blueprint Integration & Designer Tools</h3>
+                <p class="code-description">
+                    The C++ AFighter and UEnemy classes are designed for Blueprint extensibility, allowing 
+                    designers to create unique enemy behaviors, player abilities, and combat encounters without 
+                    touching code. Key Blueprint-implementable functions include:
+                </p>
+                <div class="blueprint-showcase">
+                    <div class="blueprint-feature">
+                        <h4>🤖 Enemy AI Behaviors</h4>
+                        <ul>
+                            <li><strong>ChooseAction()</strong> - Implement custom AI decision trees</li>
+                            <li><strong>Conditional logic</strong> - Enemy evaluates player health, buffs, and position</li>
+                            <li><strong>Action selection</strong> - Choose between Attack, Heal, Block, or special abilities</li>
+                            <li><strong>Difficulty scaling</strong> - Adjust AI aggression and strategy per encounter</li>
+                        </ul>
+						<!-- <div class="code-container">
+							<details>
+								<summary>BP_HighLevelEnemyActions - Enemy General Conditional logic</summary>
+								<pre><code class="language-cpp">
+		// C++ provides the foundation... 
+		void UEnemy::StartTurn()
+		{
+			Super::StartTurn();
+			ChooseAction();  // Calls Blueprint implementation
+		}
+
+		// ... Blueprints implement the behavior
+		void UEnemy::ChooseAction_Implementation()
+		{
+			// In Blueprint Visual Scripting: 
+			// 1. Get Player Fighter reference
+			// 2. Check Player Health percentage
+			// 3. If Player Health < 30%:
+			//      - Aggressive: Call Attack() 80% of time
+			//      - Defensive: Call Block() 20% of time
+			// 4. If Player Health > 70%:
+			//      - Call Heal() if Enemy Health < 50%
+			//      - Call Attack() otherwise
+			// 5. Apply buffs based on turn count
+			// 6. Consider special ability cooldowns
+		}
+
+		// Event Delegates allow Blueprint responses
+		UFUNCTION()
+		void OnPlayerHit(UFighter* Target)
+		{
+			// Blueprint can respond: 
+			// - Spawn damage number widget
+			// - Play hit sound
+			// - Trigger camera shake
+			// - Update health bar UI
+			// - Check for low health warnings
+		}
+
+		// Dialogue integration example
+		UFUNCTION(BlueprintCallable)
+		void ProcessDialogueChoice(int32 ChoiceID)
+		{
+			// Blueprint logic: 
+			// - Choice 1 (Intimidate): AddBuff(5, "Attack")
+			// - Choice 2 (Persuade): Enemy may flee or join party
+			// - Choice 3 (Taunt): Enemy focuses attacks on player
+		}
+								</code></pre>
+							</details>
+						</div> -->
+                    </div>
+                    
+                    <div class="blueprint-feature">
+                        <h4>⚔️ Combat Actions</h4>
+                        <ul>
+                            <li><strong>Attack()</strong> - Custom attack animations and VFX triggers</li>
+                            <li><strong>Heal()</strong> - Healing effects with particle systems</li>
+                            <li><strong>Block()</strong> - Defensive stance animations</li>
+                            <li><strong>Die()</strong> - Death sequences, loot drops, victory conditions</li>
+                        </ul>
+						<!-- <div class="code-container">
+							<details>
+								<summary>BP_PlayerActions - Implemented player actions</summary>
+								<pre><code class="language-cpp">
+		// C++ provides the foundation... 
+		void UEnemy::StartTurn()
+		{
+			Super::StartTurn();
+			ChooseAction();  // Calls Blueprint implementation
+		}
+
+		// ... Blueprints implement the behavior
+		void UEnemy::ChooseAction_Implementation()
+		{
+			// In Blueprint Visual Scripting: 
+			// 1. Get Player Fighter reference
+			// 2. Check Player Health percentage
+			// 3. If Player Health < 30%:
+			//      - Aggressive: Call Attack() 80% of time
+			//      - Defensive: Call Block() 20% of time
+			// 4. If Player Health > 70%:
+			//      - Call Heal() if Enemy Health < 50%
+			//      - Call Attack() otherwise
+			// 5. Apply buffs based on turn count
+			// 6. Consider special ability cooldowns
+		}
+
+		// Event Delegates allow Blueprint responses
+		UFUNCTION()
+		void OnPlayerHit(UFighter* Target)
+		{
+			// Blueprint can respond: 
+			// - Spawn damage number widget
+			// - Play hit sound
+			// - Trigger camera shake
+			// - Update health bar UI
+			// - Check for low health warnings
+		}
+
+		// Dialogue integration example
+		UFUNCTION(BlueprintCallable)
+		void ProcessDialogueChoice(int32 ChoiceID)
+		{
+			// Blueprint logic: 
+			// - Choice 1 (Intimidate): AddBuff(5, "Attack")
+			// - Choice 2 (Persuade): Enemy may flee or join party
+			// - Choice 3 (Taunt): Enemy focuses attacks on player
+		}
+								</code></pre>
+							</details>
+						</div> -->
+                    </div>
+                    
+                    <div class="blueprint-feature">
+                        <h4>🎯 Event Delegates</h4>
+                        <ul>
+                            <li><strong>OnStartTurn</strong> - Trigger UI updates, camera effects</li>
+                            <li><strong>OnEndTurn</strong> - Queue next fighter in initiative order</li>
+                            <li><strong>OnHitAttack</strong> - Play hit reactions, damage numbers</li>
+                            <li><strong>OnHitMiss</strong> - Miss animations, combat feedback</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="blueprint-feature">
+                        <h4>💬 Dialogue Integration</h4>
+                        <ul>
+                            <li><strong>Dynamic choices</strong> - Player dialogue affects combat stats</li>
+                            <li><strong>Narrative branching</strong> - Choices influence enemy behavior</li>
+                            <li><strong>Combat triggers</strong> - Dialogue can start/end encounters</li>
+                            <li><strong>Character relationships</strong> - Track player decisions for story outcomes</li>
+                        </ul>
+						<!--<div class="code-container">
+							<details>
+								<summary>BP_DialogueStruct - Structure for setting new dialogue options</summary>
+								<pre><code class="language-cpp">
+		// C++ provides the foundation... 
+		void UEnemy::StartTurn()
+		{
+			Super::StartTurn();
+			ChooseAction();  // Calls Blueprint implementation
+		}
+
+		// ... Blueprints implement the behavior
+		void UEnemy::ChooseAction_Implementation()
+		{
+			// In Blueprint Visual Scripting: 
+			// 1. Get Player Fighter reference
+			// 2. Check Player Health percentage
+			// 3. If Player Health < 30%:
+			//      - Aggressive: Call Attack() 80% of time
+			//      - Defensive: Call Block() 20% of time
+			// 4. If Player Health > 70%:
+			//      - Call Heal() if Enemy Health < 50%
+			//      - Call Attack() otherwise
+			// 5. Apply buffs based on turn count
+			// 6. Consider special ability cooldowns
+		}
+
+		// Event Delegates allow Blueprint responses
+		UFUNCTION()
+		void OnPlayerHit(UFighter* Target)
+		{
+			// Blueprint can respond: 
+			// - Spawn damage number widget
+			// - Play hit sound
+			// - Trigger camera shake
+			// - Update health bar UI
+			// - Check for low health warnings
+		}
+
+		// Dialogue integration example
+		UFUNCTION(BlueprintCallable)
+		void ProcessDialogueChoice(int32 ChoiceID)
+		{
+			// Blueprint logic: 
+			// - Choice 1 (Intimidate): AddBuff(5, "Attack")
+			// - Choice 2 (Persuade): Enemy may flee or join party
+			// - Choice 3 (Taunt): Enemy focuses attacks on player
+		}
+								</code></pre>
+							</details>
+						</div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>⚔️ AFighter Class - Combat System Foundation</h3>
+                <p class="code-description">
+                    The AFighter parent class implements all core combat mechanics including turn management, 
+                    dice-roll calculations (d20 system), damage/healing, and buff systems.  Designed with 
+                    Blueprint integration for designer flexibility while maintaining C++ performance.
+                </p>
                 <div class="code-container">
                     <details>
-                        <summary>Parent Fighter Class for All Fighters in Combat</summary>
+                        <summary>AFighter. h - Header Definition</summary>
                         <pre><code class="language-cpp">
-#include "UFighter.h"
-void UFighter::BeginPlay()
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "AFighter.generated.h"
+
+UCLASS()
+class RECONNECTION_API AFighter : public AActor
 {
-	
+    GENERATED_BODY()
+    
+public:	
+    // Sets default values for this actor's properties
+    AFighter();
+
+    //Boolean to check if it's this fighter's turn
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stored Variables")
+    bool bIsTurn;
+
+    //Initiative score for turn order
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stored Variables")
+    int32 InitiativeScore;
+
+    //Function to start this fighter's turn
+    UFUNCTION(BlueprintCallable, Category="Stored Functions")
+    void StartTurn();
+
+    //Function to end this fighter's turn	
+    UFUNCTION(BlueprintCallable, Category="Stored Functions")
+    void EndTurn();
+
+    UFUNCTION(BlueprintCallable, Category = "Stored Functions")
+    void SendDamage(float Damage, const FString& Type, AFighter *Target);
+
+    UFUNCTION(BlueprintCallable, Category = "Stored Functions")
+    virtual void ReceiveDamage(float Damage, const FString& Type);
+
+protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
+};
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🎲 Turn Management & Combat Flow</h3>
+                <p class="code-description">
+                    Implements initiative-based turn order system with clear turn start/end demarcation. 
+                    The turn management system allows for complex action queuing and supports both player 
+                    and AI-controlled fighters. 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>AFighter.cpp - Turn System Implementation</summary>
+                        <pre><code class="language-cpp">
+// Fill out your copyright notice in the Description page of Project Settings. 
+
+#include "AFighter.h"
+
+void AFighter::BeginPlay()
+{
+    Super::BeginPlay();
 }
 
 // Sets default values
-UFighter::UFighter()
+AFighter::AFighter()
 {
-	bIsTurn = false;
+    // Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it. 
+    PrimaryActorTick. bCanEverTick = false;
+
+    bIsTurn = false;
+    InitiativeScore = 0;
 }
 
-void UFighter::StartTurn()
+void AFighter::StartTurn()
 {
-	bIsTurn = true;
-
-	OnStartTurn.Broadcast(this);
+    bIsTurn = true;
+    UE_LOG(LogTemp, Warning, TEXT("Turn started"));
 }
 
-void UFighter::EndTurn()
+void AFighter::EndTurn()
 {
-	bIsTurn = false;
-
-	OnEndTurn.Broadcast(this);
+    bIsTurn = false;
+    UE_LOG(LogTemp, Warning, TEXT("Turn ended"));
 }
 
-void UFighter::SendDamage_Implementation(float Damage, UFighter* Target)
+void AFighter:: SendDamage(float Damage, const FString& Type, AFighter *Target)
 {
-	Target->ReceiveDamage(Damage);
+    UE_LOG(LogTemp, Warning, TEXT("Sending %f %s damage to target"), Damage, *Type);
 }
 
-void UFighter::ReceiveDamage_Implementation(float Damage)
+void AFighter::ReceiveDamage(float Damage, const FString& Type)
 {
-	CurrentHealth = FMath::Clamp(CurrentHealth - (Damage - DamageReduction), 0.0f, MaxHealth);
-	if (CurrentHealth <= 0)
-	{
-		Die();
-		UE_LOG(LogTemp, Warning, TEXT("Fighter has been defeated"));
-	}
+    UE_LOG(LogTemp, Warning, TEXT("Received %f %s damage from source"), Damage, *Type);
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🎯 D&D-Style Dice Roll System</h3>
+                <p class="code-description">
+                    From the original UFighter implementation:  Authentic d20 attack rolls with modifiers, 
+                    defense calculations, and random damage ranges. This creates unpredictable, strategic 
+                    combat that feels like tabletop D&D.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>UFighter.cpp - Attack & Defense Mechanics</summary>
+                        <pre><code class="language-cpp">
+// D20 Attack Roll System
+int UFighter::RollToHit()
+{
+    int Roll = FMath::RandRange(1, 20);  // d20 roll
+    return Roll + BaseAttack + AttackBuff;
 }
 
 float UFighter::GetDefense()
 {
-	return BaseDefense + DefenseBuff;
+    return BaseDefense + DefenseBuff;
+}
+
+void UFighter:: Attack(UFighter *Target)
+{
+    // Roll to hit vs target defense (classic D&D mechanic)
+    if (RollToHit() >= Target->GetDefense())
+    {
+        SendDamage(RollDamage(), Target);
+        OnHitAttack. Broadcast(Target);
+    }
+    else
+    {
+        OnHitMiss.Broadcast(Target);
+    }
+    EndTurn();
 }
 
 float UFighter::RollDamage()
 {
-	float Damage = FMath::RandRange(MinDamage, MaxDamage) + DamageBuff;
-	return Damage;
+    // Random damage range with buffs
+    float Damage = FMath::RandRange(MinDamage, MaxDamage) + DamageBuff;
+    return Damage;
 }
 
-void UFighter::CallHeal()
+void UFighter:: ReceiveDamage_Implementation(float Damage)
 {
-	Heal();
-}
-
-void UFighter::CallBlock()
-{
-	Block();
-}
-
-void UFighter::Heal_Implementation()
-{
-	CurrentHealth = FMath::Clamp(CurrentHealth + BaseHeal, 0.0f, MaxHealth);
-	EndTurn();
-}
-
-void UFighter::Block_Implementation()
-{
-	DamageReduction = BaseBlock + BlockBuff;
-	EndTurn();
-}
-
-int UFighter::RollToHit()
-{
-	int Roll = FMath::RandRange(1, 20);
-	return Roll + BaseAttack + AttackBuff;
-}
-
-void UFighter::Attack(UFighter *Target)
-{
-	if (RollToHit() >= Target->GetDefense())
-	{
-		SendDamage(RollDamage(), Target);
-		OnHitAttack.Broadcast(Target);
-	}
-	else
-	{
-		OnHitMiss.Broadcast(Target);
-	}
-	EndTurn();
-}
-
-void UFighter::AddBuff(float BuffAmount, const FString& stat)
-{
-	if (stat == "Attack")
-	{
-		AttackBuff += BuffAmount;
-	}
-	else if (stat == "Damage")
-	{
-		DamageBuff += BuffAmount;
-	}
-	else if (stat == "Defense")
-	{
-		DefenseBuff += BuffAmount;
-	}
-	else if (stat == "Block")
-	{
-		BlockBuff += BuffAmount;
-	}
-	else if (stat == "Heal")
-	{
-		HealBuff += BuffAmount;
-	}
-}
-
-void UFighter::RemoveBuff(float BuffAmount, const FString& stat)
-{
-	if (stat == "Attack")
-	{
-		AttackBuff -= BuffAmount;
-	}
-	else if (stat == "Damage")
-	{
-		DamageBuff -= BuffAmount;
-	}
-	else if (stat == "Defense")
-	{
-		DefenseBuff -= BuffAmount;
-	}
-	else if (stat == "Block")
-	{
-		BlockBuff -= BuffAmount;
-	}
-	else if (stat == "Heal")
-	{
-		HealBuff -= BuffAmount;
-	}
-}
-
-void UFighter::Die_Implementation()
-{
-	// Handle death logic here in Blueprint
-}
-
-TArray&lt;float&gt; UFighter::GetAllStats()
-{
-	TArray&lt;float&gt; Stats;
-	Stats.Add(InitiativeScore);
-	Stats.Add(MaxHealth);
-	Stats.Add(CurrentHealth);
-	Stats.Add(MinDamage);
-	Stats.Add(MaxDamage);
-	Stats.Add(DamageBuff);
-	Stats.Add(BaseAttack);
-	Stats.Add(AttackBuff);
-	Stats.Add(BaseDefense);
-	Stats.Add(DefenseBuff);
-	Stats.Add(BaseBlock);
-	Stats.Add(BlockBuff);
-	Stats.Add(BaseHeal);
-	Stats.Add(HealBuff);
-	Stats.Add(DamageReduction);
-	return Stats;
+    // Apply damage with reduction/armor
+    CurrentHealth = FMath::Clamp(CurrentHealth - (Damage - DamageReduction), 0.0f, MaxHealth);
+    if (CurrentHealth <= 0)
+    {
+        Die();
+        UE_LOG(LogTemp, Warning, TEXT("Fighter has been defeated"));
+    }
 }
                         </code></pre>
                     </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🛡️ Strategic Action System</h3>
+                <p class="code-description">
+                    Multiple combat actions beyond basic attacks:  healing, blocking, and buff management. 
+                    Each action has strategic tradeoffs, encouraging thoughtful decision-making during combat. 
+                </p>
+                <div class="code-container">
                     <details>
-                        <summary>Derived Enemy Class with AI Behavior</summary>
+                        <summary>UFighter.cpp - Heal, Block, & Buff Systems</summary>
+                        <pre><code class="language-cpp">
+// Healing Action
+void UFighter::Heal_Implementation()
+{
+    CurrentHealth = FMath::Clamp(CurrentHealth + BaseHeal, 0.0f, MaxHealth);
+    EndTurn();
+}
+
+// Blocking/Defensive Action
+void UFighter::Block_Implementation()
+{
+    DamageReduction = BaseBlock + BlockBuff;
+    EndTurn();
+}
+
+// Dynamic Buff System
+void UFighter::AddBuff(float BuffAmount, const FString& stat)
+{
+    if (stat == "Attack")
+    {
+        AttackBuff += BuffAmount;
+    }
+    else if (stat == "Damage")
+    {
+        DamageBuff += BuffAmount;
+    }
+    else if (stat == "Defense")
+    {
+        DefenseBuff += BuffAmount;
+    }
+    else if (stat == "Block")
+    {
+        BlockBuff += BuffAmount;
+    }
+    else if (stat == "Heal")
+    {
+        HealBuff += BuffAmount;
+    }
+}
+
+void UFighter:: RemoveBuff(float BuffAmount, const FString& stat)
+{
+    if (stat == "Attack")
+        AttackBuff -= BuffAmount;
+    else if (stat == "Damage")
+        DamageBuff -= BuffAmount;
+    else if (stat == "Defense")
+        DefenseBuff -= BuffAmount;
+    else if (stat == "Block")
+        BlockBuff -= BuffAmount;
+    else if (stat == "Heal")
+        HealBuff -= BuffAmount;
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🤖 Enemy AI Architecture</h3>
+                <p class="code-description">
+                    Blueprint-extensible AI system that inherits from UFighter.  Designers can implement 
+                    custom AI behaviors in Blueprints while the C++ foundation handles combat mechanics.  
+                    This separation of concerns enables rapid iteration. 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>UEnemy.cpp - AI Decision Making</summary>
                         <pre><code class="language-cpp">
 #include "UEnemy.h"
 
 void UEnemy::StartTurn()
 {
-	Super::StartTurn();
-	ChooseAction();
+    Super::StartTurn();
+    
+    // Automatically trigger AI decision when turn starts
+    ChooseAction();
 }
 
+// Blueprint-implementable function for AI logic
 void UEnemy::ChooseAction_Implementation()
 {
-	// Non-blueprint implementation does nothing
+    // Non-blueprint implementation does nothing
+    // Designers implement this in Blueprint to define enemy behavior: 
+    // - Analyze player health, buffs, position
+    // - Choose between Attack, Heal, Block, Special abilities
+    // - Execute chosen action
 }
-                </code></pre>
+                        </code></pre>
                     </details>
                 </div>
-        </ul>
+            </div>
+
+            <div class="code-feature">
+                <h3>📊 Comprehensive Stat System</h3>
+                <p class="code-description">
+                    Tracks 15+ combat statistics including initiative, health, damage ranges, attack bonuses, 
+                    defense values, and buff modifiers.  Provides a complete stat query system for UI and 
+                    game logic. 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>UFighter.cpp - Stat Management</summary>
+                        <pre><code class="language-cpp">
+TArray&lt;float&gt; UFighter::GetAllStats()
+{
+    TArray&lt;float&gt; Stats;
+    Stats.Add(InitiativeScore);
+    Stats.Add(MaxHealth);
+    Stats.Add(CurrentHealth);
+    Stats.Add(MinDamage);
+    Stats.Add(MaxDamage);
+    Stats.Add(DamageBuff);
+    Stats.Add(BaseAttack);
+    Stats.Add(AttackBuff);
+    Stats.Add(BaseDefense);
+    Stats.Add(DefenseBuff);
+    Stats.Add(BaseBlock);
+    Stats.Add(BlockBuff);
+    Stats.Add(BaseHeal);
+    Stats.Add(HealBuff);
+    Stats.Add(DamageReduction);
+    return Stats;
+}
+
+// Example stat usage in combat
+void UFighter::SendDamage_Implementation(float Damage, UFighter* Target)
+{
+    Target->ReceiveDamage(Damage);
+}
+
+void UFighter::Die_Implementation()
+{
+    // Handle death logic here in Blueprint
+    // Can trigger animations, VFX, game over states, etc.
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2>👥 Team Credits</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-icon">🎬</div>
+                    <strong>Jadyn Englett</strong>
+                    <span>Producer & Level Design</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🖌️</div>
+                    <strong>Waldemar Morales</strong>
+                    <span>Character Art, UI Art, Art Lead</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🎮</div>
+                    <strong>Wesley Yates</strong>
+                    <span>Front-End Blueprints, Level Design, and Tech Lead</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🎨</div>
+                    <strong>Olin Britt-Tores</strong>
+                    <span>Character Art & 3D Environment</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">📖</div>
+                    <strong>Matthew Polfer</strong>
+                    <span>Narrative & Level Design</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">📷</div>
+                    <strong>David Diaz</strong>
+                    <span>Camera & Post-Processing</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">✨</div>
+                    <strong>Daniel Roa</strong>
+                    <span>VFX & Animations</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="reflection-section">
+            <h2>💭 Developer Reflection</h2>
+            <blockquote>
+                Building Reconnection taught me the importance of designing C++ systems that empower 
+                designers.  By creating a robust combat foundation with Blueprint extensibility, our team 
+                could iterate rapidly on enemy behaviors and game balance while maintaining performant, 
+                clean code.  Translating the unpredictability and strategy of tabletop D&D into automated 
+                combat was an incredibly rewarding challenge! 
+            </blockquote>
+        </section>
     </main>
 </body>
 </html>

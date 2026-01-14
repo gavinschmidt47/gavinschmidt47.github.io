@@ -282,16 +282,13 @@ nav ul li a {
 }
 
 /* ========================================
-   PROJECT PORTFOLIO STYLES
+   FEAROSIS PORTFOLIO STYLES
    ======================================== */
 
-.project-showcase {
+.fearosis-showcase {
     max-width: 1200px;
-    width: 100%;
     margin: 0 auto;
     padding: 2rem;
-    box-sizing: border-box;
-    overflow-x: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.7;
     color: #2c3e50;
@@ -307,7 +304,7 @@ nav ul li a {
     color: white;
 }
 
-.project-logo {
+.fearosis-logo {
     max-width: 300px;
     height: auto;
     margin-bottom: 1.5rem;
@@ -329,28 +326,24 @@ nav ul li a {
 
 .poster-image {
     width: 100%;
-    max-width: min(900px, 100%);
+    max-width: 25rem;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow:  0 10px 30px rgba(0, 0, 0, 0.2);
     margin: 0 auto 3rem;
     display: block;
-    box-sizing: border-box;
 }
 
 /* Sections */
-.project-showcase section {
+.fearosis-showcase section {
     margin-bottom: 4rem;
     background: #ffffff;
     padding: 2.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+    box-shadow:  0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
-.project-showcase h2 {
+.fearosis-showcase h2 {
     font-size: 2rem;
     font-weight: 700;
     color: #1a202c;
@@ -408,7 +401,7 @@ nav ul li a {
 
 /* Code Showcase */
 .code-showcase-section {
-    background: #f9fafb !important;
+    background: #f9fafb ! important;
     border:  1px solid #e5e7eb;
 }
 
@@ -536,9 +529,9 @@ nav ul li a {
     border:  none;
 }
 
-/* Responsive Design for project Page */
+/* Responsive Design for Fearosis Page */
 @media (max-width: 768px) {
-    .project-showcase {
+    .fearosis-showcase {
         padding: 1rem;
     }
 
@@ -550,11 +543,11 @@ nav ul li a {
         font-size: 1rem;
     }
 
-    .project-showcase section {
+    .fearosis-showcase section {
         padding: 1.5rem;
     }
 
-    .project-showcase h2 {
+    .fearosis-showcase h2 {
         font-size: 1.5rem;
     }
 
@@ -585,7 +578,7 @@ nav ul li a {
         padding: 2rem 1rem;
     }
 
-    .project-logo {
+    .fearosis-logo {
         max-width: 200px;
     }
 
@@ -608,6 +601,309 @@ nav ul li a {
     .code-description {
         font-size: 0.95rem;
         padding: 0.75rem;
+    }
+}
+
+/* ========================================
+   RECONNECTION PORTFOLIO STYLES
+   (Inherits most styles from Fearosis)
+   ======================================== */
+
+.reconnection-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.7;
+    color: #2c3e50;
+}
+
+/* Reconnection-specific hero with different gradient */
+.reconnection-showcase .hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 16px;
+    margin-bottom:  3rem;
+    color: white;
+}
+
+.reconnection-logo {
+    max-width: 350px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Reconnection sections inherit from Fearosis */
+.reconnection-showcase section {
+    margin-bottom: 4rem;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow:  0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.reconnection-showcase h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom:  1.5rem;
+    border-bottom: 3px solid #f5576c;
+    padding-bottom: 0.75rem;
+}
+
+.reconnection-showcase .overview-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #374151;
+}
+
+/* Reconnection feature cards with different accent color */
+.reconnection-showcase .feature-card {
+    background: linear-gradient(to bottom right, #fff5f7, #ffe4e9);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid #f5576c;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.reconnection-showcase .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(245, 87, 108, 0.2);
+    border-left-color: #e63946;
+}
+
+/* Reconnection team members with matching gradient */
+.reconnection-showcase .team-member {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(240, 147, 251, 0.3);
+}
+
+.reconnection-showcase .team-member:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(240, 147, 251, 0.4);
+}
+
+/* Reconnection reflection section */
+.reconnection-showcase .reflection-section {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+    color: white;
+}
+
+.reconnection-showcase .reflection-section h2 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Code container adjustments for C++ syntax */
+.reconnection-showcase .code-description {
+    font-size: 1.05rem;
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding:  1rem;
+    background: #fff5f7;
+    border-left: 3px solid #f5576c;
+    border-radius: 4px;
+}
+
+/* Responsive design inherits from Fearosis media queries */
+@media (max-width: 768px) {
+    .reconnection-showcase {
+        padding: 1rem;
+    }
+
+    .reconnection-logo {
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reconnection-logo {
+        max-width: 200px;
+    }
+}
+
+/* ========================================
+   REACTIVE SKIES PORTFOLIO STYLES
+   ======================================== */
+
+.reactiveskies-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.7;
+    color: #2c3e50;
+}
+
+/* ReactiveSkies-specific hero with sky gradient */
+.reactiveskies-showcase .hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
+    border-radius: 16px;
+    margin-bottom:  3rem;
+    color: white;
+}
+
+.reactiveskies-logo {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ReactiveSkies sections */
+.reactiveskies-showcase section {
+    margin-bottom: 4rem;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow:  0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.reactiveskies-showcase h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom:  1.5rem;
+    border-bottom: 3px solid #2f80ed;
+    padding-bottom: 0.75rem;
+}
+
+.reactiveskies-showcase .overview-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #374151;
+}
+
+/* ReactiveSkies feature cards with sky blue accent */
+.reactiveskies-showcase .feature-card {
+    background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid #2f80ed;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.reactiveskies-showcase .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(47, 128, 237, 0.2);
+    border-left-color: #1d4ed8;
+}
+
+/* Learning Section */
+.learning-section {
+    background: #f9fafb !important;
+    border:  1px solid #e5e7eb;
+}
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.learning-card {
+    background: white;
+    padding:  2rem;
+    border-radius: 12px;
+    border-top: 4px solid #2f80ed;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.learning-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(47, 128, 237, 0.2);
+}
+
+.learning-card h3 {
+    font-size: 1.25rem;
+    font-weight:  600;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.learning-card p {
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.7;
+    margin:  0;
+}
+
+.learning-card strong {
+    color: #1e293b;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* ReactiveSkies code descriptions */
+.reactiveskies-showcase .code-description {
+    font-size: 1. 05rem;
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f0f9ff;
+    border-left: 3px solid #2f80ed;
+    border-radius: 4px;
+}
+
+/* ReactiveSkies reflection section */
+.reactiveskies-showcase .reflection-section {
+    background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%) !important;
+    color: white;
+}
+
+.reactiveskies-showcase .reflection-section h2 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.reactiveskies-showcase .reflection-section blockquote {
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.8;
+    margin:  0;
+    padding: 0;
+    border:  none;
+}
+
+/* Responsive design for ReactiveSkies */
+@media (max-width: 768px) {
+    .reactiveskies-showcase {
+        padding: 1rem;
+    }
+
+    .reactiveskies-logo {
+        max-width: 100%;
+    }
+
+    .learning-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .reactiveskies-showcase .hero-section {
+        padding:  2rem 1rem;
+    }
+
+    .learning-card {
+        padding: 1.5rem;
     }
 }
 
