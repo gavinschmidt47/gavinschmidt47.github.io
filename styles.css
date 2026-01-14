@@ -174,9 +174,27 @@ nav ul li a {
     text-align: center;
 }
 
-.project {
-    margin-bottom: 1rem;
+#projects ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
     text-align: center;
+}
+
+.Project {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.Project img {
+    max-width: 200px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .Fprojects {
