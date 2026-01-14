@@ -1,0 +1,907 @@
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C47TXLXECX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - Deadtective</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Gavin Schmidt's Portfolio</h1>
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="resume.html">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="deadtective-showcase">
+        <div class="hero-section">
+            <div class="jam-badge">
+                <span class="badge-text">🎮 JackSepticEye Game Jam 2024</span>
+            </div>
+            <h1 class="project-title">Deadtective</h1>
+            <p class="project-tagline">Spirit Detective Puzzle Game Built in 48 Hours</p>
+        </div>
+
+        <section class="project-overview-section">
+            <h2>🎮 Game Jam Experience</h2>
+            <p class="overview-text">
+                Deadtective was created for the <strong>JackSepticEye  Game Jam (Jamsepticeye)</strong>, one of the 
+                largest and most prestigious community game jams, with <strong>thousands of participants</strong> 
+                worldwide competing to create games around Jack's signature humor and energy.  Participating in this 
+                massive event was an incredible opportunity to showcase our skills, work under intense time pressure, 
+                and be part of a global creative community.
+            </p>
+            <p class="overview-text">
+                In this supernatural puzzle game, you play as a <strong>dead detective</strong> investigating your 
+                own murder. Toggle between the <strong>living and spirit worlds</strong> to uncover clues, solve 
+                puzzles, and piece together what happened. As <strong>Lead Programmer</strong>, I architected the 
+                entire code architecture, implementing the dual-world mechanic, inventory system, drag-and-drop 
+                interactions, and puzzle logic, all within the 48-hour time constraint.
+            </p>
+        </section>
+
+        <section class="key-features-section">
+            <h2>⚡ Technical Highlights</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌓</div>
+                    <h3>Dual-World System</h3>
+                    <p>Toggle between living and spirit realms with different interactions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎒</div>
+                    <h3>Dynamic Inventory</h3>
+                    <p>Drag-and-drop item management with UI integration</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Object-Oriented Design</h3>
+                    <p>Inheritance-based interactable system (Draggable, Toggleable)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Puzzle Logic System</h3>
+                    <p>Multi-clue win condition with progress tracking</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖱️</div>
+                    <h3>Advanced Input Handling</h3>
+                    <p>Unity's new Input System with raycast-based interactions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>48-Hour Development</h3>
+                    <p>Rapid prototyping and agile feature implementation</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="code-showcase-section">
+            <h2>💻 Code Showcase</h2>
+
+            <div class="code-feature">
+                <h3>🌓 Spirit World Toggle System</h3>
+                <p class="code-description">
+                    The core mechanic of Deadtective:  switching between living and spirit worlds.  The SpiritSwitch 
+                    class manages multiple room states, dynamically shows/hides objects based on the current world, 
+                    tracks the limited number of switches allowed, and updates the environment (skybox, lighting, 
+                    available interactions). This system creates strategic depth as players must carefully choose 
+                    when to switch realms.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>SpiritSwitch. cs - Dual World Management</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class SpiritSwitch : MonoBehaviour
+{
+    [HideInInspector]
+    public int numSwitches = 0;
+    public int maxSwitches = 7;  // Limited switches adds strategic depth
+
+    public SpriteRenderer backgroundPanel;
+
+    // Different skyboxes for each room in each world
+    public Sprite bedroomLiving;
+    public Sprite bedroomSpirit;
+    public Sprite kitchenLiving;
+    public Sprite kitchenSpirit;
+    public Sprite bathroomLiving;
+    public Sprite bathroomSpirit;
+    public Sprite livingRoomLiving;
+    public Sprite livingRoomSpirit;
+
+    public GameObject examineButton;
+    public GameObject losePanel;
+
+    private Sprite[][] rooms;
+
+    // Separate lists for living and spirit world objects per room
+    public List<GameObject> livingRoomItems;
+    public List<GameObject> livingRoomSpiritItems;
+    public List<GameObject> kitchenItems;
+    public List<GameObject> kitchenSpiritItems;
+    public List<GameObject> bedroomItems;
+    public List<GameObject> bedroomSpiritItems;
+    public List<GameObject> bathroomItems;
+    public List<GameObject> bathroomSpiritItems;
+
+    private int currentRoomIndex = 0;
+    private bool inSpiritWorld = false;
+
+    void Start()
+    {
+        // Initialize 2D array of room sprites [room][world]
+        rooms = new Sprite[][]
+        {
+            new Sprite[] { livingRoomLiving, livingRoomSpirit },
+            new Sprite[] { kitchenLiving, kitchenSpirit },
+            new Sprite[] { bedroomLiving, bedroomSpirit },
+            new Sprite[] { bathroomLiving, bathroomSpirit }
+        };
+        
+        // Start in living world
+        SetRoom(currentRoomIndex);
+    }
+
+    public void SwitchWorlds()
+    {
+        if (numSwitches >= maxSwitches)
+        {
+            LoseGame();  // Ran out of switches! 
+            return;
+        }
+
+        inSpiritWorld = !inSpiritWorld;
+        numSwitches++;
+
+        // Update skybox for current room and world state
+        backgroundPanel.sprite = rooms[currentRoomIndex][inSpiritWorld ? 1 : 0];
+
+        // Show/hide appropriate objects for this world
+        UpdateVisibleObjects();
+    }
+
+    public void SetRoom(int roomIndex)
+    {
+        currentRoomIndex = roomIndex;
+        
+        // Update background for new room
+        backgroundPanel.sprite = rooms[currentRoomIndex][inSpiritWorld ? 1 : 0];
+        
+        UpdateVisibleObjects();
+    }
+
+    private void UpdateVisibleObjects()
+    {
+        // Hide all room objects first
+        HideAllRooms();
+
+        // Show only the current room's appropriate world objects
+        switch (currentRoomIndex)
+        {
+            case 0: // Living Room
+                SetActiveItems(inSpiritWorld ? livingRoomSpiritItems : livingRoomItems, true);
+                break;
+            case 1: // Kitchen
+                SetActiveItems(inSpiritWorld ? kitchenSpiritItems : kitchenItems, true);
+                break;
+            case 2: // Bedroom
+                SetActiveItems(inSpiritWorld ? bedroomSpiritItems : bedroomItems, true);
+                break;
+            case 3: // Bathroom
+                SetActiveItems(inSpiritWorld ? bathroomSpiritItems : bathroomItems, true);
+                break;
+        }
+    }
+
+    private void HideAllRooms()
+    {
+        SetActiveItems(livingRoomItems, false);
+        SetActiveItems(livingRoomSpiritItems, false);
+        SetActiveItems(kitchenItems, false);
+        SetActiveItems(kitchenSpiritItems, false);
+        SetActiveItems(bedroomItems, false);
+        SetActiveItems(bedroomSpiritItems, false);
+        SetActiveItems(bathroomItems, false);
+        SetActiveItems(bathroomSpiritItems, false);
+    }
+
+    private void LoseGame()
+    {
+        Time.timeScale = 0;
+        losePanel.SetActive(true);
+    }
+
+    private void SetActiveItems(List<GameObject> items, bool isActive)
+    {
+        if (items == null) return;
+        foreach (var item in items)
+        {
+            if (item != null)
+                item.SetActive(isActive);
+        }
+    }
+
+    public void RemoveItemFromList(GameObject item)
+    {
+        livingRoomItems?. Remove(item);
+        livingRoomSpiritItems?.Remove(item);
+        kitchenItems?.Remove(item);
+        kitchenSpiritItems?.Remove(item);
+        bedroomItems?.Remove(item);
+        bedroomSpiritItems?. Remove(item);
+        bathroomItems?.Remove(item);
+        bathroomSpiritItems?.Remove(item);
+    }
+
+    public void AddItemToList(GameObject item, bool isSpiritItem)
+    {
+        // Re-add item to appropriate list when dropped back in world
+        List<GameObject> targetList = null;
+        
+        switch (currentRoomIndex)
+        {
+            case 0:
+                targetList = isSpiritItem ? livingRoomSpiritItems : livingRoomItems;
+                break;
+            case 1:
+                targetList = isSpiritItem ? kitchenSpiritItems : kitchenItems;
+                break;
+            case 2:
+                targetList = isSpiritItem ? bedroomSpiritItems : bedroomItems;
+                break;
+            case 3:
+                targetList = isSpiritItem ? bathroomSpiritItems : bathroomItems;
+                break;
+        }
+        
+        targetList?.Add(item);
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🎒 Dynamic Inventory System</h3>
+                <p class="code-description">
+                    Manages collected items with automatic UI updates. Items are scaled when added to the inventory 
+                    panel, removed from world object lists, and restored when dropped back into the world.  Integrates 
+                    with the Spirit Switch system to track items across both realms.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Inventory.cs - Item Management</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class Inventory : MonoBehaviour
+{
+    public List<GameObject> items;
+
+    [Header("UI Elements")]
+    public HorizontalLayoutGroup inventoryUI;
+    public float itemScale = 50f;
+
+    private SpiritSwitch spiritSwitch;
+
+    private void Awake()
+    {
+        spiritSwitch = FindAnyObjectByType<SpiritSwitch>();
+    }
+
+    public bool HasItem(GameObject item)
+    {
+        return items.Contains(item);
+    }
+
+    public void AddItem(GameObject item)
+    {
+        items.Add(item);
+
+        // Remove from world object lists
+        spiritSwitch. RemoveItemFromList(item);
+
+        // Add the item to the inventory UI
+        if (inventoryUI != null)
+        {
+            // Set as child of inventory panel
+            item.transform.SetParent(inventoryUI.transform, false);
+
+            // Scale down to fit in UI
+            item.transform.localScale *= itemScale;
+        }
+    }
+
+    public void RemoveItem(GameObject item)
+    {
+        items.Remove(item);
+        
+        // Remove from inventory UI
+        if (inventoryUI != null)
+        {
+            item.transform.SetParent(null);
+
+            // Reset scale when returned to world
+            item.transform. localScale /= itemScale;
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🧩 Object-Oriented Interactable Architecture</h3>
+                <p class="code-description">
+                    Built a flexible parent-child class hierarchy for all interactable objects. DraggableObject 
+                    provides drag-and-drop functionality with collision detection and interaction logic. Child classes 
+                    (Key, Knife, Battery, etc.) override AdjustableFunction() to implement specific behaviors. This 
+                    OOP design enabled rapid iteration; we could create new puzzle objects in minutes during the jam! 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>DraggableObject.cs - Base Draggable Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+public class DraggableObject : MonoBehaviour
+{
+    [Header("Tags of Interactable Objects")]
+    public List<string> interactableObjectTags = new List<string>();
+
+    private bool isDragging = false;
+    private GameObject interactingObject = null;
+    private Inventory inventory;
+    private GraphicRaycaster uiRaycaster;
+    private ClickController clickController;
+
+    void Awake()
+    {
+        inventory = FindAnyObjectByType<Inventory>();
+        uiRaycaster = FindAnyObjectByType<GraphicRaycaster>();
+        interactableObjectTags.Add("Inventory");
+        clickController = FindAnyObjectByType<ClickController>();   
+    }
+        
+    void Start()
+    {
+        if (inventory. HasItem(gameObject))
+        {
+            inventory.RemoveItem(gameObject);
+        }
+    }
+
+    void OnBeginDrag()
+    {
+        isDragging = true;
+
+        if (interactingObject != null)
+        {
+            interactingObject = null;
+        }
+        if (inventory.HasItem(gameObject))
+        {
+            inventory.RemoveItem(gameObject);
+        }
+    }
+
+    public virtual void OnEndDrag()
+    {
+        isDragging = false;
+
+        if (interactingObject != null)
+        {
+            if (interactingObject.CompareTag("Inventory"))
+            {
+                if (! inventory.HasItem(gameObject))
+                {
+                    inventory. AddItem(gameObject);
+                }
+                return;
+            }
+            // Call specific interaction for this object type
+            AdjustableFunction(interactingObject);
+        }
+        else
+        {
+            // Check if dropped on UI element
+            var results = new List<RaycastResult>();
+            uiRaycaster. Raycast(new PointerEventData(EventSystem. current) 
+                { position = clickController.currentMousePosition }, results);
+            
+            foreach (var result in results)
+            {
+                if (interactableObjectTags.Contains(result.gameObject.tag))
+                {
+                   AdjustableFunction(result.gameObject);
+                   break;
+                }
+            }
+            
+            // Default:  add back to inventory
+            if (! inventory.HasItem(gameObject))
+            {
+                inventory.AddItem(gameObject);
+            }
+        }
+        interactingObject = null;
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D other)
+    {
+        if (CanInteractWith(other. gameObject))
+        {
+            interactingObject = other.gameObject;
+        }
+    }
+
+    public virtual bool CanInteractWith(GameObject other)
+    {
+        return isDragging && interactableObjectTags.Contains(other. tag);
+    }
+
+    public virtual void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject == interactingObject)
+        {
+            interactingObject = null;
+        }
+    }
+
+    // Override this in child classes for specific interactions
+    public virtual void AdjustableFunction(GameObject other)
+    {
+        // Base implementation does nothing
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Key.cs - Specific Draggable Implementation</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class Key : DraggableObject
+{
+    // Use with Drawer object
+    public override void AdjustableFunction(GameObject other)
+    {
+        var drawer = other. GetComponent<Drawer>();
+        drawer?.Unlock();
+        Destroy(gameObject);  // Key is consumed
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Knife.cs - Multi-Purpose Draggable</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class Knife : DraggableObject
+{
+    public bool isExamined;
+    
+    public override void AdjustableFunction(GameObject other)
+    {
+        // Can be examined or used on body
+        if (other.CompareTag("ExamineButton"))
+        {
+            isExamined = true;
+        }
+        
+        var body = other.GetComponent<Body>();
+        if (body != null)
+        {
+            body. Unlock();
+            body.Toggle();
+            Destroy(gameObject);
+        }
+    }
+    
+    public void Examine() => isExamined = true;
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Battery.cs - Item Combination Logic</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class Battery : DraggableObject
+{
+    // Use on Remote to power it
+    public override void AdjustableFunction(GameObject other)
+    {
+        other.GetComponent<Remote>()?.TurnOn();
+        Destroy(gameObject);
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🔄 Toggleable Object System</h3>
+                <p class="code-description">
+                    Parallel hierarchy for objects that can be clicked to toggle states (doors, drawers, etc.). 
+                    Supports locked states with visual feedback, sprite swapping on toggle, and unlock conditions. 
+                    Child classes like Shelf add custom logic (e.g., requiring 3 books before revealing a clue).
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>ToggleableObject.cs - Base Toggleable Class</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class ToggleableObject :  MonoBehaviour
+{
+    [Header("Toggle Settings")]
+    public bool isLocked;
+    public bool isToggled = false;
+
+    [Header("Sprites")]
+    public Sprite toggledSprite;
+    public Sprite untoggledSprite;
+
+    [Header("Locked Indicator")]
+    public GameObject lockedIndicator;
+    public float errorDuration = 0.5f;
+    
+    private SpriteRenderer spriteRenderer;
+
+    public void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = isToggled ? toggledSprite :  untoggledSprite;
+    }
+
+    virtual public void Toggle()
+    {
+        if (! isLocked)
+        {
+            isToggled = !isToggled;
+            if (spriteRenderer != null)
+                spriteRenderer.sprite = isToggled ? toggledSprite : untoggledSprite;
+        }
+        else
+        {
+            // Flash locked indicator for feedback
+            if (lockedIndicator != null)
+            {
+                lockedIndicator.SetActive(true);
+                Invoke("HideLockedIndicator", errorDuration);
+            }
+        }
+    }
+
+    private void HideLockedIndicator()
+    {
+        if (lockedIndicator != null)
+        {
+            lockedIndicator. SetActive(false);
+        }
+    }
+
+    virtual public void Unlock()
+    {
+        isLocked = false;
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Shelf. cs - Custom Toggle Logic</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using System.Collections.Generic;
+
+public class Shelf : ToggleableObject
+{
+    private List<GameObject> books = new List<GameObject>();
+    public bool isFilled;
+
+    public void AddBook(GameObject other)
+    {
+        books. Add(other);
+
+        // Requires all 3 books to reveal hidden clue
+        if (books. Count == 3 && !isFilled)
+        {
+            isFilled = true;
+            Toggle();  // Reveal the hidden message! 
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🎯 Puzzle Win Condition System</h3>
+                <p class="code-description">
+                    The GameManager tracks progress across multiple clues and puzzle objects. The CheckWin() function 
+                    ensures players have examined all critical evidence before revealing the solution. This creates 
+                    a satisfying "aha!" moment when all pieces come together. 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>GameManager.cs - Win Condition Tracking</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public GameObject winPanel;
+    
+    // References to all puzzle objects
+    private Shelf shelf;
+    private Sheets sheets;
+    private Body body;
+    private Knife knife;
+    private Window window;
+    private TV tv;
+    private Rug rug;
+    private Cabinet cabinet;
+    private Fridge fridge;
+    private Tub tub;
+
+    private void Awake()
+    {
+        // Cache references to all interactable objects
+        shelf = FindAnyObjectByType<Shelf>();
+        sheets = FindAnyObjectByType<Sheets>();
+        body = FindAnyObjectByType<Body>();
+        knife = FindAnyObjectByType<Knife>();
+        window = FindAnyObjectByType<Window>();
+        tv = FindAnyObjectByType<TV>();
+        rug = FindAnyObjectByType<Rug>();
+        cabinet = FindAnyObjectByType<Cabinet>();
+        fridge = FindAnyObjectByType<Fridge>();
+        tub = FindAnyObjectByType<Tub>();
+    }
+
+    public void CheckWin()
+    {
+        // All clues must be discovered to win
+        if (shelf.isFilled && 
+            sheets.isToggled && 
+            body.isToggled && 
+            knife. isExamined && 
+            window.isToggled && 
+            tv.isToggled && 
+            rug. isToggled && 
+            cabinet.isToggled && 
+            fridge.isToggled && 
+            tub.isToggled)
+        {
+            winPanel.SetActive(true);
+            Time.timeScale = 0f;  // Pause game to show victory! 
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🖱️ Advanced Input System</h3>
+                <p class="code-description">
+                    Uses Unity's new Input System with raycasting for both world objects and UI elements.  Handles 
+                    drag offsets, layer masks for clickable objects, and distinguishes between draggable vs. 
+                    toggleable interactions. This system was crucial for supporting both desktop and mobile 
+                    platforms during the jam.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>ClickController.cs - Input & Raycast Management</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
+
+public class ClickController : MonoBehaviour
+{
+    private LayerMask clickableLayer;
+    private Camera mainCamera;
+    private GameObject draggedObject;
+    private Vector3 offset;
+
+    [HideInInspector]
+    public Vector2 currentMousePosition;
+    private bool isDragging = false;
+
+    private Inventory inventory;
+    private GraphicRaycaster uiRaycaster;
+
+    void Awake()
+    {
+        mainCamera = Camera.main;
+        inventory = FindAnyObjectByType<Inventory>();
+    }
+
+    void Start()
+    {
+        clickableLayer = LayerMask.GetMask("DraggableObjects");
+        uiRaycaster = FindAnyObjectByType<GraphicRaycaster>();
+    }
+
+    // Called by Unity's Input System
+    public void OnPoint(UnityEngine.InputSystem.InputValue value)
+    {
+        currentMousePosition = value.Get<Vector2>();
+    }
+
+    // Called by Unity's Input System
+    public void OnClick(UnityEngine.InputSystem. InputValue value)
+    {
+        bool pressed = value.isPressed;
+        if (pressed)
+        {
+            TryBeginDrag();
+        }
+        else
+        {
+            EndDrag();
+        }
+    }
+
+    void Update()
+    {
+        // Update dragged object position every frame
+        if (isDragging && draggedObject != null)
+        {
+            Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(currentMousePosition);
+            mouseWorld.z = draggedObject.transform.position.z;
+            draggedObject.transform.position = mouseWorld + offset;
+        }
+    }
+
+    void TryBeginDrag()
+    {
+        // Raycast to detect clicked objects
+        Vector3 mouseWorld = mainCamera. ScreenToWorldPoint(currentMousePosition);
+        Vector2 mouseWorld2D = new Vector2(mouseWorld.x, mouseWorld.y);
+
+        RaycastHit2D hit = Physics2D.Raycast(mouseWorld2D, Vector2.zero, 
+                                              Mathf.Infinity, clickableLayer);
+        
+        if (hit.collider != null)
+        {
+            // Handle toggleable vs draggable objects
+            if (hit.collider.gameObject.GetComponent<DraggableObject>() == null && 
+                hit.collider. gameObject.GetComponent<ToggleableObject>() != null)
+            {
+                hit.collider.gameObject.GetComponent<ToggleableObject>().Toggle();
+                return;
+            }
+
+            // Begin dragging
+            draggedObject = hit.collider.gameObject;
+            draggedObject.SendMessage("OnBeginDrag", SendMessageOptions.DontRequireReceiver);
+            
+            offset = draggedObject.transform.position - 
+                     mainCamera.ScreenToWorldPoint(new Vector3(currentMousePosition.x, 
+                                                               currentMousePosition.y, 
+                                                               mainCamera.WorldToScreenPoint(
+                                                                   draggedObject.transform.position).z));
+            isDragging = true;
+        }
+        else
+        {
+            // Check UI elements
+            List<RaycastResult> results = new List<RaycastResult>();
+            uiRaycaster. Raycast(new PointerEventData(EventSystem.current) 
+                { position = currentMousePosition }, results);
+
+            foreach (var result in results)
+            {
+                if (result.gameObject.GetComponent<DraggableObject>() != null)
+                {
+                    draggedObject = result.gameObject;
+                    draggedObject. SendMessage("OnBeginDrag", SendMessageOptions.DontRequireReceiver);
+                    offset = Vector3.zero;
+                    isDragging = true;
+                    return;
+                }
+            }
+        }
+    }
+
+    void EndDrag()
+    {
+        if (draggedObject != null)
+        {
+            draggedObject.SendMessage("OnEndDrag", SendMessageOptions.DontRequireReceiver);
+        }
+        draggedObject = null;
+        isDragging = false;
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2>👥 Team Credits</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-icon">🎬</div>
+                    <strong>Jadyn Englett</strong>
+                    <span>Producer</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🎨</div>
+                    <strong>Olin Britt-Tores</strong>
+                    <span>Character & Map Art</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🖌️</div>
+                    <strong>Ash Cho Chia Yuen</strong>
+                    <span>UI Art</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🧩</div>
+                    <strong>Samuel Drastal</strong>
+                    <span>Level Design & Camera Programming</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🏰</div>
+                    <strong>Wesley Yates</strong>
+                    <span>Level Design</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="reflection-section">
+            <h2>💭 Developer Reflection</h2>
+            <blockquote>
+                Participating in the JackSepticEye Game Jam was a career highlight: competing alongside thousands 
+                of developers worldwide pushed us to deliver our absolute best under intense pressure. The 48-hour 
+                constraint forced me to architect clean, extensible systems from the start.  The dual-world mechanic 
+                became the core of everything:  every decision had to account for two parallel realities. Looking 
+                back, I'm incredibly proud of how we transformed a simple concept into a polished puzzle experience 
+                with strategic depth.  This jam taught me that great code architecture isn't about complexity; it's 
+                about building flexible foundations that let designers create magic!  👻🔍
+            </blockquote>
+        </section>
+    </main>
+</body>
+</html>

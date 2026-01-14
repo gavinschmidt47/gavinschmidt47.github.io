@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C47TXLXECX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - Campfire Cryptid</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Gavin Schmidt's Portfolio</h1>
+        <nav>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="resume.html">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="campfire-showcase">
+        <div class="hero-section">
+            <div class="winner-badge-container">
+                <div class="winner-badge">
+                    <span class="trophy-icon">🏆</span>
+                    <div class="winner-text">
+                        <span class="winner-title">1ST PLACE WINNER</span>
+                        <span class="jam-name">UCF GDK Summer Game Jam 2024</span>
+                    </div>
+                    <span class="trophy-icon">🏆</span>
+                </div>
+            </div>
+            <h1 class="project-title">Campfire Cryptid</h1>
+            <p class="project-tagline">Survival Horror Minigame Collection</p>
+            <div class="jam-info">
+                <span class="jam-detail">🎮 My First Game Jam</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">⏱️ Built in 48 Hours</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">🎬 Producer & Lead Programmer</span>
+            </div>
+        </div>
+
+        <section class="winning-section">
+            <h2>🏆 The Winning Experience</h2>
+            <div class="win-highlight">
+                <p class="win-text">
+                    <strong>Campfire Cryptid took 1st place</strong> at UCF's Game Developers' Knights Summer Game 
+                    Jam, competing against dozens of talented teams.  This was <strong>my first game jam ever</strong>, 
+                    and winning validated everything I'd learned about rapid prototyping, team coordination, and 
+                    delivering under pressure.  The experience was transformative: 48 hours of intense focus, creative 
+                    problem-solving, and watching players genuinely enjoy something we'd built from scratch.
+                </p>
+            </div>
+        </section>
+
+        <section class="project-overview-section">
+            <h2>🔥 Project Overview</h2>
+            <p class="overview-text">
+                In Campfire Cryptid, you're stranded in the woods at night, desperately trying to survive until dawn. 
+                Your only lifeline is the campfire, and it's dying. Players must complete various <strong>survival 
+                minigames</strong> (fishing for food, gathering firewood, building protective effigies) while managing 
+                a constantly-depleting fire timer. If the fire goes out, the cryptid attacks!  The game features 
+                escalating difficulty, time pressure mechanics, and a climactic shooting sequence when things go wrong.
+            </p>
+            <p class="overview-text">
+                As <strong>Lead Programmer</strong>, I architected the entire game's code structure, implementing 
+                the Scriptable Object-based global state system, all minigame mechanics, dynamic day/night cycles 
+                with escalating difficulty, and the transition/lose conditions that tied everything together. This 
+                jam taught me invaluable lessons about <strong>time-constrained development</strong>, feature 
+                prioritization, and rapid prototyping: skills that have become foundational to my workflow.
+            </p>
+        </section>
+
+        <section class="key-features-section">
+            <h2>⚡ Technical Highlights</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Scriptable Object Architecture</h3>
+                    <p>Centralized game state management across all scenes</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Dual Timer System</h3>
+                    <p>Simultaneous tracking of day time and fire life</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Multi-Minigame Framework</h3>
+                    <p>Fishing, wood gathering, effigy building, and cryptid defense</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Progressive Difficulty</h3>
+                    <p>Days get shorter and fire depletes faster over time</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Visual Feedback Systems</h3>
+                    <p>Dynamic UI colors, screen shake, static transitions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Scene Management</h3>
+                    <p>Seamless transitions between hub and minigames</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="code-showcase-section">
+            <h2>💻 Code Showcase</h2>
+
+            <div class="code-feature">
+                <h3>📊 Centralized Game State with Scriptable Objects</h3>
+                <p class="code-description">
+                    The GlobalData Scriptable Object serves as the single source of truth for all game state.  
+                    This architecture allows seamless data persistence across scene transitions without using 
+                    DontDestroyOnLoad or singletons.   Tracks dual timers (day time and fire life), minigame 
+                    completion, day progression, and game over states. This pattern was crucial for a jam game 
+                    with multiple scenes and no time for complex save systems! 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>GlobalData. cs - Scriptable Object State Management</summary>
+                        <pre><code class="language-csharp">
+using Unity.VisualScripting;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "GlobalData", menuName = "Scriptable Objects/GlobalData")]
+public class GlobalData : ScriptableObject
+{
+    // ===== TIME MANAGEMENT =====
+    public float secondsLeftBeforeNight = 1200f;  // 20 minutes to start
+    public float secondsLeftBeforeFireDies = 120f;  // 2 minutes of fire life
+    
+    // ===== MINIGAME TRACKING =====
+    public bool[] minigamesCompleted = new bool[2];
+    public int[] minigameProgress = new int[2];
+    /*
+     * [0] = Fishing (must catch fish to survive)
+     * [1] = Effigies (protective totems)
+     */
+    
+    // ===== DAY PROGRESSION =====
+    public int currDay = 0;
+    public bool gameOver = false;
+    public bool fireOut = false;
+    
+    // ===== AUDIO TOGGLE =====
+    public bool hasAudio = false;
+
+    // ===== FRAME-BY-FRAME TIMER UPDATES =====
+    public void TimeSetDown(float currentTime)
+    {
+        secondsLeftBeforeNight -= currentTime;
+
+        // Victory condition:  survived the night with all tasks done
+        if (secondsLeftBeforeNight <= 0f && 
+            minigamesCompleted[0] && 
+            minigamesCompleted[1])
+        {
+            secondsLeftBeforeNight = 0f;
+            currDay++;
+            NextDay();  // Prepare for the next night
+        }
+        // Loss condition: time ran out without completing tasks
+        else if (secondsLeftBeforeNight <= 0)
+        {
+            Debug.LogWarning("Time ran out! Game Over.");
+            gameOver = true;
+        }
+    }
+
+    public void FireSetDown(float currentTime)
+    {
+        // Fire dies slowly (0.3x speed for tension)
+        if (secondsLeftBeforeFireDies > 0)
+            secondsLeftBeforeFireDies -= currentTime * 0.3f;
+        else
+        {
+            secondsLeftBeforeFireDies = 0f;
+            fireOut = true;  // Trigger cryptid attack! 
+        }
+    }
+
+    // ===== GETTERS =====
+    public int GetMinigamesCompletedCount()
+    {
+        int count = 0;
+        foreach (bool completed in minigamesCompleted)
+        {
+            if (completed) count++;
+        }
+        return count;
+    }
+
+    public bool IsMinigameCompleted(int index)
+    {
+        if (index < 0 || index >= minigamesCompleted.Length)
+            return false;
+        return minigamesCompleted[index];
+    }
+
+    // ===== SETTERS =====
+    public void SetMinigameCompleted(int index, bool completed)
+    {
+        if (index >= 0 && index < minigamesCompleted.Length)
+            minigamesCompleted[index] = completed;
+    }
+
+    // ===== DAY PROGRESSION LOGIC =====
+    public void NextDay()
+    {
+        // Days get progressively shorter (2 minutes less each night)
+        secondsLeftBeforeNight = 1200f - (currDay * 120f);
+        
+        // Minimum 1 minute per night for extreme difficulty
+        if (secondsLeftBeforeNight < 60f)
+        {
+            secondsLeftBeforeNight = 60f;
+        }
+        
+        currDay++;  // Survived another night!
+        secondsLeftBeforeFireDies = 100f;  // Fresh fire for new night
+        gameOver = false;
+        fireOut = false;
+        
+        // Reset all minigame progress and completion
+        for (int i = 0; i < minigameProgress.Length; i++)
+        {
+            minigameProgress[i] = 0;
+        }
+        for (int i = 0; i < minigamesCompleted.Length; i++)
+        {
+            minigamesCompleted[i] = false;
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🎮 Hub System with Minigame Transitions</h3>
+                <p class="code-description">
+                    The Lobby (hub scene) manages all player interactions and scene transitions. Uses raycasting 
+                    to detect clicks on interactive objects (fishing bobber, campfire, effigies), dynamically 
+                    updates fire UI with color gradients and scale animations, and handles win/loss conditions.  
+                    Automatically advances to the next day when both minigames are completed, creating a satisfying 
+                    progression loop.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Lobby.cs - Hub Scene Manager</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine. SceneManagement;
+using UnityEngine.UI;
+
+public class Lobby : MonoBehaviour
+{
+    public GlobalData globalData;
+
+    public GameObject gameOverScreen;
+    public GameObject starveScreen;
+
+    [Header("Fire UI Elements")]
+    public Slider fireSlider;
+    public Image fireSliderFill;
+    public RectTransform fireSliderHandle;
+
+    void Update()
+    {
+        // Update both timers every frame
+        globalData.TimeSetDown(Time.deltaTime);
+        globalData.FireSetDown(Time.deltaTime);
+
+        // ===== DYNAMIC FIRE UI =====
+        fireSlider.value = globalData.secondsLeftBeforeFireDies;
+        
+        // Smooth color transition:  yellow (healthy) → red (dying)
+        float t = Mathf.Clamp01(globalData.secondsLeftBeforeFireDies / 100f);
+        fireSliderFill.color = Color.Lerp(Color.red, Color.yellow, t);
+        
+        // Handle grows/shrinks with fire health for extra emphasis
+        fireSliderHandle.localScale = Vector3.Lerp(
+            new Vector3(0.66f, 0.66f, 0.66f),  // Small when dying
+            new Vector3(2.6f, 2.6f, 2.6f),     // Large when healthy
+            t
+        );
+
+        // ===== GAME OVER CONDITIONS =====
+        if (globalData.gameOver)
+        {
+            // Different screens based on how you failed
+            if (! globalData.IsMinigameCompleted(0))
+                starveScreen.SetActive(true);  // Didn't catch fish
+            else
+                gameOverScreen.SetActive(true);  // Ran out of time
+
+            Time.timeScale = 0f;  // Freeze game
+            this.enabled = false;  // Stop updates
+        }
+
+        // ===== FIRE OUT = CRYPTID ATTACK =====
+        if (globalData. fireOut)
+        {
+            SceneManager.LoadScene("ShootingEyes");  // Defense minigame! 
+        }
+
+        // ===== AUTO-ADVANCE DAY =====
+        if (globalData.GetMinigamesCompletedCount() >= 2)
+        {
+            globalData.NextDay();  // Survived the night! 
+        }
+
+        // ===== INTERACTIVE OBJECT CLICKING =====
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            
+            if (Physics. Raycast(ray, out RaycastHit hit))
+            {
+                Debug.Log("Hit:  " + hit.collider.name);
+                
+                // Route to appropriate minigame based on clicked object
+                if (hit.collider.CompareTag("Effigy"))
+                {
+                    SceneManager.LoadScene("EffigyRemover");
+                }
+                else if (hit.collider.CompareTag("Bobber"))
+                {
+                    SceneManager.LoadScene("Fishing");
+                }
+                else if (hit.collider.CompareTag("Fire"))
+                {
+                    SceneManager.LoadScene("FireTending");
+                }
+            }
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>🔥 Fire Tending Minigame</h3>
+                <p class="code-description">
+                    The fire tending minigame requires players to quickly collect scattered sticks before the fire 
+                    dies completely.   Features procedural stick spawning in a radius, collection tracking, and a 
+                    dramatic screen-shake + static effect when successfully completed. The static transition effect 
+                    uses shader animation to create an unsettling atmosphere when returning to the hub.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>FireTendingManager.cs - Collection Minigame</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using System.Collections;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class FireTendingManager : MonoBehaviour
+{
+    public GlobalData globalData;
+    private Camera mainCam;
+
+    [Header("Fire Tending Settings")]
+    [SerializeField] private int numSticksToSpawn = 10;
+    [SerializeField] private GameObject stickPrefab;
+    [SerializeField] private Vector2 spawnRadius = new Vector2(5f, 5f);
+    [SerializeField] private int numSticksToCollect = 5;
+
+    [Header("Fire UI")]
+    public Slider fireSlider;
+    public Image fireSliderFill;
+    public RectTransform fireSliderHandle;
+
+    [Header("Post-Processing Effect")]
+    [SerializeField] private MeshRenderer staticEffect;
+    
+    private int SticksCollected = 0;
+    private bool transitioning = false;
+    private float effectAmount = 0f;
+
+    void Start()
+    {
+        SticksCollected = 0;
+        SpawnSticks(numSticksToSpawn);
+        
+        mainCam = Camera.main;
+        if (mainCam == null)
+        {
+            Debug.LogError("Main camera not found!");
+        }
+    }
+
+    void Update()
+    {
+        // Update fire state
+        globalData.FireSetDown(Time.deltaTime);
+
+        // Update fire UI
+        fireSlider.value = globalData.secondsLeftBeforeFireDies;
+        float t = Mathf.Clamp01(globalData.secondsLeftBeforeFireDies / 100f);
+        fireSliderFill.color = Color. Lerp(Color.red, Color.yellow, t);
+        fireSliderHandle.localScale = Vector3.Lerp(
+            new Vector3(0.66f, 0.66f, 0.66f),
+            new Vector3(2.6f, 2.6f, 2.6f),
+            t
+        );
+
+        // Click detection for stick collection
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Ray ray = mainCam. ScreenPointToRay(mousePosition);
+            
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.CompareTag("Stick"))
+                {
+                    SticksCollected++;
+                    Destroy(hit.collider.gameObject);
+                    
+                    // Collected enough sticks! 
+                    if (SticksCollected >= numSticksToCollect)
+                    {
+                        // Restore fire health
+                        globalData. secondsLeftBeforeFireDies = 100f;
+                        
+                        // Dramatic camera shake
+                        StartCoroutine(ShakeCamera(mainCam));
+                        
+                        // Return to hub with static effect
+                        Vector3 newPosition = mainCam.transform.position + 
+                                            new Vector3(0, 5f, 2f);
+                        StartCoroutine(TransitionRoutine(mainCam, newPosition));
+                    }
+                }
+            }
+        }
+    }
+
+    void SpawnSticks(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            // Random position within spawn radius
+            Vector3 randomPosition = new Vector3(
+                Random.Range(-spawnRadius.x, spawnRadius.x),
+                0. 5f,  // Slightly above ground
+                Random.Range(-spawnRadius.y, spawnRadius.y)
+            );
+            
+            Instantiate(stickPrefab, randomPosition, Quaternion.identity);
+        }
+    }
+
+    IEnumerator ShakeCamera(Camera cam)
+    {
+        Vector3 originalPosition = cam.transform.position;
+        float elapsed = 0f;
+
+        while (elapsed < 0.1f)  // 100ms shake
+        {
+            // Random offset for shake effect
+            float x = Random.Range(-1f, 1f) * 0.2f;
+            float y = Random.Range(-1f, 1f) * 0.2f;
+
+            cam.transform.position = originalPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        cam.transform.position = originalPosition;
+    }
+
+    IEnumerator TransitionRoutine(Camera cam, Vector3 newPosition)
+    {
+        if (transitioning) yield break;
+        
+        staticEffect.gameObject.SetActive(true);
+        transitioning = true;
+
+        // Fade IN static effect
+        for (float t = 0; t < 0.5f; t += Time. deltaTime)
+        {
+            effectAmount = Mathf.Lerp(0, 1, t / 0.5f);
+            staticEffect.material.SetFloat("_StaticStrength", effectAmount);
+            yield return null;
+        }
+
+        // Move camera (hidden by static)
+        cam.transform.position = newPosition;
+
+        // Fade OUT static effect
+        for (float t = 0; t < 0.5f; t += Time.deltaTime)
+        {
+            effectAmount = Mathf.Lerp(1, 0, t / 0.5f);
+            staticEffect.material.SetFloat("_StaticStrength", effectAmount);
+            yield return null;
+        }
+
+        staticEffect.gameObject.SetActive(false);
+        transitioning = false;
+
+        // Return to hub
+        SceneManager.LoadScene("Main");
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>👁️ Cryptid Attack Defense Minigame</h3>
+                <p class="code-description">
+                    When the fire goes out, players enter a frantic defense sequence where they must shoot glowing 
+                    cryptid eyes before their health depletes. Features WASD crosshair movement, procedural eye 
+                    spawning, health depletion mechanics, and victory/defeat conditions. This minigame creates the 
+                    most intense moment of the game. Players must fend off the cryptid until they can reignite the 
+                    fire! 
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>ShootingEyes.cs - Cryptid Defense System</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class ShootingEyes : MonoBehaviour
+{
+    public RectTransform gunCrosshair;
+    public GameObject[] eyePrefabs;
+    public GlobalData globalData;
+    
+    // Spawn boundaries for eyes
+    public float eyeSpawnUpperBound = 5. 5f;
+    public float eyeSpawnLowerBound = -3.5f;
+    public float eyeSpawnLeftBound = -8. 5f;
+    public float eyeSpawnRightBound = 8.5f;
+    
+    // Crosshair movement boundaries
+    public float crosshairUpperBound = 177. 0f;
+    public float crosshairLowerBound = -176.0f;
+    public float crosshairLeftBound = -353.0f;
+    public float crosshairRightBound = 356.0f;
+    
+    public Canvas canvas;
+    public AudioClip shotgunSound;
+    public Slider health;
+    
+    private AudioSource audioSource;
+    private float spawnTimer = 0f;
+    private float healthTimer = 0f;
+    
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        
+        // Start at half health (desperate situation!)
+        if (health != null)
+        {
+            health.value = health.maxValue * 0.5f;
+        }
+    }
+
+    void Update()
+    {
+        // Continue tracking timers
+        globalData.TimeSetDown(Time. deltaTime);
+        globalData. FireSetDown(Time.deltaTime);
+
+        // ===== CROSSHAIR MOVEMENT (WASD) =====
+        float moveX = Keyboard.current.aKey.isPressed ? -1 : 
+                      Keyboard.current. dKey.isPressed ? 1 : 0;
+        float moveY = Keyboard.current.sKey.isPressed ? -1 :
+                      Keyboard.current.wKey.isPressed ? 1 : 0;
+
+        float speed = 500f;
+        Vector2 movement = new Vector2(moveX, moveY) * speed * Time.deltaTime;
+        gunCrosshair.anchoredPosition += movement;
+        
+        // Clamp crosshair within screen bounds
+        gunCrosshair.anchoredPosition = new Vector2(
+            Mathf.Clamp(gunCrosshair.anchoredPosition.x, crosshairLeftBound, crosshairRightBound),
+            Mathf.Clamp(gunCrosshair.anchoredPosition.y, crosshairLowerBound, crosshairUpperBound)
+        );
+
+        // ===== EYE SPAWNING (Every 0.5 seconds) =====
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= 0.5f)
+        {
+            SpawnEyes();
+            spawnTimer = 0f;
+        }
+
+        // ===== HEALTH DEPLETION (Every 1. 5 seconds) =====
+        healthTimer += Time.deltaTime;
+        if (healthTimer >= 1.5f)
+        {
+            if (health != null)
+            {
+                health.value = Mathf.Max(health.minValue, health.value - 10f);
+            }
+            healthTimer = 0f;
+        }
+
+        // ===== SHOOTING (Spacebar) =====
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            ShootEyes();
+        }
+
+        // ===== VICTORY CONDITION =====
+        if (health.value >= 100)
+        {
+            // Survived long enough to reignite fire!
+            globalData.secondsLeftBeforeFireDies = 100f;
+            SceneManager.LoadScene("Lobby");
+        }
+
+        // ===== DEFEAT CONDITION =====
+        if (health.value <= 0)
+        {
+            Debug.Log("The cryptid got you!  Game Over.");
+            // Trigger game over screen
+            globalData.gameOver = true;
+            SceneManager.LoadScene("Lobby");
+        }
+    }
+
+    public void SpawnEyes()
+    {
+        // Random eye variant
+        int randomIndex = Random.Range(0, eyePrefabs.Length);
+        GameObject selectedEye = eyePrefabs[randomIndex];
+        GameObject newEyes = Instantiate(selectedEye, canvas.transform);
+
+        // Random position within bounds
+        RectTransform eyeRect = newEyes.GetComponent<RectTransform>();
+        eyeRect.anchoredPosition = new Vector2(
+            Random.Range(eyeSpawnLeftBound, eyeSpawnRightBound),
+            Random.Range(eyeSpawnLowerBound, eyeSpawnUpperBound)
+        );
+    }
+
+    public void ShootEyes()
+    {
+        // Play shotgun sound
+        if (audioSource != null && shotgunSound != null)
+        {
+            audioSource.PlayOneShot(shotgunSound);
+        }
+
+        // Raycast from crosshair position
+        Vector2 crosshairWorldPos = gunCrosshair.position;
+        Ray ray = Camera. main.ScreenPointToRay(crosshairWorldPos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.collider.CompareTag("Eye"))
+            {
+                // HIT!  Destroy eye and gain health
+                Destroy(hit. collider.gameObject);
+                
+                if (health != null)
+                {
+                    health.value = Mathf.Min(health.maxValue, health.value + 15f);
+                }
+            }
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>⏱️ Dynamic Timer Display</h3>
+                <p class="code-description">
+                    Simple but essential UI component that displays the remaining time before nightfall. Updates 
+                    every frame with single decimal precision to create urgency. This countdown creates constant 
+                    tension as players scramble to complete tasks before time runs out.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>ShowTimer.cs - Time Display UI</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class ShowTimer : MonoBehaviour
+{
+    public GlobalData globalData;
+    public TMPro.TextMeshProUGUI timerTextTMP;
+
+    void Update()
+    {
+        // Update timer every frame
+        globalData.TimeSetDown(Time.deltaTime);
+
+        // Format:  "123.4" (1 decimal place for precision)
+        timerTextTMP.text = $"{globalData.secondsLeftBeforeNight:F1}";
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <h2>🎓 First Game Jam Lessons</h2>
+            <div class="learning-grid">
+                <div class="learning-card">
+                    <h3>⏱️ Time Management</h3>
+                    <p>
+                        <strong>What I Learned:</strong> 48 hours sounds like a lot until you start building.  
+                        I learned to ruthlessly prioritize features, cut scope early, and focus on making one 
+                        cohesive experience rather than many half-finished ideas.  The Scriptable Object pattern 
+                        saved us hours by eliminating complex save systems.
+                    </p>
+                </div>
+                <div class="learning-card">
+                    <h3>🎯 Rapid Prototyping</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Perfect is the enemy of done. I built placeholder systems 
+                        that "just worked" first, then polished what mattered most. The fire UI started as a simple 
+                        number. Adding color lerps and scale animations in the final hour made it visceral. 
+                    </p>
+                </div>
+                <div class="learning-card">
+                    <h3>👥 Team Coordination</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Clear communication saved our jam. I architected code to 
+                        be designer-friendly (Scriptable Objects, tagged objects, public variables in Inspector), 
+                        allowing artists and designers to iterate independently while I focused on core mechanics.
+                    </p>
+                </div>
+                <div class="learning-card">
+                    <h3>🏆 Competitive Development</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Winning validated our "less is more" approach.  Judges 
+                        valued tight, polished mechanics over feature bloat. The dual-timer system and escalating 
+                        difficulty created natural tension that resonated with players.  Presentation matters! 
+                    </p>
+                </div>
+            </div>
+        </section>
+
+                <section class="team-section">
+            <h2>👥 Winning Team Credits</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-icon">🎬</div>
+                    <strong>Gavin Schmidt</strong>
+                    <span>Producer & Lead Programmer</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🎨</div>
+                    <strong>Jacob Arbogast</strong>
+                    <span>Art</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🖌️</div>
+                    <strong>Star Pace</strong>
+                    <span>Art</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🏰</div>
+                    <strong>Wesley Yates</strong>
+                    <span>Level Design</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🗺️</div>
+                    <strong>Jadyn Englett</strong>
+                    <span>Level Design</span>
+                </div>
+            </div>
+        </section>
+
+                <section class="reflection-section">
+            <h2>💭 Developer Reflection</h2>
+            <blockquote>
+                Winning my first game jam as both Producer and Lead Programmer was surreal. We went into UCF GDK's 
+                Summer Jam with no expectations; I just wanted to finish something playable in 48 hours. But managing 
+                the team while simultaneously architecting core systems taught me that great games come from clear 
+                communication and trust. I learned to delegate art and design decisions to our talented team while 
+                focusing on building flexible systems they could work with.  Seeing players genuinely stressed about 
+                the fire dying, frantically collecting sticks, and cheering when they survived another night... 
+                that feeling is why I make games. This jam taught me that constraints breed creativity:  the dual-
+                timer system emerged from "how do we create constant tension?" and the Scriptable Object architecture 
+                came from "we have no time for save systems." Taking 1st place validated everything I'd learned 
+                about clean code, rapid iteration, player-first design, and team leadership.  It proved that with 
+                the right team, clear communication, and relentless focus, you can build something special in just 
+                two days. This experience fundamentally changed how I approach both programming and production!  🏆🔥
+            </blockquote>
+        </section>
+    </main>
+</body>
+</html>
