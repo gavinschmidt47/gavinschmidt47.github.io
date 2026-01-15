@@ -2,340 +2,520 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js? id=G-C47TXLXECX"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
+      window. dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-C47TXLXECX');
     </script>
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
-    <meta property="og:title" content="Gavin Schmidt's Portfolio">
-    <meta property="og:description" content="Portfolio showcasing Gavin Schmidt's expertise in coding and project development.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og: title" content="Gavin Schmidt - Game Developer & Programmer">
+    <meta property="og:description" content="Portfolio showcasing game development projects, programming expertise, and creative work.">
     <meta property="og:image" content="Media/Headshot.JPG">
     <meta property="og:url" content="https://gavinschmidt47.github.io/">
-    <title>Gavin Schmidt's Portfolio</title>
+    
+    <title>Gavin Schmidt - Game Developer Portfolio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
 
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#about">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="resume.html" target="_blank">Resume</a></li>
-            </ul>
-        </nav>
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#hero" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <section id="about">
 
-         <div class="headshot">
-         </div>
-
-        <h2>About Me</h2>
-        
-        <p>Welcome to my portfolio! I am currently a student at the University of Central Florida, pursuing a degree in Digital Media - Game Design with a focus on programming, and a minor in Computer Science. As I enter my fourth year, I am on track to graduate in May 2026. This portfolio highlights my coursework and personal projects, showcasing my expertise in coding as well as other facets of project development.</p>
-        <p>My passion for video games from a young age inspired me to major in Game Design, recognizing the unique potential of this medium. I strive to combine creativity and logistics in all my endeavors, and video games epitomize this perfect intersection. I am committed to being a valuable asset in every aspect of the development process and to any organization as a whole. Throughout my academic journey, I have actively sought out opportunities to gain diverse industry experiences, equipping myself with the skills necessary to excel in any task I undertake. I am confident in my ability to contribute meaningfully in any situation.</p>
-
-        <div class="skills">
-            <div class="skillset">
-                <h3>Skills</h3>
-                <div class="skillset-grid">
-                    <div class="container">
-                        <img src="Media/html.png" alt="HTML">
-                        <p>HTML</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/css.png" alt="CSS"> 
-                        <p>CSS</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/git.png" alt="Git"> 
-                        <p>Git</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/unreal.png" alt="Unreal"> 
-                        <p>Unreal</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/unity.png" alt="Unity"> 
-                        <p>Unity</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/c.png" alt="C/C++"> 
-                        <p>C/C++</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/java.png" alt="Java"> 
-                        <p>Java</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/cs.png" alt="C#"> 
-                        <p>C#</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/XMLJSON.png" alt="XML/JSON"> 
-                        <p>XML/JSON</p>
-                    </div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-home">
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="Media/Headshot.JPG" alt="Gavin Schmidt" class="headshot-image">
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    Hi, I'm <span class="highlight">Gavin Schmidt</span>
+                </h1>
+                <p class="hero-subtitle">Game Developer • Programmer • Problem Solver</p>
+                <p class="hero-description">
+                    Fifth-year student at <strong>UCF</strong> studying <strong>Digital Media - Game Design</strong> 
+                    with a programming focus and a <strong>Computer Science</strong> minor. Graduating May 2026.
+                </p>
+                <div class="hero-cta">
+                    <a href="projects.html" class="btn btn-primary">
+                        <span>View My Projects</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span>Get In Touch</span>
+                    </a>
                 </div>
             </div>
-            <div class="skillset">
-                <h3>Software Knowledge</h3>
-                <div class="skillset-grid">
-                    <div class="container">
-                        <img src="Media/github.png" alt="GitHub"> 
-                        <p>GitHub</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <div class="section-underline"></div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-intro">
+                        I've loved video games since I was a kid. That love drove me to Game Design, where I get to 
+                        blend <strong>creativity with technical work</strong>. I like building things that are both 
+                        beautiful and rock-solid under the hood.
+                    </p>
+                    
+                    <div class="about-highlights">
+                        <div class="highlight-card">
+                            <div class="highlight-icon">🏆</div>
+                            <h3>Award Winner</h3>
+                            <p>Won 1st at UCF GDK Summer Jam 2025 with <strong>Campfire Cryptid</strong></p>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon">💻</div>
+                            <h3>Lead Programmer</h3>
+                            <p>Built core systems for <strong>Fearosis</strong>, <strong>Reconnection</strong>, and more</p>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="highlight-icon">🎯</div>
+                            <h3>Full-Stack Game Dev</h3>
+                            <p><strong>Unity/Unreal C++</strong>, <strong>APIs</strong>, <strong>cloud services</strong>, etc.</p>
+                        </div>
                     </div>
-                    <div class="container">
-                        <img src="Media/visualstudio.png" alt="Microsoft Visual Studio"> 
-                        <p>Microsoft Visual Studio</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/vscode.png" alt="Microsoft Visual Studio Code"> 
-                        <p>Microsoft Visual Studio Code</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/office.png" alt="Microsoft Office"> 
-                        <p>Microsoft Office</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/adobe.png" alt="Adobe Creative Suite"> 
-                        <p>Adobe Creative Suite</p>
-                    </div>
-                    <div class="container">
-                        <img src="Media/maya.png" alt="Maya">
-                        <p>Maya</p>
-                    </div>
+
+                    <p class="about-description">
+                        I've worked on <strong>mobile games</strong>, <strong>3D platformers</strong>, 
+                        <strong>turn-based RPGs</strong>, and <strong>survival horror</strong> titles. Every project 
+                        taught me something new about rapid prototyping, working with teams, and shipping polished 
+                        games on tight deadlines.
+                    </p>
+
+                    <p class="about-commitment">
+                        I can architect systems, optimize performance, or coordinate with designers and artists—whatever 
+                        the team needs. Give me a technical challenge and I'll figure it out.
+                    </p>
                 </div>
             </div>
-            <div class="skillset">
-                <h3>Soft Skills</h3>
-                <div class="skillset-grid">
-                    <div class="word">
-                        <p>Problem-Solving</p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="section-underline"></div>
+                <p class="section-subtitle">Tools and technologies I work with</p>
+            </div>
+
+            <div class="skills-grid">
+                <!-- Programming Languages -->
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        Languages
+                    </h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="Media/cs.png" alt="C#">
+                            <span>C#</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/c.png" alt="C++">
+                            <span>C++</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/java.png" alt="Java">
+                            <span>Java</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/js.webp" alt="JavaScript">
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/python.png" alt="Python">
+                            <span>Python</span>
+                        </div>
                     </div>
-                    <div class="word">
-                        <p>Teamwork</p>
+                </div>
+
+                <!-- Game Engines -->
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        Engines
+                    </h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="Media/unity.png" alt="Unity">
+                            <span>Unity</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/unreal.png" alt="Unreal">
+                            <span>Unreal Engine</span>
+                        </div>
                     </div>
-                    <div class="word">
-                        <p>Communication</p>
+                </div>
+
+                <!-- Development Tools -->
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        Tools
+                    </h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="Media/github.png" alt="GitHub">
+                            <span>GitHub</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/vscode.png" alt="VS Code">
+                            <span>VS Code</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/visualstudio.png" alt="Visual Studio">
+                            <span>Visual Studio</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/office.png" alt="Office">
+                            <span>Office</span>
+                        </div>
                     </div>
-                    <div class="word">
-                        <p>Time Management</p>
+                </div>
+
+                <!-- Web Technologies -->
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        Web
+                    </h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <img src="Media/html.png" alt="HTML">
+                            <span>HTML</span>
+                        </div>
+                        <div class="skill-item">
+                            <img src="Media/css.png" alt="CSS">
+                            <span>CSS</span>
+                        </div>
                     </div>
-                    <div class="word">
-                        <p>Adaptability</p>
-                    </div>
-                    <div class="word">
-                        <p>Critical Thinking</p>
-                    </div>
-                    <div class="word">
-                        <p>Leadership</p>
-                    </div>
-                    <div class="word">
-                        <p>Creativity</p>
+                </div>
+
+                <!-- Specializations -->
+                <div class="skill-category skill-category-full">
+                    <h3 class="category-title">
+                        Specializations
+                    </h3>
+                    <div class="specialization-tags">
+                        <span class="spec-tag">Gameplay Systems Programming</span>
+                        <span class="spec-tag">Game Architecture Design</span>
+                        <span class="spec-tag">AI & Pathfinding (A*)</span>
+                        <span class="spec-tag">Object-Oriented Design</span>
+                        <span class="spec-tag">API Integration</span>
+                        <span class="spec-tag">Cloud Backend (PlayFab)</span>
+                        <span class="spec-tag">Mobile Game Development</span>
+                        <span class="spec-tag">Performance Optimization</span>
+                        <span class="spec-tag">Data Serialization</span>
+                        <span class="spec-tag">UI/UX Implementation</span>
+                        <span class="spec-tag">Version Control (Git)</span>
+                        <span class="spec-tag">Agile Development</span>
+                        <span class="spec-tag">Technical Leadership</span>
+                        <span class="spec-tag">Cross-Platform Development</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section id="featured-projects">
-        <h2 style="color: white;">Featured Projects</h2>
-        <div class="Fprojects">
-                <div class="Fproject">
-                    <img src="Media/Pieces/Fearosis/Fearosis Logo.png" alt="Fearosis">
-                    <div class="Info-Grid">
-                        <div class="container">
-                            <p>Fearosis is a mobile game focused on using points and upgrades to simulate the spread of monsterous diseases, cults, and other threats. You play as the mastermind of these threats.</p>
-                            <p>As Programming lead, I was responsible for designing and implementing core gameplay mechanics and ensuring smooth user experience. I had a hand in creating every single system in this game and created many by myself.</p>
-                            <p>Some features I am proud to display in this project:</p>
-                            <ul>
-                                <li>Stat-based simulation system with dynamic events and reactive spreadability</li>
-                                <li>Dynamic and reactive upgrade tree</li>
-                                <li>A* pathfinding algorithm</li>
-                                <li>Dynamic object pooling system</li>
-                                <li>Secure save system</li>
-                                <li>Advanced music loop system</li>
-                            </ul>
-                        </div>
-                        <div class="container">
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                                <p>Team Size: 7</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <path d="M12 20h9"></path>
-                                    <path d="M12 4h9"></path>
-                                    <path d="M4 9h16"></path>
-                                    <path d="M4 15h16"></path>
-                                </svg>
-                                <p>Team Role: Lead Programmer</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <p>Time: 5 months (WIP)</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect>
-                                    <circle cx="8" cy="12" r="1"></circle>
-                                    <circle cx="16" cy="12" r="1"></circle>
-                                    <rect x="6" y="6" width="2" height="2"></rect>
-                                    <rect x="16" y="6" width="2" height="2"></rect>
-                                </svg>
-                                <p>Engine: Unity 6</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="Fearosis.html" class="button">Learn More</a>
-                </div>
-                <div class="Fproject" >
-                    <img src="Media/Pieces/Reconnection/Reconnection logo.png" alt="Reconnection">
-                    <div class="Info-Grid">
-                        <div class="container">
-                            <p>Reconnection is a computer/console game focused on balancing connections and relationships with old friends and fighting in a TTRPG campaign together.</p>
-                            <p>As sole Programmer, I was responsible for designing and implementing all of the core systems of the combat, dialogue, and overall gameplay mechanics.</p>
-                            <p>Some features I am proud to display in this project:</p>
-                            <ul>
-                                <li>DND-inspired automated combat system</li>
-                                <li>C++ Coding</li>
-                                <li>Turn-based mechanics</li>
-                                <li>Dynamic dialogue choices</li>
-                            </ul>
-                        </div>
-                        <div class="container">
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                                <p>Team Size: 8</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <path d="M12 20h9"></path>
-                                    <path d="M12 4h9"></path>
-                                    <path d="M4 9h16"></path>
-                                    <path d="M4 15h16"></path>
-                                </svg>
-                                <p>Team Role: Sole Programmer</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <p>Time: 5 months (WIP)</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect>
-                                    <circle cx="8" cy="12" r="1"></circle>
-                                    <circle cx="16" cy="12" r="1"></circle>
-                                    <rect x="6" y="6" width="2" height="2"></rect>
-                                    <rect x="16" y="6" width="2" height="2"></rect>
-                                </svg>
-                                <p>Engine: Unreal Engine 5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="Reconnection.html" class="button">Learn More</a>
-                </div>
 
-                <div class="Fproject">
-                    <img src="Media/Pieces/Reactive Skies/Reactive Skies scene.png" alt="Reactive Skies">
-                    <div class="Info-Grid">
-                        <div class="container">
-                            <p>Reactive Skies is a small showcase project demonstrating skills in API integration and PlayFab authentication.</p>
-                            <p>Creating this project was an enjoyable experience that allowed me to explore aquiring data from external sources and using it to affect things inside my gameplay.</p>
-                            <p>This project has been a place for me to test some systems and functions I may want to use in other games.</p>
-                            <p>Some features I am proud to display in this project:</p>
-                            <ul>
-                                <li>API integration</li>
-                                <li>PlayFab authentication</li>
-                                <li>Data serialization</li>
-                            </ul>
-                        </div>
-                        <div class="container">
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                                <p>Team Size: 1</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <path d="M12 20h9"></path>
-                                    <path d="M12 4h9"></path>
-                                    <path d="M4 9h16"></path>
-                                    <path d="M4 15h16"></path>
-                                </svg>
-                                <p>Team Role: Creator</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <p>Time: 1 week</p>
-                            </div>
-                            <div class="Info-Section">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" >
-                                    <rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect>
-                                    <circle cx="8" cy="12" r="1"></circle>
-                                    <circle cx="16" cy="12" r="1"></circle>
-                                    <rect x="6" y="6" width="2" height="2"></rect>
-                                    <rect x="16" y="6" width="2" height="2"></rect>
-                                </svg>
-                                <p>Engine: Unity 6</p>
-                            </div>
+    <!-- Featured Projects Section -->
+    <section id="featured-projects" class="featured-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-underline"></div>
+                <p class="section-subtitle">Highlights from my portfolio</p>
+            </div>
+
+            <div class="featured-grid">
+                <!-- Campfire Cryptid -->
+                <a href="CampfireCryptid.html" class="featured-card featured-card-winner">
+                    <div class="featured-badge">🏆 1st Place Winner</div>
+                    <div class="featured-image-container">
+                        <img src="Media/Pieces/CampfireCryptid/mainmenubutBLUE.png" alt="Campfire Cryptid" class="featured-image">
+                    </div>
+                    <div class="featured-content">
+                        <h3>Campfire Cryptid</h3>
+                        <p class="featured-role">Producer & Lead Programmer</p>
+                        <p class="featured-description">
+                            1st place at UCF GDK Summer Jam 2025. Survival horror with dual-timer mechanics 
+                            and Scriptable Object architecture.
+                        </p>
+                        <div class="featured-tags">
+                            <span class="tag">Unity</span>
+                            <span class="tag">C#</span>
+                            <span class="tag">Game Jam</span>
                         </div>
                     </div>
-                    <a href="ReactiveSkies.html" class="button">Learn More</a>
-                </div>
+                </a>
+
+                <!-- Fearosis -->
+                <a href="Fearosis.html" class="featured-card">
+                    <div class="featured-image-container">
+                        <img src="Media/Pieces/Fearosis/Fearosis Logo.png" alt="Fearosis" class="featured-image">
+                    </div>
+                    <div class="featured-content">
+                        <h3>Fearosis</h3>
+                        <p class="featured-role">Lead Programmer</p>
+                        <p class="featured-description">
+                            Monster pandemic simulator with A* pathfinding, dynamic upgrade trees, and secure saves. 
+                            Being developed on Android.
+                        </p>
+                        <div class="featured-tags">
+                            <span class="tag">Unity</span>
+                            <span class="tag">Mobile</span>
+                            <span class="tag">Pathfinding</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Reconnection -->
+                <a href="Reconnection.html" class="featured-card">
+                    <div class="featured-image-container">
+                        <img src="Media/Pieces/Reconnection/Reconnection logo.png" alt="Reconnection" class="featured-image">
+                    </div>
+                    <div class="featured-content">
+                        <h3>Reconnection</h3>
+                        <p class="featured-role">Lead Programmer</p>
+                        <p class="featured-description">
+                            D&D-inspired turn-based RPG in Unreal Engine. Custom combat system with Blueprint 
+                            extensibility for designers.
+                        </p>
+                        <div class="featured-tags">
+                            <span class="tag">Unreal</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">Turn-Based</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Deadtective -->
+                <a href="Deadtective.html" class="featured-card">
+                    <div class="featured-image-container">
+                        <img src="Media/Pieces/Deadtective/Untitled_Artwork.png" alt="Deadtective" class="featured-image">
+                    </div>
+                    <div class="featured-content">
+                        <h3>Deadtective</h3>
+                        <p class="featured-role">Lead Programmer</p>
+                        <p class="featured-description">
+                            Supernatural detective puzzle game for JackSepticEye Game Jam. OOP architecture with 
+                            dual-world mechanics. 
+                        </p>
+                        <div class="featured-tags">
+                            <span class="tag">Unity</span>
+                            <span class="tag">Puzzle</span>
+                            <span class="tag">48-Hour Jam</span>
+                        </div>
+                    </div>
+                </a>
             </div>
-    </section>
-    <section id="contact">
-        <h2>Contact</h2>
-        <div class="contact-buttons">
-            <a href="mailto:gavinschmidt47@yahoo.com" class="button">
-                <img src="Media/email.png" alt="Email">
-            </a>
-            <a href="https://github.com/gavinschmidt47" class="button">
-                <img src="Media/github.png" alt="Github">
-            </a>
-            <a href="https://www.linkedin.com/in/gavin-schmidt-11b1a225a/" class="button">
-                <img src="Media/linkedin.png" alt="LinkedIn">
-            </a>
-            <a href="https://profile.indeed.com/?hl=en_US&co=US&from=gnav-homepage" class="button">
-                <img src="Media/indeed.png" alt="Indeed">
-            </a>
+
+            <div class="view-all-projects">
+                <a href="projects.html" class="btn btn-primary btn-large">
+                    <span>View All Projects</span>
+                    <span class="btn-icon">→</span>
+                </a>
+            </div>
         </div>
     </section>
-    <footer>
-        <p>&copy; 2025 Gavin Schmidt's Portfolio</p>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Talk</h2>
+                <div class="section-underline"></div>
+                <p class="section-subtitle">Reach out to me! I'd love to hear from you.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    
+                    <div class="contact-methods">
+                        <a href="mailto:gavinschmidt47@yahoo.com" class="contact-method">
+                            <div class="method-icon">
+                                <img src="Media/email.png" alt="Email">
+                            </div>
+                            <div class="method-info">
+                                <h4>Email</h4>
+                                <p>gavinschmidt47@yahoo.com</p>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/gavinschmidt47" target="_blank" rel="noopener noreferrer" class="contact-method">
+                            <div class="method-icon">
+                                <img src="Media/github.png" alt="GitHub">
+                            </div>
+                            <div class="method-info">
+                                <h4>GitHub</h4>
+                                <p>@gavinschmidt47</p>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/gavin-schmidt-11b1a225a/" target="_blank" rel="noopener noreferrer" class="contact-method">
+                            <div class="method-icon">
+                                <img src="Media/linkedin.png" alt="LinkedIn">
+                            </div>
+                            <div class="method-info">
+                                <h4>LinkedIn</h4>
+                                <p>Gavin Schmidt</p>
+                            </div>
+                        </a>
+                        
+                        <a href="https://profile.indeed.com/?hl=en_US&co=US&from=gnav-homepage" target="_blank" rel="noopener noreferrer" class="contact-method">
+                            <div class="method-icon">
+                                <img src="Media/indeed.png" alt="Indeed">
+                            </div>
+                            <div class="method-info">
+                                <h4>Indeed</h4>
+                                <p>Gavin Schmidt</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
     </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
+            const body = document.body;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            body.appendChild(overlay);
+            
+            // Toggle menu
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            }
+            
+            // Hamburger click
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Overlay click (close menu)
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when nav link is clicked
+            const navLinks = document.querySelectorAll('. nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#' && href.length > 1) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            const headerHeight = document.querySelector('.main-header').offsetHeight;
+                            const targetPosition = target.offsetTop - headerHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
