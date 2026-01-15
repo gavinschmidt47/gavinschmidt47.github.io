@@ -18,18 +18,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min. js"></script>
 </head>
-<body>
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </nav>
+<body class="reactiveskies-page">
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main class="reactiveskies-showcase">
         <div class="hero-section">
@@ -39,7 +83,7 @@
         </div>
 
         <section class="project-overview-section">
-            <h2>🌤️ Project Overview</h2>
+            <h2>Project Overview</h2>
             <p class="overview-text">
                 Reactive Skies began as a <strong>class lab project</strong> focused on API integration and 
                 cloud services, but has since evolved into my personal <strong>experimental playground</strong> 
@@ -52,35 +96,37 @@
         </section>
 
         <section class="key-features-section">
-            <h2>⚡ Technical Highlights</h2>
+            <h2>Technical Highlights</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🌦️</div>
                     <h3>Real-Time Weather API</h3>
                     <p>OpenWeatherMap integration with dynamic skybox switching</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
                     <h3>PlayFab Authentication</h3>
                     <p>Email and device-based login with persistent sessions</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💾</div>
                     <h3>Smart Caching System</h3>
                     <p>Local storage optimization for images and data</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
                     <h3>XML Parsing</h3>
                     <p>Robust API response handling with error management</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
+                    <h3>XML Parsing</h3>
+                    <p>Robust API response handling with error management</p>
+                </div>
+                <div class="feature-card">
                     <h3>Dynamic Lighting</h3>
                     <p>Time-based lighting adjustments from sunrise/sunset data</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📸</div>
+                    <h3>Dynamic Lighting</h3>
+                    <p>Time-based lighting adjustments from sunrise/sunset data</p>
+                </div>
+                <div class="feature-card">
                     <h3>Screenshot Utility</h3>
                     <p>Timestamped screenshot capture system</p>
                 </div>
@@ -88,10 +134,10 @@
         </section>
 
         <section class="code-showcase-section">
-            <h2>💻 Code Showcase</h2>
+            <h2>Code Showcase</h2>
 
             <div class="code-feature">
-                <h3>🌦️ Dynamic Weather System with API Integration</h3>
+                <h3>Dynamic Weather System with API Integration</h3>
                 <p class="code-description">
                     The WeatherManager pulls live weather data from OpenWeatherMap's API, parses XML responses, 
                     and dynamically adjusts the game's skybox and lighting based on real-world conditions.  The 
@@ -250,7 +296,7 @@ public class WeatherManager : MonoBehaviour
             </div>
 
             <div class="code-feature">
-                <h3>🔐 PlayFab Authentication System</h3>
+                <h3>PlayFab Authentication System</h3>
                 <p class="code-description">
                     Implemented a flexible authentication system supporting multiple login methods (email, 
                     device ID) through the Strategy pattern. The system includes persistent login sessions, 
@@ -402,7 +448,7 @@ public class DeviceLogin :  ILogin
             </div>
 
             <div class="code-feature">
-                <h3>💾 Smart Image Caching System</h3>
+                <h3>Smart Image Caching System</h3>
                 <p class="code-description">
                     Developed an optimized image loading system that caches downloaded images locally to reduce 
                     bandwidth and improve load times. The system downloads images from URLs on first access, 
@@ -491,7 +537,7 @@ public class BillboardImagePicker : MonoBehaviour
             </div>
 
             <div class="code-feature">
-                <h3>📸 Screenshot Capture Utility</h3>
+                <h3>Screenshot Capture Utility</h3>
                 <p class="code-description">
                     Simple but effective screenshot tool with timestamped filenames. Perfect for capturing 
                     different weather conditions during testing and creating portfolio content! 
@@ -522,10 +568,10 @@ public class ScreenshotTool : MonoBehaviour
         </section>
 
         <section class="learning-section">
-            <h2>🎓 Learning & Experimentation</h2>
+            <h2>Learning & Experimentation</h2>
             <div class="learning-grid">
                 <div class="learning-card">
-                    <h3>🌐 API Integration</h3>
+                    <h3>API Integration</h3>
                     <p>
                         <strong>What I Learned:</strong> RESTful API consumption, XML parsing, asynchronous 
                         request handling, and error management. OpenWeatherMap taught me how to work with 
@@ -533,7 +579,7 @@ public class ScreenshotTool : MonoBehaviour
                     </p>
                 </div>
                 <div class="learning-card">
-                    <h3>☁️ Cloud Services</h3>
+                    <h3>Cloud Services</h3>
                     <p>
                         <strong>What I Learned:</strong> Backend-as-a-Service platforms, user authentication 
                         flows, session management, and cloud data storage. PlayFab became my testing ground 
@@ -541,7 +587,7 @@ public class ScreenshotTool : MonoBehaviour
                     </p>
                 </div>
                 <div class="learning-card">
-                    <h3>⚡ Performance Optimization</h3>
+                    <h3>Performance Optimization</h3>
                     <p>
                         <strong>What I Learned:</strong> Local caching strategies, reducing network calls, 
                         efficient file I/O, and data persistence. These techniques significantly improved 
@@ -549,7 +595,7 @@ public class ScreenshotTool : MonoBehaviour
                     </p>
                 </div>
                 <div class="learning-card">
-                    <h3>🎨 Dynamic Environments</h3>
+                    <h3>Dynamic Environments</h3>
                     <p>
                         <strong>What I Learned:</strong> Runtime material swapping, procedural skybox 
                         switching, dynamic lighting adjustments, and creating reactive game worlds that 
@@ -560,16 +606,79 @@ public class ScreenshotTool : MonoBehaviour
         </section>
 
         <section class="reflection-section">
-            <h2>💭 Developer Reflection</h2>
+            <h2>Developer Reflection</h2>
             <blockquote>
                 Reactive Skies started as a simple class assignment but quickly became my favorite 
                 experimentation space. Every time I want to test a new API, try out a cloud service, or 
                 prototype a network feature, I come back to this project. It's taught me that some of the 
                 best learning happens when you turn assignments into playgrounds, where mistakes are cheap 
-                and creativity flows freely.  The weather integration was particularly satisfying; seeing 
-                Unity's skybox change to match the actual weather outside my window felt like magic!  🌤️✨
+                and creativity flows freely. The weather integration was particularly satisfying; seeing 
+                Unity's skybox change to match the actual weather outside my window felt like magic!
             </blockquote>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
+            const body = document.body;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            body.appendChild(overlay);
+            
+            // Toggle menu
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            }
+            
+            // Hamburger click
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Overlay click (close menu)
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

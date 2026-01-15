@@ -18,20 +18,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </head>
-<body>
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
+<body class="reconnection-page">
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
 
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#about">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music. html">Music</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="resume.html" target="_blank">Resume</a></li>
-            </ul>
-        </nav>
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main class="reconnection-showcase">
         <div class="hero-section">
@@ -41,7 +83,7 @@
         </div>
 
         <section class="project-overview-section">
-            <h2>🎮 Project Overview</h2>
+            <h2>Project Overview</h2>
             <p class="overview-text">
                 Reconnection is a <strong>D&D-inspired turn-based fighting game</strong> built in Unreal Engine, 
                 combining tactical combat with beautiful visuals and dynamic narrative choices.  As <strong>Lead 
@@ -51,35 +93,29 @@
         </section>
 
         <section class="key-features-section">
-            <h2>⚡ Technical Highlights</h2>
+            <h2>Technical Highlights</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">🎲</div>
                     <h3>D&D Combat System</h3>
                     <p>Automated dice rolls, attack/defense calculations, and turn management</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">⚔️</div>
                     <h3>Turn-Based Mechanics</h3>
                     <p>Initiative-based turn order with strategic action choices</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
                     <h3>Enemy AI System</h3>
                     <p>Blueprint-extensible AI behavior for dynamic opponents</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💻</div>
                     <h3>C++ Architecture</h3>
                     <p>Clean, extensible parent classes with virtual functions</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
                     <h3>Buff System</h3>
                     <p>Dynamic stat modifications for strategic depth</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💬</div>
                     <h3>Dialogue Choices</h3>
                     <p>Player-driven narrative with branching conversations</p>
                 </div>
@@ -87,10 +123,10 @@
         </section>
 
         <section class="code-showcase-section">
-            <h2>💻 Code Showcase</h2>
+            <h2>Code Showcase</h2>
 
 			            <div class="code-feature">
-                <h3>🎨 Blueprint Integration & Designer Tools</h3>
+                <h3>Blueprint Integration & Designer Tools</h3>
                 <p class="code-description">
                     The C++ AFighter and UEnemy classes are designed for Blueprint extensibility, allowing 
                     designers to create unique enemy behaviors, player abilities, and combat encounters without 
@@ -293,7 +329,7 @@
             </div>
 
             <div class="code-feature">
-                <h3>⚔️ AFighter Class - Combat System Foundation</h3>
+                <h3>AFighter Class - Combat System Foundation</h3>
                 <p class="code-description">
                     The AFighter parent class implements all core combat mechanics including turn management, 
                     dice-roll calculations (d20 system), damage/healing, and buff systems.  Designed with 
@@ -353,7 +389,7 @@ protected:
             </div>
 
             <div class="code-feature">
-                <h3>🎲 Turn Management & Combat Flow</h3>
+                <h3>Turn Management & Combat Flow</h3>
                 <p class="code-description">
                     Implements initiative-based turn order system with clear turn start/end demarcation. 
                     The turn management system allows for complex action queuing and supports both player 
@@ -409,7 +445,7 @@ void AFighter::ReceiveDamage(float Damage, const FString& Type)
             </div>
 
             <div class="code-feature">
-                <h3>🎯 D&D-Style Dice Roll System</h3>
+                <h3>D&D-Style Dice Roll System</h3>
                 <p class="code-description">
                     From the original UFighter implementation:  Authentic d20 attack rolls with modifiers, 
                     defense calculations, and random damage ranges. This creates unpredictable, strategic 
@@ -469,7 +505,7 @@ void UFighter:: ReceiveDamage_Implementation(float Damage)
             </div>
 
             <div class="code-feature">
-                <h3>🛡️ Strategic Action System</h3>
+                <h3>Strategic Action System</h3>
                 <p class="code-description">
                     Multiple combat actions beyond basic attacks:  healing, blocking, and buff management. 
                     Each action has strategic tradeoffs, encouraging thoughtful decision-making during combat. 
@@ -536,7 +572,7 @@ void UFighter:: RemoveBuff(float BuffAmount, const FString& stat)
             </div>
 
             <div class="code-feature">
-                <h3>🤖 Enemy AI Architecture</h3>
+                <h3>Enemy AI Architecture</h3>
                 <p class="code-description">
                     Blueprint-extensible AI system that inherits from UFighter.  Designers can implement 
                     custom AI behaviors in Blueprints while the C++ foundation handles combat mechanics.  
@@ -571,7 +607,7 @@ void UEnemy::ChooseAction_Implementation()
             </div>
 
             <div class="code-feature">
-                <h3>📊 Comprehensive Stat System</h3>
+                <h3>Comprehensive Stat System</h3>
                 <p class="code-description">
                     Tracks 15+ combat statistics including initiative, health, damage ranges, attack bonuses, 
                     defense values, and buff modifiers.  Provides a complete stat query system for UI and 
@@ -620,7 +656,7 @@ void UFighter::Die_Implementation()
         </section>
 
         <section class="team-section">
-            <h2>👥 Team Credits</h2>
+            <h2>Team Credits</h2>
             <div class="team-grid">
                 <div class="team-member">
                     <div class="team-icon">🎬</div>
@@ -661,15 +697,78 @@ void UFighter::Die_Implementation()
         </section>
 
         <section class="reflection-section">
-            <h2>💭 Developer Reflection</h2>
+            <h2>Developer Reflection</h2>
             <blockquote>
                 Building Reconnection taught me the importance of designing C++ systems that empower 
-                designers.  By creating a robust combat foundation with Blueprint extensibility, our team 
+                designers. By creating a robust combat foundation with Blueprint extensibility, our team 
                 could iterate rapidly on enemy behaviors and game balance while maintaining performant, 
-                clean code.  Translating the unpredictability and strategy of tabletop D&D into automated 
+                clean code. Translating the unpredictability and strategy of tabletop D&D into automated 
                 combat was an incredibly rewarding challenge! 
             </blockquote>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
+            const body = document.body;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            body.appendChild(overlay);
+            
+            // Toggle menu
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            }
+            
+            // Hamburger click
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Overlay click (close menu)
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

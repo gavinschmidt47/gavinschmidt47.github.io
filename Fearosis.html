@@ -18,81 +18,118 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
 </head>
-<body>
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
+<body class="fearosis-page">
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
 
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#about">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="resume.html" target="_blank">Resume</a></li>
-            </ul>
-        </nav>
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main class="fearosis-showcase">
     <div class="hero-section">
         <img src="Media/Pieces/Fearosis/Fearosis Logo.png" alt="Fearosis Logo" class="fearosis-logo">
         <h1 class="project-title">Fearosis:  Monster Pandemic Simulator</h1>
-        <p class="project-tagline">Strategic simulation meets monstrous horror</p>
+        <p class="project-tagline">Turn-based strategy meets monstrous horror</p>
     </div>
 
     <img src="Media/Pieces/Fearosis/Fearosis Poster.png" alt="Fearosis Project Poster" class="poster-image">
 
     <section class="project-overview-section">
-        <h2>🎮 Project Overview</h2>
+        <h2>Project Overview</h2>
         <p class="overview-text">
-            Fearosis is a strategic simulation game where players design and unleash terrifying monster diseases 
-            (like Cult, AI, and Monstrosis) to infect populations.  Inspired by Plague Inc.'s pandemic mechanics 
-            but with a monstrous twist, I served as <strong>Lead Programmer</strong> for this Android title, 
-            architecting and implementing nearly all game systems. 
+            Fearosis is a turn-based strategy game where players design and spread monstrous diseases 
+            like Cult, AI, and Monstrosis to infect populations. While inspired by Plague Inc., Fearosis 
+            distinguishes itself with <strong>turn-based gameplay</strong> that allows for deeper strategic 
+            planning and deliberate decision-making. As <strong>Lead Programmer</strong> for this Android 
+            title, I built the core day-by-day simulation system and most other game systems from the ground up.
         </p>
     </section>
 
     <section class="key-features-section">
-        <h2>⚡ Technical Highlights</h2>
+        <h2>Technical Highlights</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">🧠</div>
                 <h3>Stat-Based Simulation</h3>
-                <p>Dynamic event system with reactive spread mechanics</p>
+                <p>Dynamic event system that reacts to player choices and modifies spread mechanics in real-time</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🌳</div>
                 <h3>Adaptive Upgrade Tree</h3>
-                <p>Responds intelligently to player strategies</p>
+                <p>Smart prerequisite system that unlocks new abilities based on player strategy</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🗺️</div>
                 <h3>A* Pathfinding</h3>
-                <p>Custom algorithm for disease propagation</p>
+                <p>Custom implementation for realistic disease propagation across the map</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
                 <h3>Object Pooling</h3>
-                <p>Optimized performance for mobile devices</p>
+                <p>Performance optimization techniques to ensure smooth gameplay on mobile devices</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔒</div>
                 <h3>Secure Save System</h3>
-                <p>Binary serialization prevents manipulation</p>
+                <p>Binary serialization to protect game state from external tampering</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🎵</div>
                 <h3>Music Loop System</h3>
-                <p>Seamless transitions between intro and loop</p>
+                <p>Seamless audio transitions between intro and looping tracks</p>
             </div>
         </div>
     </section>
 
     <section class="code-showcase-section">
-        <h2>💻 Code Showcase</h2>
+        <h2>Code Showcase</h2>
 
         <div class="code-feature">
-            <h3>🔒 Secure Save System with Binary Serialization</h3>
+            <h3>Secure Save System with Binary Serialization</h3>
             <p class="code-description">
                 Implemented using MemoryPack for efficient binary serialization, preventing player manipulation 
                 of save files. The system handles complex game state including all stats, events, and upgrades.
@@ -141,7 +178,7 @@ public class SaveSystem : MonoBehaviour
         </div>
 
         <div class="code-feature">
-            <h3>🎵 Advanced Music Looper with Seamless Transitions</h3>
+            <h3>Advanced Music Looper with Seamless Transitions</h3>
             <p class="code-description">
                 Dynamically transitions from intro to looping music with precise timing control. Uses events 
                 to notify other systems when the main loop starts, allowing for volume control synchronization.
@@ -198,10 +235,10 @@ public class MusicLooper : MonoBehaviour
         </div>
 
         <div class="code-feature">
-            <h3>🧠 Parent Point Class (Simulation Foundation)</h3>
+            <h3>Parent Point Class (Simulation Foundation)</h3>
             <p class="code-description">
-                Base class for all game stats (Fear, Notoriety, Prejudice, Pain). Tracks points from multiple 
-                sources with event-based modifiers for dynamic gameplay. 
+                Base class for all game stats including Fear, Notoriety, Prejudice, and Pain. Tracks points from 
+                multiple sources and applies event-based modifiers for dynamic gameplay.
             </p>
             <div class="code-container">
                 <details>
@@ -293,10 +330,12 @@ public class Point : MonoBehaviour
         </div>
 
         <div class="code-feature">
-            <h3>🎲 Day Handler - Simulation Engine</h3>
+            <h3>Day Handler (Turn-Based Simulation Engine)</h3>
             <p class="code-description">
-                Core gameplay loop that calculates infection spread, hunter spawning, and influence gain based 
-                on player stats. Uses Unity Events for extensibility.
+                The heart of Fearosis's turn-based gameplay. Each turn (day) processes infection spread, 
+                hunter spawning, and influence gain based on player stats and choices. This deterministic 
+                system lets players strategize their upgrades knowing exactly how each decision affects the 
+                next turn. Uses Unity Events for extensibility.
             </p>
             <div class="code-container">
                 <details>
@@ -374,10 +413,10 @@ public class DayHandler : MonoBehaviour
         </div>
 
         <div class="code-feature">
-            <h3>🌳 Dynamic Upgrade System</h3>
+            <h3>Dynamic Upgrade System</h3>
             <p class="code-description">
-                Event-driven upgrade tree that unlocks nodes based on prerequisites. Uses C# events for clean 
-                dependency management between upgrades.
+                Event-driven upgrade tree that unlocks new abilities based on prerequisites. Uses C# events for 
+                clean dependency management between upgrades.
             </p>
             <div class="code-container">
                 <details>
@@ -455,10 +494,10 @@ public class Upgrade : MonoBehaviour
         </div>
 
         <div class="code-feature">
-            <h3>🗺️ A* Pathfinding for Disease Spread</h3>
+            <h3>A* Pathfinding for Disease Spread</h3>
             <p class="code-description">
-                Custom A* implementation using Poisson Disc Sampling for grid generation.  Optimized for mobile 
-                with efficient neighbor lookups and path retracing.
+                Custom A* implementation using Poisson Disc Sampling for grid generation. Optimized for mobile 
+                performance with efficient neighbor lookups and path retracing.
             </p>
             <div class="code-container">
                 <details>
@@ -550,7 +589,7 @@ public class AStar :  MonoBehaviour
     </section>
 
     <section class="team-section">
-        <h2>👥 Team Credits</h2>
+        <h2>Team</h2>
         <div class="team-grid">
             <div class="team-member">
                 <div class="team-icon">🎬</div>
@@ -586,13 +625,79 @@ public class AStar :  MonoBehaviour
     </section>
 
     <section class="reflection-section">
-        <h2>💭 Developer Reflection</h2>
+        <h2>Developer Reflection</h2>
         <blockquote>
-            Working on Fearosis challenged me to create complex systems that feel organic and responsive. 
-            Seeing players strategize with our monstrous diseases validated our approach to blending 
-            simulation depth with emergent gameplay! 
+            Fearosis pushed me to design systems that felt both complex and intuitive. The turn-based 
+            structure let me create a more strategic experience than typical real-time pandemic sims; players 
+            could actually think through their upgrade paths and predict outcomes. Watching players develop 
+            their own strategies and experiment with different disease types confirmed that we'd successfully 
+            balanced simulation depth with accessible gameplay. The deliberate pacing made every decision feel 
+            meaningful.
         </blockquote>
     </section>
 </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
+            const body = document.body;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            body.appendChild(overlay);
+            
+            // Toggle menu
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            }
+            
+            // Hamburger click
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Overlay click (close menu)
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

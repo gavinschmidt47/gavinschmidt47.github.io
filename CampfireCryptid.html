@@ -18,18 +18,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
 </head>
-<body>
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </nav>
+<body class="campfire-page">
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main class="campfire-showcase">
         <div class="hero-section">
@@ -55,7 +99,7 @@
         </div>
 
         <section class="winning-section">
-            <h2>🏆 The Winning Experience</h2>
+            <h2>The Winning Experience</h2>
             <div class="win-highlight">
                 <p class="win-text">
                     <strong>Campfire Cryptid took 1st place</strong> at UCF's Game Developers' Knights Summer Game 
@@ -68,7 +112,7 @@
         </section>
 
         <section class="project-overview-section">
-            <h2>🔥 Project Overview</h2>
+            <h2>Project Overview</h2>
             <p class="overview-text">
                 In Campfire Cryptid, you're stranded in the woods at night, desperately trying to survive until dawn. 
                 Your only lifeline is the campfire, and it's dying. Players must complete various <strong>survival 
@@ -86,35 +130,29 @@
         </section>
 
         <section class="key-features-section">
-            <h2>⚡ Technical Highlights</h2>
+            <h2>Technical Highlights</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
                     <h3>Scriptable Object Architecture</h3>
                     <p>Centralized game state management across all scenes</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">⏰</div>
                     <h3>Dual Timer System</h3>
                     <p>Simultaneous tracking of day time and fire life</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎮</div>
                     <h3>Multi-Minigame Framework</h3>
                     <p>Fishing, wood gathering, effigy building, and cryptid defense</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📈</div>
                     <h3>Progressive Difficulty</h3>
                     <p>Days get shorter and fire depletes faster over time</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
                     <h3>Visual Feedback Systems</h3>
                     <p>Dynamic UI colors, screen shake, static transitions</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
                     <h3>Scene Management</h3>
                     <p>Seamless transitions between hub and minigames</p>
                 </div>
@@ -122,10 +160,10 @@
         </section>
 
         <section class="code-showcase-section">
-            <h2>💻 Code Showcase</h2>
+            <h2>Code Showcase</h2>
 
             <div class="code-feature">
-                <h3>📊 Centralized Game State with Scriptable Objects</h3>
+                <h3>Centralized Game State with Scriptable Objects</h3>
                 <p class="code-description">
                     The GlobalData Scriptable Object serves as the single source of truth for all game state.  
                     This architecture allows seamless data persistence across scene transitions without using 
@@ -256,7 +294,7 @@ public class GlobalData : ScriptableObject
             </div>
 
             <div class="code-feature">
-                <h3>🎮 Hub System with Minigame Transitions</h3>
+                <h3>Hub System with Minigame Transitions</h3>
                 <p class="code-description">
                     The Lobby (hub scene) manages all player interactions and scene transitions. Uses raycasting 
                     to detect clicks on interactive objects (fishing bobber, campfire, effigies), dynamically 
@@ -363,7 +401,7 @@ public class Lobby : MonoBehaviour
             </div>
 
             <div class="code-feature">
-                <h3>🔥 Fire Tending Minigame</h3>
+                <h3>Fire Tending Minigame</h3>
                 <p class="code-description">
                     The fire tending minigame requires players to quickly collect scattered sticks before the fire 
                     dies completely.   Features procedural stick spawning in a radius, collection tracking, and a 
@@ -536,7 +574,7 @@ public class FireTendingManager : MonoBehaviour
             </div>
 
             <div class="code-feature">
-                <h3>👁️ Cryptid Attack Defense Minigame</h3>
+                <h3>Cryptid Attack Defense Minigame</h3>
                 <p class="code-description">
                     When the fire goes out, players enter a frantic defense sequence where they must shoot glowing 
                     cryptid eyes before their health depletes. Features WASD crosshair movement, procedural eye 
@@ -708,7 +746,7 @@ public class ShootingEyes : MonoBehaviour
             </div>
 
             <div class="code-feature">
-                <h3>⏱️ Dynamic Timer Display</h3>
+                <h3>Dynamic Timer Display</h3>
                 <p class="code-description">
                     Simple but essential UI component that displays the remaining time before nightfall. Updates 
                     every frame with single decimal precision to create urgency. This countdown creates constant 
@@ -743,10 +781,10 @@ public class ShowTimer : MonoBehaviour
         </section>
 
         <section class="learning-section">
-            <h2>🎓 First Game Jam Lessons</h2>
+            <h2>First Game Jam Lessons</h2>
             <div class="learning-grid">
                 <div class="learning-card">
-                    <h3>⏱️ Time Management</h3>
+                    <h3>Time Management</h3>
                     <p>
                         <strong>What I Learned:</strong> 48 hours sounds like a lot until you start building.  
                         I learned to ruthlessly prioritize features, cut scope early, and focus on making one 
@@ -755,7 +793,7 @@ public class ShowTimer : MonoBehaviour
                     </p>
                 </div>
                 <div class="learning-card">
-                    <h3>🎯 Rapid Prototyping</h3>
+                    <h3>Rapid Prototyping</h3>
                     <p>
                         <strong>What I Learned:</strong> Perfect is the enemy of done. I built placeholder systems 
                         that "just worked" first, then polished what mattered most. The fire UI started as a simple 
@@ -763,7 +801,7 @@ public class ShowTimer : MonoBehaviour
                     </p>
                 </div>
                 <div class="learning-card">
-                    <h3>👥 Team Coordination</h3>
+                    <h3>Team Coordination</h3>
                     <p>
                         <strong>What I Learned:</strong> Clear communication saved our jam. I architected code to 
                         be designer-friendly (Scriptable Objects, tagged objects, public variables in Inspector), 
@@ -771,7 +809,7 @@ public class ShowTimer : MonoBehaviour
                     </p>
                 </div>
                 <div class="learning-card">
-                    <h3>🏆 Competitive Development</h3>
+                    <h3>Competitive Development</h3>
                     <p>
                         <strong>What I Learned:</strong> Winning validated our "less is more" approach.  Judges 
                         valued tight, polished mechanics over feature bloat. The dual-timer system and escalating 
@@ -782,7 +820,7 @@ public class ShowTimer : MonoBehaviour
         </section>
 
                 <section class="team-section">
-            <h2>👥 Winning Team Credits</h2>
+            <h2>Winning Team Credits</h2>
             <div class="team-grid">
                 <div class="team-member">
                     <div class="team-icon">🎬</div>
@@ -813,7 +851,7 @@ public class ShowTimer : MonoBehaviour
         </section>
 
                 <section class="reflection-section">
-            <h2>💭 Developer Reflection</h2>
+            <h2>Developer Reflection</h2>
             <blockquote>
                 Winning my first game jam as both Producer and Lead Programmer was surreal. We went into UCF GDK's 
                 Summer Jam with no expectations; I just wanted to finish something playable in 48 hours. But managing 
@@ -826,9 +864,72 @@ public class ShowTimer : MonoBehaviour
                 came from "we have no time for save systems." Taking 1st place validated everything I'd learned 
                 about clean code, rapid iteration, player-first design, and team leadership.  It proved that with 
                 the right team, clear communication, and relentless focus, you can build something special in just 
-                two days. This experience fundamentally changed how I approach both programming and production!  🏆🔥
+                two days. This experience fundamentally changed how I approach both programming and production!
             </blockquote>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
+            const body = document.body;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            body.appendChild(overlay);
+            
+            // Toggle menu
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            }
+            
+            // Hamburger click
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Overlay click (close menu)
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
