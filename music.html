@@ -18,7 +18,7 @@
         body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; }
         header { background: #222; color: #fff; padding: 1rem; text-align: center; }
         .container { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 8px; }
-        h2 { border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: white; }
+        h2 { border-bottom: 1px solid #eee; padding-bottom: 0.5rem; color: #1a202c; }
         .songs { display: flex; flex-wrap: wrap; gap: 1.5rem; }
         .song { flex: 1 1 250px; background: #f0f0f0; border-radius: 6px; padding: 1rem; }
         .song audio { width: 100%; margin-top: 0.5rem; }
@@ -29,27 +29,76 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
-        
-        <button class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="resume.html" target="_blank">Resume</a></li>
-            </ul>
-        </nav>
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Work</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
+        <!-- Coming Soon Notice -->
+        <div style="background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%); color: white; text-align: center; padding: 2rem; margin: 2rem auto; max-width: 900px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
+            <h2 style="color: white; margin: 0 0 0.5rem 0; font-size: 2rem; border: none;"> Coming Soon </h2>
+            <p style="margin: 0; font-size: 1.1rem;">This page is currently under construction. Check back soon for my complete music portfolio!</p>
+        </div>
+
         <div class="container">
             <h2>Original Game Music Compositions</h2>
             <div class="songs">
@@ -157,10 +206,65 @@
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Gavin Schmidt's Portfolio</p>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
     </footer>
 
-    <script src="hamburger.js"></script>
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-menu');
+            const mainNav = document.getElementById('main-nav');
+            const body = document.body;
+            
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            body.appendChild(overlay);
+            
+            // Toggle menu
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                overlay.classList.toggle('active');
+                body.classList.toggle('nav-open');
+            }
+            
+            // Hamburger click
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Overlay click (close menu)
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
