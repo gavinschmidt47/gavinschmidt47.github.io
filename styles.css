@@ -1077,53 +1077,9 @@ section {
 }
 
 /* ========================================
-   HEADER & NAVIGATION
+   OLD HEADER STYLES - DEPRECATED
+   (Replaced by .main-header and .main-nav)
    ======================================== */
-
-header {
-    background-color: #00072D;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
-    width: 100%;
-}
-
-.headshot {
-    vertical-align: top;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 1rem double #ADD8E6;
-    background-color: #ADD8E6;
-    background-image: url('Media/Headshot.JPG');
-    background-size: cover;
-    background-position: bottom 40%;
-    background-clip: padding-box;
-    float: right;
-    margin: 1rem;
-}
-
-nav ul li {
-    display: grid;
-    margin: 0 1rem;
-    list-style-position: inside;
-    text-align: center;
-    width: 100%;
-}
-
-nav ul li a {
-    color: #fff;
-}
-
-.nav-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-menu.active {
-    display: flex;
-}
 
 /* ========================================
    ABOUT SECTION
@@ -1147,76 +1103,13 @@ nav ul li a {
 }
 
 /* ========================================
-   SKILLS SECTION
+   OLD SKILLS SECTION STYLES - DEPRECATED
+   (Replaced by modern .skills-section with .skill-category)
    ======================================== */
-
-.skills {
-    display: inline-flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 50%;
-}
-
-.skillset h3 {
-    font-size: 1.5rem;
-    text-align: center;
-}
-
-.skillset-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, auto);
-    gap: 0.5rem 1.5rem;
-}
-
-.skillset-grid .container {
-    background-color: #ffffff;
-    border-radius: 25% 10%;
-    padding: 0.8rem 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 8rem;
-    height: 8rem;
-    aspect-ratio: 1;
-}
-
-.skillset-grid p {
-    font-size: 0.9rem;
-    text-align: center;
-    font-weight: bold;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    padding: 0.2rem 0.5rem;
-    box-sizing: border-box;
-    max-width: 100%;
-}
-
-.skillset-grid .container img {
-    padding-top: 0.5rem;
-    filter: grayscale(100%);
-    display: block;
-    margin: 0 auto 0.3rem;
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-}
-
-.skillset-grid .word {
-    background-color: #ffffff;
-    border-radius: 25% 10%;
-    padding: 0.8rem 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
 /* ========================================
    PROJECTS SECTION
    ======================================== */
-
-#featured-projects {
-    background-color: black;
-    color: white;
-    padding: 20px;
-}
 
 /* Projects Page Styling */
 .projects-page-section {
@@ -1293,9 +1186,6 @@ nav ul li a {
     height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
-    grid-template-rows: 1fr;
-    gap: 2rem;
-    width: 100%;
     margin-top: 1.5rem;
 }
 
@@ -1906,10 +1796,10 @@ nav ul li a {
     border-left-color: #1d4ed8;
 }
 
-/* Learning Section */
+/* Learning Section - Shared styles for all project showcases */
 .learning-section {
     background: #f9fafb !important;
-    border:  1px solid #e5e7eb;
+    border: 1px solid #e5e7eb;
 }
 
 .learning-grid {
@@ -1921,21 +1811,21 @@ nav ul li a {
 
 .learning-card {
     background: white;
-    padding:  2rem;
+    padding: 2rem;
     border-radius: 0;
-    border-top: 4px solid #2f80ed;
+    border-top: 4px solid #3b82f6;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
 }
 
 .learning-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(47, 128, 237, 0.2);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.2);
 }
 
 .learning-card h3 {
     font-size: 1.25rem;
-    font-weight:  600;
+    font-weight: 600;
     color: #1a202c;
     margin-bottom: 1rem;
 }
@@ -1944,13 +1834,30 @@ nav ul li a {
     font-size: 0.95rem;
     color: #4b5563;
     line-height: 1.7;
-    margin:  0;
+    margin: 0;
 }
 
 .learning-card strong {
     color: #1e293b;
     display: block;
     margin-bottom: 0.5rem;
+}
+
+/* Project-specific learning card accent colors */
+.reactiveskies-showcase .learning-card {
+    border-top-color: #2f80ed;
+}
+
+.reactiveskies-showcase .learning-card:hover {
+    box-shadow: 0 8px 16px rgba(47, 128, 237, 0.2);
+}
+
+.campfire-showcase .learning-card {
+    border-top-color: #ff6b35;
+}
+
+.campfire-showcase .learning-card:hover {
+    box-shadow: 0 8px 16px rgba(255, 107, 53, 0.2);
 }
 
 /* ReactiveSkies code descriptions */
@@ -2381,52 +2288,7 @@ nav ul li a {
     border:  none;
 }
 
-/* Learning section (same as other pages) */
-.learning-section {
-    background: #f9fafb ! important;
-    border: 1px solid #e5e7eb;
-}
-
-.learning-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.learning-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 0;
-    border-top: 4px solid #ff6b35;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-}
-
-.learning-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(255, 107, 53, 0.2);
-}
-
-.learning-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 1rem;
-}
-
-.learning-card p {
-    font-size: 0.95rem;
-    color: #4b5563;
-    line-height: 1.7;
-    margin:  0;
-}
-
-.learning-card strong {
-    color: #1e293b;
-    display: block;
-    margin-bottom: 0.5rem;
-}
+/* Learning section styles defined globally above - no need to repeat */
 
 /* Responsive design for Campfire */
 @media (max-width: 768px) {
@@ -2634,13 +2496,7 @@ footer {
         max-width: 100%;
     }
     
-    .headshot {
-        float: none;
-        display: block;
-        margin: 1rem auto;
-        width: 150px;
-        height: 150px;
-    }
+    /* Headshot styles removed - using .headshot-image in .hero-home instead */
     
     #about {
         padding: 1rem;
@@ -2660,11 +2516,7 @@ footer {
 @media screen and (max-width: 480px) {
     /* Old conflicting nav styles removed - using .main-nav styles instead */
     
-    .headshot {
-        width: 120px;
-        height: 120px;
-        border: 0.5rem solid #ADD8E6;
-    }
+    /* Old headshot styles deprecated - using modern .headshot-image */
     
     #about {
         padding: 0.5rem;
