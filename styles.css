@@ -46,20 +46,6 @@
     background-position: center;
 }
 
-/* Alternative: Try with just background if above doesn't work */
-/* body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('Media/background.gif') center/cover no-repeat;
-    opacity: 0.3;
-    z-index: -1;
-    pointer-events: none;
-} */
-
 body {
     font-family: Arial, sans-serif;
     background-color: transparent;
@@ -2672,74 +2658,7 @@ footer {
 
 /* Mobile (480px and below) */
 @media screen and (max-width: 480px) {
-    header {
-        padding: 0.5rem 0;
-        position: relative;
-    }
-    
-    header h1 {
-        font-size: 1.5rem;
-        margin: 0.5rem 0;
-    }
-    
-    .hamburger {
-        display: flex;
-    }
-    
-    nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #00072D;
-        border-top: 1px solid rgba(255,255,255,0.2);
-        z-index: 999;
-    }
-    
-    .nav-menu {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .nav-menu.active {
-        display: flex;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-    }
-    
-    nav ul li {
-        display: block;
-        margin: 0;
-        width: 100%;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    nav ul li:last-child {
-        border-bottom: none;
-    }
-    
-    nav ul li a {
-        display: block;
-        padding: 1rem;
-        background-color: transparent;
-        border-radius: 0;
-        margin: 0;
-        width: 100%;
-        text-align: center;
-        transition: background-color 0.3s;
-    }
-    
-    nav ul li a:hover {
-        background-color: rgba(255,255,255,0.1);
-    }
+    /* Old conflicting nav styles removed - using .main-nav styles instead */
     
     .headshot {
         width: 120px;
