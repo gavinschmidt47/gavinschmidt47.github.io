@@ -46,6 +46,18 @@
     background-position: center;
 }
 
+.solarscavenger-page .static-background {
+    background: linear-gradient(135deg, #1a0033 0%, #330066 25%, #4a0080 50%, #ff4500 75%, #ff6a00 100%);
+    background-size: 400% 400%;
+    animation: dyingSun 15s ease infinite;
+}
+
+@keyframes dyingSun {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: transparent;
@@ -1272,6 +1284,192 @@ section {
     font-size: 0.8rem;
     font-weight: bold;
     vertical-align: top;
+}
+
+/* ========================================
+   SOLAR SCAVENGER PORTFOLIO STYLES
+   ======================================== */
+
+.solarscavenger-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.7;
+    color: #2c3e50;
+}
+
+/* Solar Scavenger hero with dying sun gradient */
+.solarscavenger-showcase .hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #2d0054 0%, #4a0080 25%, #6a00b3 50%, #ff4500 75%, #ff6a00 100%);
+    border-radius: 0;
+    margin-bottom: 3rem;
+    color: white;
+    position: relative;
+}
+
+.solarscavenger-showcase .jam-badge {
+    display: block;
+    background: rgba(255, 69, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0;
+    margin: 0 auto 1.5rem auto;
+    border: 2px solid rgba(255, 106, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+    width: fit-content;
+}
+
+.solarscavenger-showcase .badge-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #fff;
+    display: block;
+}
+
+.solarscavenger-showcase .reactiveskies-logo {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 1rem auto;
+    display: block;
+    border-radius: 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.solarscavenger-showcase .project-tagline {
+    font-size: 1.5rem;
+    opacity: 0.95;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+.solarscavenger-showcase .jam-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.solarscavenger-showcase .jam-separator {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Solar Scavenger sections */
+.solarscavenger-showcase section {
+    margin-bottom: 4rem;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.solarscavenger-showcase h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #ff4500;
+    padding-bottom: 0.75rem;
+}
+
+.solarscavenger-showcase .overview-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #374151;
+}
+
+/* Solar Scavenger feature cards */
+.solarscavenger-showcase .feature-card {
+    background: linear-gradient(to bottom right, #fff5f0, #ffe6d9);
+    padding: 2rem;
+    border-radius: 0;
+    border-left: 4px solid #ff4500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.solarscavenger-showcase .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(255, 69, 0, 0.2);
+    border-left-color: #ff6a00;
+}
+
+/* Solar Scavenger team members */
+.solarscavenger-showcase .team-member {
+    background: linear-gradient(135deg, #4a0080 0%, #ff4500 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(74, 0, 128, 0.3);
+}
+
+.solarscavenger-showcase .team-member:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(255, 69, 0, 0.4);
+}
+
+/* Solar Scavenger reflection section */
+.solarscavenger-showcase .reflection-section {
+    background: linear-gradient(135deg, #2d0054 0%, #ff4500 100%) !important;
+    color: white;
+}
+
+.solarscavenger-showcase .reflection-section h2 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.solarscavenger-showcase .reflection-section blockquote {
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Solar Scavenger winning section */
+.solarscavenger-showcase .winning-section {
+    background: linear-gradient(135deg, #4a0080 0%, #ff6a00 100%) !important;
+    border: 3px solid #ff4500;
+    box-shadow: 0 8px 24px rgba(255, 69, 0, 0.3);
+}
+
+.solarscavenger-showcase .winning-section h2 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.solarscavenger-showcase .win-highlight {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 0;
+    border-left: 6px solid #ff4500;
+}
+
+.solarscavenger-showcase .win-text {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #1a202c;
+    margin: 0;
+}
+
+/* Solar Scavenger learning cards */
+.solarscavenger-showcase .learning-card {
+    border-top-color: #ff4500;
+}
+
+.solarscavenger-showcase .learning-card:hover {
+    box-shadow: 0 8px 16px rgba(255, 69, 0, 0.2);
 }
 
 /* ========================================

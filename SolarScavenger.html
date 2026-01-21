@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C47TXLXECX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - Solar Scavenger</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+</head>
+<body class="solarscavenger-page">
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Work</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="solarscavenger-showcase">
+        <div class="hero-section">
+            <div class="jam-badge">
+                <span class="badge-text">🚀 FIEA Game Jam 2026</span>
+            </div>
+            <img src="Media/Pieces/Solar Scavenger/SS_Title.png" alt="Solar Scavenger" class="reactiveskies-logo">
+            <p class="project-tagline">Escape the Dying Star</p>
+            <div class="jam-info">
+                <span class="jam-detail">🌟 Space Survival</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">⏱️ Built in 48 Hours</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">🎮 Programmer & Composer</span>
+            </div>
+        </div>
+
+        <section class="project-overview-section">
+            <h2>Game Jam Experience</h2>
+            <p class="overview-text">
+                Solar Scavenger was created for the <strong>FIEA Game Jam 2026</strong>, an intense 48-hour 
+                development challenge where our team of 4 built a complete space survival experience from scratch. 
+                The game centers around a desperate escape from the dying Icarus-XIII star, with players navigating 
+                through procedurally generated space sectors while being pursued by hostile scavengers and pirates.
+            </p>
+            <p class="overview-text">
+                One of the most memorable aspects of this jam was the incredible support from the judges. Their 
+                constructive feedback during playtesting helped us refine our momentum-based controls and balance 
+                the resource management systems. Their insights on pacing and difficulty scaling were invaluable 
+                in making the final hours of development count. The judges' enthusiasm for our procedural generation 
+                approach and dynamic difficulty systems validated our technical decisions and gave us confidence 
+                in the game's potential.
+            </p>
+            <p class="overview-text">
+                As <strong>Programmer & Composer</strong>, I designed and implemented the procedural chunk-based 
+                generation system, resource management mechanics, and momentum-based controls that define the core 
+                gameplay. I also composed the adaptive music system that responds to game state, intensifying as 
+                danger increases. The experience taught me the value of modular systems and performance optimization 
+                in real-time procedural generation.
+            </p>
+        </section>
+
+        <section class="key-features-section">
+            <h2>Technical Highlights</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Procedural Generation</h3>
+                    <p>Chunk-based infinite space exploration with seamless loading</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Object Pooling</h3>
+                    <p>Performance-optimized enemy and resource spawning system</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Resource Management</h3>
+                    <p>Strategic scavenging mechanics with fuel and supplies</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Momentum Controls</h3>
+                    <p>Physics-based movement for realistic space navigation</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Dynamic Difficulty</h3>
+                    <p>Adaptive challenge scaling responsive to player progress</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Adaptive Systems</h3>
+                    <p>Enemy spawn rates adjust based on performance</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Progressive Music</h3>
+                    <p>Soundtrack intensity responds to danger levels</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Dynamic Lighting</h3>
+                    <p>Visual atmosphere tied to star's dying state</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <h2>Development Insights</h2>
+            <div class="learning-grid">
+                <div class="learning-card">
+                    <h3>Procedural Generation</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Building a chunk-based procedural generation system taught 
+                        me about spatial hashing, efficient neighbor lookups, and seamless world streaming. The 
+                        challenge was ensuring smooth performance while generating infinite space in real-time. 
+                        Implementing adaptive chunk loading based on player velocity significantly improved the 
+                        experience.
+                    </p>
+                </div>
+                <div class="learning-card">
+                    <h3>Performance Optimization</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Object pooling became essential for maintaining 60fps 
+                        with hundreds of asteroids, enemies, and collectibles. Rather than instantiating/destroying 
+                        objects constantly, we reused them strategically. This pattern reduced garbage collection 
+                        and kept the game buttery smooth even in intense combat scenarios.
+                    </p>
+                </div>
+                <div class="learning-card">
+                    <h3>Momentum-Based Physics</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Creating satisfying momentum controls required careful 
+                        tuning of acceleration curves, drag coefficients, and rotation speeds. The key was making 
+                        the ship feel heavy and realistic while remaining responsive enough for evasive maneuvers. 
+                        Playtesting feedback helped us find the perfect balance.
+                    </p>
+                </div>
+                <div class="learning-card">
+                    <h3>Adaptive Game Systems</h3>
+                    <p>
+                        <strong>What I Learned:</strong> Dynamic difficulty scaling based on player performance 
+                        created a more engaging experience. Tracking metrics like survival time, resources collected, 
+                        and damage taken allowed us to adjust spawn rates and enemy behavior in real-time, keeping 
+                        players in the "flow state" regardless of skill level.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="winning-section">
+            <h2>The Future: Goblin Candy Studios</h2>
+            <div class="win-highlight">
+                <p class="win-text">
+                    We're incredibly excited to announce that we're continuing development on Solar Scavenger! 
+                    The positive reception at FIEA Game Jam 2026 and the encouraging feedback from judges has 
+                    inspired us to expand the game into a full release. We've formed <strong>Goblin Candy Studios</strong> 
+                    (temporary name!) to take this project to the next level.
+                </p>
+                <p class="win-text">
+                    Our post-jam roadmap includes expanded procedural generation systems, additional enemy types, 
+                    a more robust upgrade system for the player's ship, and narrative elements that flesh out the 
+                    lore of the dying Icarus-XIII star. We're planning deeper resource management mechanics with 
+                    ship customization options and dynamic story events that respond to player choices.
+                </p>
+                <p class="win-text">
+                    The judges' feedback on improving the readability of resource states and enhancing the visual 
+                    distinction between enemy types has already influenced our development priorities. We're grateful 
+                    for the game jam experience and can't wait to share the expanded version of Solar Scavenger with 
+                    the gaming community!
+                </p>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2>Team Credits</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-icon">🎮</div>
+                    <strong>Luke Cullen</strong>
+                    <span>Programming</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🎨</div>
+                    <strong>Ash Cho Chia Yuen</strong>
+                    <span>Art & UI</span>
+                </div>
+                <div class="team-member">
+                    <div class="team-icon">🖌️</div>
+                    <strong>Jacob Arbogast</strong>
+                    <span>Additional Art Assets</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="reflection-section">
+            <h2>Developer Reflection</h2>
+            <blockquote>
+                Building Solar Scavenger in 48 hours was an exhilarating challenge that pushed our technical 
+                skills and creativity to the limit. The procedural generation system became the backbone of 
+                the entire experience, and watching infinite space unfold in real-time as players desperately 
+                fled the dying star was incredibly rewarding. The judges' enthusiasm and constructive feedback 
+                made this jam experience truly special—they didn't just evaluate our work, they invested in 
+                helping us make it better. Their insights on balancing challenge and accessibility shaped our 
+                dynamic difficulty system in ways we hadn't considered. Forming Goblin Candy Studios to continue 
+                this project feels like a natural next step, and we're thrilled to take the momentum from this 
+                jam and transform Solar Scavenger into something even more ambitious. This game proved that with 
+                the right team, tight constraints breed incredible creativity. I can't wait to see where we take 
+                this project next!
+            </blockquote>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script src="header.js"></script>
+</body>
+</html>
