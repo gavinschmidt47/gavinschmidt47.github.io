@@ -97,6 +97,20 @@
             </div>
         </div>
 
+        <!-- Gameplay Video Showcase -->
+        <section class="gameplay-video-section">
+            <div class="video-wrapper">
+                <h2>Gameplay Preview</h2>
+                <div class="video-container-gameplay">
+                    <video autoplay loop muted playsinline>
+                        <source src="Media/Pieces/Solar Scavenger/gameplay.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p class="video-caption">Watch the frantic escape from Icarus-XIII as scavengers pursue through procedurally generated sectors</p>
+            </div>
+        </section>
+
         <section class="project-overview-section">
             <h2>Game Jam Experience</h2>
             <p class="overview-text">
@@ -199,6 +213,580 @@
                         and damage taken allowed us to adjust spawn rates and enemy behavior in real-time, keeping 
                         players in the "flow state" regardless of skill level.
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="code-showcase-section">
+            <h2>Code Showcase</h2>
+
+            <div class="code-feature">
+                <h3>Procedural Sector Generation System</h3>
+                <p class="code-description">
+                    Developed an infinite procedural world generation system that creates sectors on-demand based on 
+                    player position. The system calculates distance from the sun to determine resource density and 
+                    threat levels, creating a natural difficulty curve. Sectors are tracked in a dictionary for 
+                    efficient retrieval and memory management.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>SectorFactory.cs - On-Demand World Generation</summary>
+                        <pre><code class="language-csharp">
+using UnityEngine;
+
+public class SectorFactory : MonoBehaviour
+{
+    public static SectorFactory Instance { get; private set; }
+    const int SectorSize = 100;
+
+    public Vector2Int sunPosition;
+    public int sunDistance = 1000;
+    public GameObject sectorPrefab;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        // Randomize sun position for replayability
+        switch(UnityEngine.Random.Range(0,4))
+        {
+            case 0: sunPosition = Vector2Int.up; break;
+            case 1: sunPosition = Vector2Int.right; break;
+            case 2: sunPosition = Vector2Int.down; break;
+            case 3: sunPosition = Vector2Int.left; break;
+        }
+    }
+
+    // Called when a new sector needs to be generated
+    public Sector GenerateSector(Vector2Int sectorGridPosition)
+    {
+        // Instantiate sector at grid-based world position
+        GameObject sectorObject = Instantiate(
+            sectorPrefab, 
+            new Vector3(sectorGridPosition.x * SectorSize, sectorGridPosition.y * SectorSize, 0f), 
+            Quaternion.identity
+        );
+        sectorObject.transform.SetParent(transform);
+        sectorObject.name = $"Sector({sectorGridPosition.x},{sectorGridPosition.y})";
+
+        // Calculate distance from sun for difficulty scaling
+        float distanceFromSun = Vector2.Distance(
+            sectorGridPosition * 100 * sunPosition, 
+            sunPosition * sunDistance
+        );
+        
+        Sector sector = sectorObject.GetComponent&lt;Sector&gt;();
+        sector.ReceivePackage(new FactoryPackaging(distanceFromSun, sectorGridPosition));
+
+        // Register with sector manager
+        SectorManager.Instance.StoreNewSector(sectorGridPosition, ref sector);
+
+        // Subscribe to player enter event for dynamic loading
+        sector.OnPlayerEnter += (s) => { 
+            SectorManager.Instance.ShiftPlayerSector(sectorGridPosition); 
+        };
+        
+        return sector;
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Dynamic Sector Loading with Memory Management</h3>
+                <p class="code-description">
+                    Implemented a sliding window algorithm that loads/unloads sectors as the player moves through 
+                    the world. This system maintains a 5x5 grid of active sectors around the player, disabling 
+                    sectors outside the range and reactivating cached sectors when revisiting areas. This approach 
+                    enables infinite world exploration without performance degradation.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>SectorManager.cs - Efficient World Streaming</summary>
+                        <pre><code class="language-csharp">
+public class SectorManager : MonoBehaviour
+{
+    public static SectorManager Instance { get; private set; }
+
+    const int MaxSectors = 25;  // 5x5 grid
+    const int midPoint = 2;      // Center of grid
+
+    private Sector[][] currLoadedSectors;
+    private Vector2Int playerSectorPosition;
+    private Dictionary&lt;Vector2Int, Sector&gt; prevLoadedSectors;  // Cached sectors
+
+    public void ShiftPlayerSector(Vector2Int newMidSectorGridPosition)
+    {
+        Vector2Int shiftdir = newMidSectorGridPosition - playerSectorPosition;
+
+        // Create new sector array
+        Sector[][] tempSectors = new Sector[5][];
+        for (int i = 0; i &lt; tempSectors.Length; i++)
+            tempSectors[i] = new Sector[5];
+
+        // Shift existing sectors in opposite direction of player movement
+        for (int i = 0; i &lt; currLoadedSectors.Length; i++)
+        {
+            for (int j = 0; j &lt; currLoadedSectors[i].Length; j++)
+            {
+                int x = i - shiftdir.x;
+                int y = j - shiftdir.y;
+
+                if (x &gt;= 0 &amp;&amp; x &lt; tempSectors.Length &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; tempSectors[x].Length)
+                {
+                    // Sector stays in range, keep it active
+                    tempSectors[x][y] = currLoadedSectors[i][j];
+                }
+                else if (currLoadedSectors[i][j] != null)
+                {
+                    // Sector leaving range, disable but keep cached
+                    currLoadedSectors[i][j].gameObject.SetActive(false);
+                }
+            }
+        }
+
+        currLoadedSectors = tempSectors;
+
+        // Load new sectors in direction of movement
+        Vector2Int newSectorGridOffset;
+        Vector2Int sectorGridPosToBeLoaded;
+
+        switch (shiftdir)
+        {
+            case var v when v.x &gt; 0:  // Moving right
+                for (int i = 0; i &lt; currLoadedSectors[0].Length; i++)
+                {
+                    newSectorGridOffset = new Vector2Int(2, i - midPoint);
+                    sectorGridPosToBeLoaded = newMidSectorGridPosition + newSectorGridOffset;
+                    
+                    // Try to retrieve cached sector, otherwise generate new
+                    Sector sector = GetPreviousSector(sectorGridPosToBeLoaded);
+                    if (sector == null)
+                        sector = SectorFactory.Instance.GenerateSector(sectorGridPosToBeLoaded);
+                    else
+                        sector.gameObject.SetActive(true);
+                    
+                    currLoadedSectors[currLoadedSectors.Length - 1][i] = sector;
+                }
+                break;
+            // ... similar cases for left, up, down
+        }
+
+        playerSectorPosition = newMidSectorGridPosition;
+    }
+
+    public void StoreNewSector(Vector2Int sectorPosition, ref Sector sector)
+    {
+        prevLoadedSectors[sectorPosition] = sector;
+    }
+
+    public Sector GetPreviousSector(Vector2Int sectorPosition)
+    {
+        return prevLoadedSectors.GetValueOrDefault(sectorPosition);
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>State Machine AI with Inheritance Hierarchy</h3>
+                <p class="code-description">
+                    Architected a flexible enemy AI system using a state machine pattern with virtual methods for 
+                    behavior customization. The BaseEnemy class handles common logic (pursuit, attacking), while 
+                    derived classes override specific behaviors. This OOP design enabled rapid creation of diverse 
+                    enemy types with unique mechanics.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>BaseEnemy.cs - Extensible AI Foundation</summary>
+                        <pre><code class="language-csharp">
+public class BaseEnemy : Asteroid
+{
+    protected Player player;
+    protected Rigidbody2D rb;
+
+    protected enum EnemyState
+    {
+        DORMANT,     // Passive behavior when player is far
+        PURSUIT,     // Chase player
+        ATTACK1,     // Close-range attack
+        ATTACK2,     // Mid-range attack
+        ATTACK3      // Special attack
+    }
+    protected EnemyState currentState;
+
+    public float forwardSpeed = 0.25f;
+    public float forwardSpeedLimit = 6f;
+    public float steerSpeed = 2f;
+
+    public float pursuitDistance = 15f;
+    public float attack1Distance = 3f;
+
+    void Update()
+    {
+        switch(currentState)
+        {
+            case EnemyState.DORMANT:
+                DormantTick();
+                break;
+            case EnemyState.PURSUIT:
+                PursuitTick();
+                break;
+            case EnemyState.ATTACK1:
+                Attack1Tick();
+                break;
+            // ... other states
+        }
+    }
+
+    protected virtual void DormantTick()
+    {
+        if(Vector2.Distance(player.transform.position, transform.position) &lt;= pursuitDistance)
+            currentState = EnemyState.PURSUIT;
+    }
+
+    protected virtual void PursuitTick()
+    {
+        if(Vector2.Distance(player.transform.position, transform.position) &gt; pursuitDistance)
+            currentState = EnemyState.DORMANT;
+        else if(Vector2.Distance(player.transform.position, transform.position) &lt;= attack1Distance)
+            currentState = EnemyState.ATTACK1;
+        else
+        {
+            // Navigate toward player
+            Vector2 wish = (player.transform.position - transform.position).normalized;
+            TurnTo(wish, 0.1f);
+
+            if(rb.linearVelocity.magnitude &lt;= forwardSpeedLimit)
+                rb.AddForce(GetForwardV() * forwardSpeed);
+        }
+    }
+
+    protected virtual bool TurnTo(Vector2 wish, float threshold=0.05f)
+    {
+        Vector2 shipDir = GetForwardV();
+        float angle = Mathf.Atan2(shipDir.y, shipDir.x) - Mathf.Atan2(wish.y, wish.x);
+
+        // Normalize angle to -π to π
+        if (angle &gt; Mathf.PI)        angle -= 2f * Mathf.PI;
+        else if (angle &lt;= -Mathf.PI) angle += 2f * Mathf.PI;
+
+        if (Mathf.Abs(angle) &gt; threshold)
+        {
+            int dir = angle &gt; 0 ? 1 : -1;
+            rb.angularVelocity = dir * steerSpeed * 50f;
+            return true;
+        }
+        
+        rb.angularVelocity = 0;
+        return false;
+    }
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Scavenger.cs - Sun-Fleeing Enemy Behavior</summary>
+                        <pre><code class="language-csharp">
+public class Scavenger : BaseEnemy
+{
+    Vector2Int sunPosition;
+    public float dormantSpeedLimit = 4f;
+
+    protected override void subStart()
+    {
+        sunPosition = SectorFactory.Instance.sunPosition;
+    }
+
+    // Override dormant behavior to flee from sun
+    protected override void DormantTick()
+    {
+        if(Vector2.Distance(player.transform.position, transform.position) &lt;= pursuitDistance)
+            currentState = EnemyState.PURSUIT;
+        else
+        {
+            // Flee away from sun when not pursuing player
+            TurnTo(-sunPosition);
+
+            if(rb.linearVelocity.magnitude &lt;= dormantSpeedLimit)
+                rb.AddForce(GetForwardV() * forwardSpeed);
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Predictive Targeting AI System</h3>
+                <p class="code-description">
+                    Implemented advanced AI targeting that predicts player movement based on velocity and distance. 
+                    The BeltDweller enemy calculates where the player will be when the projectile arrives, creating 
+                    challenging combat encounters that require evasive maneuvering rather than simple dodging.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>BeltDweller.cs - Predictive Harpoon Targeting</summary>
+                        <pre><code class="language-csharp">
+public class BeltDweller : BaseEnemy
+{
+    public GameObject harpoon;
+
+    protected override void PursuitTick()
+    {
+        float distance = Vector2.Distance(player.transform.position, transform.position);
+        
+        if(distance &gt; pursuitDistance)
+        {
+            currentState = EnemyState.DORMANT;
+            GetComponent&lt;Rigidbody2D&gt;().angularVelocity = 0;
+        }
+        else if(distance &lt;= attack2Distance)
+        {
+            currentState = EnemyState.ATTACK2;
+        }
+        else
+        {
+            // PREDICTIVE TARGETING: Calculate where player will be
+            // distance/30f estimates projectile travel time
+            Vector2 predict = (Vector2)player.transform.position + 
+                             (player.GetComponent&lt;Rigidbody2D&gt;().linearVelocity * distance/30f);
+            
+            Vector2 wish = (predict - (Vector2)transform.position).normalized;
+            bool turning = TurnTo(wish);
+            
+            // Only fire when aimed at predicted position
+            if(!turning &amp;&amp; lastAttack1 + attack1Cooldown &lt; Time.time)
+                currentState = EnemyState.ATTACK1;
+        }
+    }
+
+    protected override void Attack1Tick()
+    {
+        if(lastAttack1 + attack1Cooldown &lt; Time.time)
+        {
+            // Fire harpoon at predicted position
+            GameObject newHarp = Instantiate(harpoon);
+            newHarp.transform.position = transform.position;
+            newHarp.transform.eulerAngles = transform.eulerAngles;
+            newHarp.GetComponent&lt;Rigidbody2D&gt;().AddForce(
+                GetForwardV() * newHarp.GetComponent&lt;Harpoon&gt;().impulse
+            );
+
+            lastAttack1 = Time.time;
+        }
+        
+        currentState = EnemyState.PURSUIT;
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Physics-Based Player Movement System</h3>
+                <p class="code-description">
+                    Created a momentum-based spaceship control system with three movement states (idle, normal thrust, 
+                    boost). The system features velocity limiting, resource management (fuel tank), and health-drain 
+                    mechanics that force strategic movement decisions. Movement feels weighty and realistic while 
+                    remaining responsive.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Player.cs - Multi-State Movement System</summary>
+                        <pre><code class="language-csharp">
+public class Player : MonoBehaviour
+{
+    Rigidbody2D rb;
+
+    public float startingHealth = 10f;
+    float health;
+    public float startHealthDrain = 0.1f;  // Cost of movement
+    float currHealthDrain;
+
+    public float forwardSpeed = 0.25f;
+    public float boostSpeed = 1f;
+    public float boostImpulse = 150f;
+
+    public float forwardSpeedLimit = 5f;   // Max normal velocity
+    public float boostSpeedLimit = 10f;    // Max boost velocity
+
+    enum Forward { NONE, NORMAL, BOOST }
+    Forward forwardState = Forward.NONE;
+
+    public float maxTank = 100f;
+    float tank;
+    public float thrustCost = 20f;
+    public float tankCooldown = 1f;
+    float lastThrust = -1f;
+    float lastTank = -1f;
+
+    void Update()
+    {
+        switch(forwardState)
+        {
+            case Forward.BOOST:
+                if(tank &lt;= 0f)
+                {
+                    forwardState = Forward.NONE;
+                    break;
+                }
+
+                lastThrust = Time.time;  // Delay tank regeneration
+
+                if(rb.linearVelocity.magnitude &lt;= boostSpeedLimit)
+                    rb.AddForce(GetForwardV() * boostSpeed);
+
+                tank = Mathf.Max(tank - thrustDrain, 0f);
+                boostSlider.value = tank/maxTank;
+                break;
+
+            case Forward.NORMAL: 
+                health -= Time.deltaTime * currHealthDrain;  // Movement costs health
+
+                if(rb.linearVelocity.magnitude &lt;= forwardSpeedLimit)
+                    rb.AddForce(GetForwardV() * forwardSpeed);
+                break;
+                
+            case Forward.NONE: 
+                // Natural momentum decay
+                break;
+        }
+
+        // Tank regeneration after cooldown
+        if(lastTank + tankCooldown &lt;= Time.time)
+        {
+            tank = Mathf.Min(tank + tankRegen * Time.deltaTime, maxTank);
+            boostSlider.value = tank/maxTank;
+        }
+
+        // Steering
+        if(steer != 0)
+            rb.AddTorque(-steer * steerSpeed);
+
+        // Gravity pull from nearby planets
+        if(currentPlanet != null)
+        {
+            Vector2 direction = (currentPlanet.transform.position - transform.position).normalized;
+            float distance = Vector2.Distance(transform.position, currentPlanet.transform.position);
+            float gravityForce = currentPlanet.gravityStrength / (distance * distance);
+            rb.AddForce(direction * gravityForce);
+        }
+    }
+
+    public void OnForward(InputAction.CallbackContext context)
+    {
+        forwardState = context.performed ? Forward.NORMAL : Forward.NONE;
+    }
+
+    public void OnThrust(InputAction.CallbackContext context)
+    {
+        if(context.performed &amp;&amp; tank &gt;= thrustCost &amp;&amp; lastThrust + thrustCooldown &lt; Time.time)
+        {
+            tank -= thrustCost;
+            rb.AddForce(GetForwardV() * boostImpulse);  // Instant boost
+            lastThrust = Time.time;
+            lastTank = Time.time;
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Upgrade System with Stat Modifications</h3>
+                <p class="code-description">
+                    Designed a flexible upgrade system that allows players to modify core stats (health, fuel capacity, 
+                    health drain rate, weapon cost). Upgrades are purchased at space stations using salvaged resources, 
+                    creating a risk/reward loop where players must venture into dangerous sectors to afford improvements.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Player.cs - Dynamic Stat Modification System</summary>
+                        <pre><code class="language-csharp">
+// Resource management
+public List&lt;SalvageItem&gt; salvageInv = new List&lt;SalvageItem&gt;();
+public int maxSalvage = 5;
+
+public bool AddSalvage(Salvage add)
+{
+    if(salvageInv.Count &gt;= maxSalvage) return false;
+    salvageInv.Add(add.data);
+    salvageText.text = salvageInv.Count + "/" + maxSalvage;
+    return true;
+}
+
+// Upgrade methods called by shop system
+public void DecreaseHealthDrainUpgrade(float amount)
+{
+    currHealthDrain = Mathf.Max(0f, currHealthDrain - amount);
+}
+
+public void IncreaseMaxHealthUpgrade(float amount)
+{
+    startingHealth += amount;
+    health += amount;  // Also heal current health
+    healthSlider.value = health/startingHealth;
+}
+
+public void IncreaseTankUpgrade(float amount)
+{
+    maxTank += amount;
+    tank += amount;  // Also restore tank
+    boostSlider.value = tank/maxTank;
+}
+
+public void DecreaseWeaponCostUpgrade(float amount)
+{
+    weaponCost = Mathf.Max(0f, weaponCost - amount);
+}
+                        </code></pre>
+                    </details>
+                    <details>
+                        <summary>Station.cs - Salvage Trading System</summary>
+                        <pre><code class="language-csharp">
+public class Station : MonoBehaviour
+{
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            Debug.Log("Docked at Station!");
+
+            Player pl = other.gameObject.GetComponent&lt;Player&gt;();
+
+            // Calculate total salvage value
+            int sale = 0;
+            foreach(SalvageItem s in pl.salvageInv)
+                sale += s.value;
+
+            // Clear inventory and give credits
+            pl.salvageInv.Clear();
+            pl.salvageText.text = pl.salvageInv.Count+"/"+pl.maxSalvage;
+
+            GameManager.instance.GiveCredits(sale);
+
+            // Open shop UI
+            CanvasController.instance.setShop(true);
+            ShopUI shop = CanvasController.instance.shopLayer.GetComponent&lt;ShopUI&gt;();
+            shop.enterShop();
+        }
+    }
+}
+                        </code></pre>
+                    </details>
                 </div>
             </div>
         </section>

@@ -8,12 +8,13 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 ### Page Types & Structure
 - **Landing page** ([index.html](../index.html)): Hero section with headshot, About, Skills (with icon grid), Featured Projects, Contact sections
 - **Projects hub** ([projects.html](../projects.html)): List of game projects with inline metadata (team size, role, time, engine) in `.Info-Grid .container` divs
-- **Project detail pages** (5 total): Deep-dive showcases with hero sections, technical highlights, code snippets (Prism.js), team credits, and developer reflections
+- **Project detail pages** (6 total): Deep-dive showcases with hero sections, technical highlights, code snippets (Prism.js), team credits, and developer reflections
   - [CampfireCryptid.html](../CampfireCryptid.html) - Winner badge styling, game jam focus
   - [Fearosis.html](../Fearosis.html) - Mobile game, A* pathfinding showcase
   - [Reconnection.html](../Reconnection.html) - Unreal C++ project
   - [Deadtective.html](../Deadtective.html) - Purple horror theme
   - [ReactiveSkies.html](../ReactiveSkies.html) - Sky blue theme, API integration
+  - [SolarScavenger.html](../SolarScavenger.html) - Dying sun gradient theme, FIEA Game Jam 2026, **includes autoplay gameplay video**
 - **Resume page** ([resume.html](../resume.html)): Embeds PDF via `<embed>` tag, points to `Media/Schmidt, Gavin_Resume.pdf`
 - **Music page** ([music.html](../music.html)): Audio players for original game compositions + Spotify embed
 
@@ -33,14 +34,16 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 - **Project info uses inline SVG icons** for team size, role, time, engine (see [projects.html](../projects.html) lines 71-115)
 - **Prism.js integration**: Detail pages load `prism-okaidia.min.css` + language-specific component (`prism-csharp.min.js` or `prism-cpp.min.js`)
 - **Code examples in collapsible `<details>`**: Code wrapped in `<pre><code class="language-csharp">` for syntax highlighting
+- **Gameplay videos**: Use `<video autoplay loop muted playsinline>` with MP4/WebM sources in `.video-container-gameplay` divs (see [SolarScavenger.html](../SolarScavenger.html) for reference implementation)
 
 ### CSS Architecture
 - **Color scheme**: Primary dark blue (`#00072D`), light blue accent (`#ADD8E6`), gradient header (`135deg, #00072D → #1a1a3e`)
-- **Project-specific theming**: Each detail page has custom gradient/colors (Fearosis = purple, Reconnection = pink, ReactiveSkies = blue, Deadtective = dark purple, Campfire = orange)
+- **Project-specific theming**: Each detail page has custom gradient/colors (Fearosis = purple, Reconnection = pink, ReactiveSkies = blue, Deadtective = dark purple, Campfire = orange, SolarScavenger = dying sun gradient with purple-to-orange)
 - **Header**: Sticky positioned (`position: sticky; top: 0`), flexbox with brand left, nav right
 - **Mobile-first responsive**: Hamburger menu appears at `max-width: 768px`, overlay pattern for mobile nav
 - **Section styling**: White background cards with `box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07)` and `border-radius: 12px` (note: some legacy `border-radius: 0` exists)
 - **Class naming**: Descriptive with project prefixes (`.fearosis-showcase`, `.campfire-showcase`) and BEM-like patterns (`.hero-section`, `.feature-card`, `.nav-link-highlight`)
+- **Video containers**: `.video-container-gameplay` for autoplay videos - max-width 900px, centered, with dramatic shadows and rounded corners
 
 ### Asset Organization
 - **Media/** stores all images, icons, PDFs at root level (e.g., `Headshot.JPG`, skill icons like `unity.png`, `vscode.png`)
