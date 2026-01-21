@@ -11,33 +11,95 @@
       gtag('config', 'G-C47TXLXECX');
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Gavin Schmidt's Portfolio - Resume</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Gavin Schmidt's Portfolio</h1>
-        
-        <button class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <nav>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-                <li><a href="resume.html" target="_blank">Resume</a></li>
-            </ul>
-        </nav>
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                </a>
+            </div>
 
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Work</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <embed src="Media/Schmidt, Gavin_Resume.pdf" type="application/pdf" style="width: 100vw; height: 100vh;" />
 
-    <script src="hamburger.js"></script>
+    <main style="padding-top: 1rem;">
+        <embed src="Media/Schmidt, Gavin_Resume.pdf" type="application/pdf" style="width: 100%; height: calc(100vh - 120px); border: none;" />
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script src="header.js"></script>
 </body>
 </html>
