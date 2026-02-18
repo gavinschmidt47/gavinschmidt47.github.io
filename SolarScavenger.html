@@ -136,6 +136,24 @@
             </p>
         </section>
 
+        <section class="gallery-section">
+            <h2>Visual Showcase</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Solar Scavenger/SS_Explore.gif" alt="Sector Exploration">
+                    <p class="gallery-caption">Deep Space Exploration</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Solar Scavenger/SS_Enemy1.gif" alt="Scavenger Drone">
+                    <p class="gallery-caption">Scavenger Drone</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Solar Scavenger/SS_Enemy2.gif" alt="Belt Dweller">
+                    <p class="gallery-caption">Belt Dweller</p>
+                </div>
+            </div>
+        </section>
+
         <section class="key-features-section">
             <h2>Technical Highlights</h2>
             <div class="features-grid">
@@ -183,7 +201,7 @@
                         <strong>What I Learned:</strong> Building a chunk-based procedural generation system taught 
                         me about spatial hashing, efficient neighbor lookups, and seamless world streaming. The 
                         challenge was ensuring smooth performance while generating infinite space in real-time. 
-                        Implementing adaptive chunk loading based on player velocity significantly improved the 
+                        Implementing adaptive chunk loading based on player location significantly improved the 
                         experience.
                     </p>
                 </div>
@@ -199,19 +217,21 @@
                 <div class="learning-card">
                     <h3>Momentum-Based Physics</h3>
                     <p>
-                        <strong>What I Learned:</strong> Creating satisfying momentum controls required careful 
-                        tuning of acceleration curves, drag coefficients, and rotation speeds. The key was making 
-                        the ship feel heavy and realistic while remaining responsive enough for evasive maneuvers. 
-                        Playtesting feedback helped us find the perfect balance.
+                        <strong>What I Learned:</strong> Creating satisfying momentum controls requires careful 
+                        tuning and tweaking. These, of course, being things we had very little time for in a 
+                        48-hour jam. This helped me learn to prioritize core mechanics and iterate quickly on 
+                        feel. Although realism was a goal, player enjoyment took precedence, leading to adjustments 
+                        that balanced authenticity with fun. The result was a control scheme that felt weighty and 
+                        responsive, enhancing the tension of escaping the star.
                     </p>
                 </div>
                 <div class="learning-card">
                     <h3>Adaptive Game Systems</h3>
                     <p>
                         <strong>What I Learned:</strong> Dynamic difficulty scaling based on player performance 
-                        created a more engaging experience. Tracking metrics like survival time, resources collected, 
+                        created a more engaging experience. Tracking metrics like distance traveled, resources collected, 
                         and damage taken allowed us to adjust spawn rates and enemy behavior in real-time, keeping 
-                        players in the "flow state" regardless of skill level.
+                        players immersed in the ever-changing and dynamic game environment.
                     </p>
                 </div>
             </div>

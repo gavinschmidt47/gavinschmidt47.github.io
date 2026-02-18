@@ -1515,6 +1515,51 @@ section {
     color: #374151;
 }
 
+/* Solar Scavenger Gallery */
+.solarscavenger-showcase .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.solarscavenger-showcase .gallery-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.solarscavenger-showcase .gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.solarscavenger-showcase .gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 3px solid #ff4500;
+}
+
+.solarscavenger-showcase .gallery-caption {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #2d0054;
+    margin: 0;
+    font-size: 1.1rem;
+    background: linear-gradient(to bottom, #fff, #fff5f0);
+}
+
+@media (max-width: 768px) {
+    .solarscavenger-showcase .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Solar Scavenger feature cards */
 .solarscavenger-showcase .feature-card {
     background: linear-gradient(to bottom right, #fff5f0, #ffe6d9);
