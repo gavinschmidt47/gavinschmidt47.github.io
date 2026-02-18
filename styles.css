@@ -73,6 +73,18 @@
     100% { background-position: 0% 50%; }
 }
 
+.patched-page .static-background {
+    background: linear-gradient(135deg, #2C2416 0%, #4A3C28 25%, #6B5639 50%, #8B6F47 75%, #A68A5C 100%);
+    background-size: 400% 400%;
+    animation: corruptedFactory 18s ease infinite;
+}
+
+@keyframes corruptedFactory {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: transparent;
@@ -1245,6 +1257,64 @@ section {
     margin-bottom: 1rem;
 }
 
+/* Studio/Organization Colored Names */
+.studio-icebreak {
+    color: #4DD0E1 !important; /* Icy cyan/light blue */
+}
+
+.studio-headortail {
+    color: #9C27B0 !important; /* Purple */
+}
+
+.studio-gamersinc {
+    color: #4CAF50 !important; /* Green */
+}
+
+.studio-mysticaldie {
+    color: #E53935 !important; /* Red */
+}
+
+.studio-ucf {
+    color: #FFC904 !important; /* UCF Gold */
+}
+
+.studio-irsc {
+    color: #B8860B !important; /* Dark gold */
+}
+
+.studio-ghostknights {
+    color: #D4A520 !important; /* Brownish yellow/goldenrod */
+}
+
+/* Studio/Organization Colored Borders */
+.container-icebreak {
+    border-left: 4px solid #4DD0E1 !important; /* Icy cyan/light blue */
+}
+
+.container-headortail {
+    border-left: 4px solid #9C27B0 !important; /* Purple */
+}
+
+.container-gamersinc {
+    border-left: 4px solid #4CAF50 !important; /* Green */
+}
+
+.container-mysticaldie {
+    border-left: 4px solid #E53935 !important; /* Red */
+}
+
+.container-ucf {
+    border-left: 4px solid #FFC904 !important; /* UCF Gold */
+}
+
+.container-irsc {
+    border-left: 4px solid #B8860B !important; /* Dark gold */
+}
+
+.container-ghostknights {
+    border-left: 4px solid #D4A520 !important; /* Brownish yellow/goldenrod */
+}
+
 .Info-Grid .container .Info-Section {
     padding-bottom: 1.5rem;
     display: flex;
@@ -2327,6 +2397,128 @@ section {
 
     .jam-badge {
         margin-bottom: 1rem;
+    }
+}
+
+/* ========================================
+   PATCHED PORTFOLIO STYLES
+   ======================================== */
+
+.patched-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.7;
+    color: #2c3e50;
+}
+
+/* PATCHED-specific hero with corrupted factory gradient */
+.patched-showcase .hero-section {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #6B5639 0%, #D4A520 100%);
+    border-radius: 0;
+    margin-bottom: 3rem;
+    color: white;
+    position: relative;
+}
+
+/* PATCHED sections */
+.patched-showcase section {
+    margin-bottom: 4rem;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.patched-showcase h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #D4A520;
+    padding-bottom: 0.75rem;
+}
+
+.patched-showcase .overview-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #374151;
+}
+
+/* PATCHED feature cards with golden/brownish accent */
+.patched-showcase .feature-card {
+    background: linear-gradient(to bottom right, #fefce8, #fef9e7);
+    padding: 2rem;
+    border-radius: 0;
+    border-left: 4px solid #D4A520;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.patched-showcase .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(212, 165, 32, 0.3);
+    border-left-color: #B8860B;
+}
+
+/* PATCHED code descriptions */
+.patched-showcase .code-description {
+    font-size: 1.05rem;
+    color: #4b5563;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #fefce8;
+    border-left: 3px solid #D4A520;
+    border-radius: 0;
+}
+
+/* PATCHED team members with matching gradient */
+.patched-showcase .team-member {
+    background: linear-gradient(135deg, #6B5639 0%, #D4A520 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(212, 165, 32, 0.3);
+}
+
+.patched-showcase .team-member:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(212, 165, 32, 0.4);
+}
+
+/* PATCHED reflection section */
+.patched-showcase .reflection-section {
+    background: linear-gradient(135deg, #6B5639 0%, #D4A520 100%) !important;
+    color: white;
+}
+
+.patched-showcase .reflection-section h2 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.patched-showcase .reflection-content p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive design for PATCHED */
+@media (max-width: 768px) {
+    .patched-showcase {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .patched-showcase .hero-section {
+        padding: 2rem 1rem;
     }
 }
 
