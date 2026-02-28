@@ -8,15 +8,16 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 ### Page Types & Structure
 - **Landing page** ([index.html](../index.html)): Hero section with headshot, About, Skills (with icon grid), Featured Projects, Contact sections
 - **Projects hub** ([projects.html](../projects.html)): List of game projects with inline metadata (team size, role, time, engine) in `.Info-Grid .container` divs
-- **Project detail pages** (6 total): Deep-dive showcases with hero sections, technical highlights, code snippets (Prism.js), team credits, and developer reflections
+- **Project detail pages** (7 total): Deep-dive showcases with hero sections, technical highlights, code snippets (Prism.js), team credits, and developer reflections
   - [CampfireCryptid.html](../CampfireCryptid.html) - Winner badge styling, game jam focus
   - [Fearosis.html](../Fearosis.html) - Mobile game, A* pathfinding showcase
   - [Reconnection.html](../Reconnection.html) - Unreal C++ project
   - [Deadtective.html](../Deadtective.html) - Purple horror theme
   - [ReactiveSkies.html](../ReactiveSkies.html) - Sky blue theme, API integration
   - [SolarScavenger.html](../SolarScavenger.html) - Dying sun gradient theme, FIEA Game Jam 2026, **includes autoplay gameplay video**
+  - [COLDSNAP.html](../COLDSNAP.html) - Frozen blue gradient, contract composition work, music showcase section
 - **Resume page** ([resume.html](../resume.html)): Embeds PDF via `<embed>` tag, points to `Media/Schmidt, Gavin_Resume.pdf`
-- **Music page** ([music.html](../music.html)): Audio players for original game compositions + Spotify embed
+- **Music page** ([music.html](../music.html)): Audio players for original game compositions + Spotify embed. **Songs must be listed in alphabetical order by title**
 
 ### Global Components
 - **Header/Navigation**: Identical structure across all pages (lines 25-67 in most files) with brand name, subtitle, and 5 nav items (Home, Projects, Music, Contact, Resume)
@@ -35,6 +36,43 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 - **Prism.js integration**: Detail pages load `prism-okaidia.min.css` + language-specific component (`prism-csharp.min.js` or `prism-cpp.min.js`)
 - **Code examples in collapsible `<details>`**: Code wrapped in `<pre><code class="language-csharp">` for syntax highlighting
 - **Gameplay videos**: Use `<video autoplay loop muted playsinline>` with MP4/WebM sources in `.video-container-gameplay` divs (see [SolarScavenger.html](../SolarScavenger.html) for reference implementation)
+
+### Project Entry Style Guide
+All project entries must follow consistent conventions across [projects.html](../projects.html), [index.html](../index.html) featured cards, and detail pages:
+
+**Role Title Conventions:**
+- Use **"Lead Engineer"** for lead programming roles (never "Lead Programmer" or "Programming Lead")
+- Use **"Gameplay Engineer"** for individual contributor programming roles (never "Programmer")
+- Use **"Producer & Lead Engineer"** when holding both producer and lead engineering roles
+- Use **"Gameplay Engineer & Composer"** or **"Lead Engineer & Composer"** when also composing music
+- Use **"Contract Composer"** or **"Composer"** for composition-only roles
+- Use **"Creator"** for solo projects without team context
+- **Consistency requirement:** Role titles must match exactly between projects.html, index.html featured cards, and the project's detail page
+
+**projects.html Entry Structure:**
+Each `<li class="Project">` must contain:
+1. **Image**: `<img src="Media/Pieces/{ProjectName}/">` with descriptive alt text
+2. **Info-Grid with two containers**:
+   - **First container**: Project description (2-3 paragraphs), Key Technical Contributions bulleted list with `<strong>` feature names
+   - **Second container**: Four Info-Sections with inline SVG icons:
+     - Team Size (users icon) or "Studio: {Name}" for contract work
+     - Team Role (layers icon) using standard role titles above
+     - Time (clock icon) - use "X months (WIP)" for in-progress, "X hours/days" for jams, specific date ranges for contract work
+     - Engine (gamepad icon) with "Learn More" button inside this final Info-Section div
+
+**Button Placement Rule:**
+The `<a href="{Project}.html" class="button">Learn More</a>` button **must be inside the last Info-Section div** (the Engine section), not outside the container. This ensures consistent styling and layout.
+
+**index.html Featured Cards:**
+- Use same role titles as projects.html and detail pages
+- Keep descriptions concise (1-2 sentences max)
+- Include 2-4 relevant tags (engine, genre, key feature)
+- Winner badges use `.featured-card-winner` class with `.featured-badge` element
+
+**Detail Page Consistency:**
+- Role mentioned in hero section `project-info-bar` must match projects.html and index.html
+- Role mentioned in "Project Overview" or introduction paragraphs must match
+- Team credits section should use consistent role titles
 
 ### CSS Architecture
 - **Color scheme**: Primary dark blue (`#00072D`), light blue accent (`#ADD8E6`), gradient header (`135deg, #00072D → #1a1a3e`)
@@ -77,7 +115,7 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 
 ### Common Maintenance Tasks
 - **Update resume**: Replace `Media/Schmidt, Gavin_Resume.pdf` with new version (filename must match exactly)
-- **Add new music track**: Add `<audio>` element to [music.html](../music.html) following existing pattern (lines 110-180)
+- **Add new music track**: Add `<audio>` element to [music.html](../music.html) following existing pattern, maintaining alphabetical order by song title
 - **Modify navigation**: Update header HTML in ALL pages (search for `<header class="main-header">` - lines 25-67 typically)
 - **Change contact info**: Update [index.html](../index.html) `#contact` section (lines 492-563)
 
@@ -108,6 +146,7 @@ The hamburger menu logic exists in [header.js](../header.js) but is **currently 
 
 ## Important Notes
 - **No package manager**: This project intentionally avoids npm, yarn, webpack, etc. for GitHub Pages simplicity
+- **No em-dashes**: Never use em-dashes (—) in any content. Use colons, periods, commas, or semicolons instead for clarity and readability
 - **Mobile menu refactoring**: Inline scripts at bottom of each page should be replaced with `<script src="header.js"></script>` - [header.js](../header.js) contains the proper centralized logic
 - **Resume updates**: Only the PDF file needs to be replaced; [resume.html](../resume.html) uses `<embed>` tag pointing to static path
 - **Background styling**: Each project detail page uses `.{project}-page .static-background` CSS rule for unique backgrounds (images or gradients)

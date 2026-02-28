@@ -1,4 +1,4 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -15,8 +15,9 @@
     <title>Gavin Schmidt's Portfolio - Reconnection</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min. js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 </head>
 <body class="reconnection-page">
     
@@ -29,7 +30,7 @@
             <div class="header-brand">
                 <a href="index.html" class="brand-link">
                     <span class="brand-name">Gavin Schmidt</span>
-                    <span class="brand-subtitle">Game Developer & Programmer</span>
+                    <span class="brand-subtitle">Game Designer, Composer, Programmer, and Software Engineer</span>
                 </a>
             </div>
 
@@ -93,7 +94,7 @@
             <p class="overview-text">
                 Reconnection is a <strong>D&D-inspired turn-based fighting game</strong> built in Unreal Engine, 
                 combining tactical combat with beautiful visuals and dynamic narrative choices.  As <strong>Lead 
-                Programmer</strong>, I architected the entire combat system in C++, implementing dice-roll mechanics, 
+                Engineer</strong>, I architected the entire combat system in C++, implementing dice-roll mechanics, 
                 stat-based calculations, and AI decision-making that brings tabletop RPG combat to life. 
             </p>
         </section>
@@ -107,11 +108,11 @@
                 </div>
                 <div class="feature-card">
                     <h3>Turn-Based Mechanics</h3>
-                    <p>Initiative-based turn order with strategic action choices</p>
+                    <p>UTurnManager auto-discovers fighters, sorts by initiative, and drives the full round/turn loop via multicast delegates</p>
                 </div>
                 <div class="feature-card">
                     <h3>Enemy AI System</h3>
-                    <p>Blueprint-extensible AI behavior for dynamic opponents</p>
+                    <p>Utility-scored AI weighs attack, heal, block, and buff actions each turn using health ratios, line-of-sight, and weapon type affinity</p>
                 </div>
                 <div class="feature-card">
                     <h3>C++ Architecture</h3>
@@ -131,7 +132,7 @@
         <section class="code-showcase-section">
             <h2>Code Showcase</h2>
 
-			            <div class="code-feature">
+            <div class="code-feature">
                 <h3>Blueprint Integration & Designer Tools</h3>
                 <p class="code-description">
                     The C++ AFighter and UEnemy classes are designed for Blueprint extensibility, allowing 
@@ -578,35 +579,251 @@ void UFighter:: RemoveBuff(float BuffAmount, const FString& stat)
             </div>
 
             <div class="code-feature">
-                <h3>Enemy AI Architecture</h3>
+                <h3>UEnemy - Fighter Enemy Architecture</h3>
                 <p class="code-description">
-                    Blueprint-extensible AI system that inherits from UFighter.  Designers can implement 
-                    custom AI behaviors in Blueprints while the C++ foundation handles combat mechanics.  
-                    This separation of concerns enables rapid iteration. 
+                    <code>UEnemy</code> inherits from <code>UFighter</code> and adds a full utility-based AI decision system.
+                    Enemies track allies and opponents separately, evaluate weighted utility scores for every possible action,
+                    and automatically choose the highest-value action each turn. Weapon type awareness (Melee, Ranged, Magic)
+                    further biases the AI's attack preference, and all utility weights are <code>EditAnywhere</code> so designers
+                    can tune behavior per enemy type without touching code.
                 </p>
                 <div class="code-container">
                     <details>
-                        <summary>UEnemy.cpp - AI Decision Making</summary>
+                        <summary>UEnemy.h - Header &amp; Weapon Type Enum</summary>
                         <pre><code class="language-cpp">
-#include "UEnemy.h"
-
-void UEnemy::StartTurn()
+UENUM(BlueprintType)
+enum class EWeaponType : uint8
 {
-    Super::StartTurn();
-    
-    // Automatically trigger AI decision when turn starts
-    ChooseAction();
+    Melee  UMETA(DisplayName = "Melee"),
+    Ranged UMETA(DisplayName = "Ranged"),
+    Magic  UMETA(DisplayName = "Magic")
+};
+
+UCLASS(ClassGroup = (Fighters), meta = (BlueprintSpawnableComponent))
+class RECONNECTION_API UEnemy : public UFighter
+{
+    GENERATED_BODY()
+
+public:
+    virtual void StartTurn() override;
+
+    // Blueprint-implementable AI entry point
+    UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Enemy|Combat")
+    void ChooseAction();
+    virtual void ChooseAction_Implementation();
+
+    // Roster management
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Setup")
+    void InitializeEnemy(const TArray&lt;UFighter*&gt;&amp; AllFighters);
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Setup")
+    void UpdateAlliesAndEnemies(const TArray&lt;UFighter*&gt;&amp; AllFighters);
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Setup")
+    void OnFighterListChanged(UFighter* ChangedFighter);
+
+    virtual void ReceiveDamage(float Damage) override;
+
+    // --- Utility scorers ---
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetAttackUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetMeleeUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetRangedUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetMagicUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetSelfHealUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetAllyHealUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetBlockUtility();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|Utility")
+    float GetBuffUtility();
+
+    // Tunable weights exposed to designers
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    float AttackUtilityWeight;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasMelee;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasRanged;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasMagic;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    float HealUtilityWeight;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasSelfHeal;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasAllyHeal;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    float BuffUtilityWeight;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasBuff;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    float BlockUtilityWeight;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Enemy|Utility|Weight")
+    bool bHasBlock;
+
+    UFUNCTION(BlueprintCallable, Category = "Enemy|StorageAccess")
+    UFighter* GetClosestEnemy();
+    UFUNCTION(BlueprintCallable, Category = "Enemy|StorageAccess")
+    UFighter* GetLowestAlly();
+
+private:
+    TArray&lt;UFighter*&gt; Allies;
+    TArray&lt;UFighter*&gt; Enemies;
+    float LastDamageReceived;
+    int ClosestEnemyIndex;
+    int LowestAllyIndex;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy|Weapon",
+              meta = (AllowPrivateAccess = "true"))
+    EWeaponType CurrentWeaponType = EWeaponType::Melee;
+};
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>UEnemy.cpp - Ally &amp; Enemy Roster Tracking</summary>
+                        <pre><code class="language-cpp">
+void UEnemy::InitializeEnemy(const TArray&lt;UFighter*&gt;&amp; AllFighters)
+{
+    Allies.Empty();
+    for (UFighter* Fighter : AllFighters)
+    {
+        if (Fighter &amp;&amp; Fighter-&gt;GetOwner() != GetOwner())
+        {
+            if (Fighter-&gt;GetOwner()-&gt;FindComponentByClass&lt;UEnemy&gt;())
+                Allies.Add(Fighter);   // Same faction
+            else
+                Enemies.Add(Fighter);  // Opposing faction
+        }
+    }
 }
 
-// Blueprint-implementable function for AI logic
-void UEnemy::ChooseAction_Implementation()
+void UEnemy::UpdateAlliesAndEnemies(const TArray&lt;UFighter*&gt;&amp; AllFighters)
 {
-    // Non-blueprint implementation does nothing
-    // Designers implement this in Blueprint to define enemy behavior: 
-    // - Analyze player health, buffs, position
-    // - Choose between Attack, Heal, Block, Special abilities
-    // - Execute chosen action
+    Allies.Empty();
+    Enemies.Empty();
+    for (UFighter* Fighter : AllFighters)
+    {
+        if (Fighter &amp;&amp; Fighter-&gt;GetOwner() != GetOwner())
+        {
+            if (Fighter-&gt;GetOwner()-&gt;FindComponentByClass&lt;UEnemy&gt;())
+                Allies.Add(Fighter);
+            else
+                Enemies.Add(Fighter);
+        }
+    }
 }
+
+// Called by UTurnManager delegates whenever a fighter joins or dies
+void UEnemy::OnFighterListChanged(UFighter* /*ChangedFighter*/)
+{
+    UWorld* World = GetWorld();
+    if (!World) return;
+    for (TObjectIterator&lt;UTurnManager&gt; It; It; ++It)
+    {
+        if (It-&gt;GetWorld() == World)
+        {
+            UpdateAlliesAndEnemies(It-&gt;Fighters);
+            break;
+        }
+    }
+}
+
+void UEnemy::ReceiveDamage(float Damage)
+{
+    Super::ReceiveDamage(Damage);
+    LastDamageReceived = Damage;  // Stored for block utility scoring
+}
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>UEnemy.cpp - Utility AI Scoring System</summary>
+                        <pre><code class="language-cpp">
+// Attack utility: drives aggression based on target's remaining health.
+// Uses -ln(healthRatio) so near-dead targets score exponentially higher.
+float UEnemy::GetAttackUtility()
+{
+    float CurrUtility = 0;
+    ClosestEnemyIndex = 0;
+    if (Enemies.Num() &lt;= 0) return CurrUtility;
+
+    float ClosestDistance = Enemies[0]-&gt;GetOwner()-&gt;GetHorizontalDistanceTo(this-&gt;GetOwner());
+    bool bHasLineOfSight = false;
+
+    int i = 0;
+    for (UFighter* CurrFighter : Enemies)
+    {
+        float Dist = CurrFighter-&gt;GetOwner()-&gt;GetHorizontalDistanceTo(this-&gt;GetOwner());
+        if (Dist &lt; ClosestDistance) { ClosestEnemyIndex = i; ClosestDistance = Dist; }
+        if (CheckSightToTarget(CurrFighter)) bHasLineOfSight = true;
+        ++i;
+    }
+
+    if ((ClosestDistance &gt; MovementLeft &amp;&amp; !bHasRanged) || !bHasLineOfSight)
+        return CurrUtility;
+
+    float HealthRatio = FMath::Clamp(
+        Enemies[ClosestEnemyIndex]-&gt;CurrentHealth / Enemies[ClosestEnemyIndex]-&gt;MaxHealth,
+        0.01f, 1.0f);
+    CurrUtility += -FMath::Loge(HealthRatio);
+    return CurrUtility * AttackUtilityWeight;
+}
+
+// Self-heal: exponential urgency; forced (FLT_MAX) at &lt;=10% health.
+float UEnemy::GetSelfHealUtility()
+{
+    if (!bHasSelfHeal) return 0;
+    float HealthRatio = FMath::Clamp(CurrentHealth / MaxHealth, 0.01f, 1.0f);
+    if (HealthRatio &lt;= 0.1f)
+        return FLT_MAX;  // Force heal when critically low
+    return FMath::Exp(-HealthRatio * 5.0f) * HealUtilityWeight;
+}
+
+// Ally heal: finds the most wounded visible ally and scores by their need.
+float UEnemy::GetAllyHealUtility()
+{
+    if (!bHasAllyHeal) return 0;
+    float LowestHealthRatio = FLT_MAX;
+    LowestAllyIndex = 0;
+    int i = 0;
+    for (auto Ally : Allies)
+    {
+        if (CheckSightToTarget(Ally))
+        {
+            float Ratio = Ally-&gt;CurrentHealth / Ally-&gt;MaxHealth;
+            if (Ratio &lt; LowestHealthRatio) { LowestAllyIndex = i; LowestHealthRatio = Ratio; }
+        }
+        ++i;
+    }
+    return FMath::Exp(-LowestHealthRatio * 5.0f) * HealUtilityWeight;
+}
+
+// Block: scales with recent incoming damage so reactive enemies defend wisely.
+float UEnemy::GetBlockUtility()
+{
+    if (!bHasBlock) return 0;
+    float DamageRatio = FMath::Clamp(LastDamageReceived / MaxHealth, 0.0f, 1.0f);
+    return (FMath::Exp(DamageRatio * BlockUtilityWeight) - 1.0f) * BlockUtilityWeight;
+}
+
+// Buff: rewards buffing when no active buffs exist, diminishes per existing buff.
+float UEnemy::GetBuffUtility()
+{
+    if (!bHasBuff) return 0;
+    float CurrUtility = (BuffTracker.Num() == 0) ? 1.0f : 0.5f / BuffTracker.Num();
+    return CurrUtility * BuffUtilityWeight;
+}
+
+// Weapon-type affinity: preferred weapon scores 1.0, off-type scores lower.
+float UEnemy::GetMeleeUtility()  { return bHasMelee  ? (CurrentWeaponType == EWeaponType::Melee  ? 1.0f : 0.3f) : 0; }
+float UEnemy::GetRangedUtility() { return bHasRanged ? (CurrentWeaponType == EWeaponType::Ranged ? 1.0f : 0.5f) : 0; }
+float UEnemy::GetMagicUtility()  { return bHasMagic  ? (CurrentWeaponType == EWeaponType::Magic  ? 1.0f : 0.6f) : 0; }
                         </code></pre>
                     </details>
                 </div>
@@ -657,6 +874,264 @@ void UFighter::Die_Implementation()
 }
                         </code></pre>
                     </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>UTurnManager - Combat Orchestration</h3>
+                <p class="code-description">
+                    <code>UTurnManager</code> is an <code>ActorComponent</code> that owns the entire combat loop.
+                    On <code>BeginPlay</code> it scans every actor in the world for <code>UFighter</code> components,
+                    sorts them by initiative, binds to their death and end-turn delegates, and waits for a
+                    <code>StartCombat()</code> call. Five Blueprint-assignable multicast delegates let UI, cameras,
+                    and audio respond to every state change without any hard coupling.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>UTurnManager.h - Delegates &amp; Public Interface</summary>
+                        <pre><code class="language-cpp">
+// Multicast delegates - bind anything in Blueprint with no code changes
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTurnChanged,   UFighter*, CurrentFighter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoundStarted);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCombatEnded);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFighterDeath,  UFighter*, DeadFighter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnFighterJoined, UFighter*, NewFighter);
+
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+class RECONNECTION_API UTurnManager : public UActorComponent
+{
+    GENERATED_BODY()
+public:
+    UTurnManager();
+
+    UPROPERTY(BlueprintReadOnly,  Category = "Turn Manager") TArray&lt;UFighter*&gt; Fighters;
+    UPROPERTY(BlueprintReadOnly,  Category = "Turn Manager") int32 CurrentTurnIndex;
+    UPROPERTY(BlueprintReadOnly,  Category = "Turn Manager") int32 CurrentRound;
+    UPROPERTY(BlueprintReadWrite, Category = "Turn Manager") bool  bCombatActive;
+    UPROPERTY(BlueprintReadOnly,  Category = "Turn Manager") int32 EnemiesLeft = 0;
+    UPROPERTY(BlueprintReadWrite, Category = "Turn Manager") FName NextLevel;
+
+    // Events - assign UI, audio, cameras entirely from Blueprint
+    UPROPERTY(BlueprintAssignable, Category = "Turn Manager|Events") FOnTurnChanged   OnTurnChanged;
+    UPROPERTY(BlueprintAssignable, Category = "Turn Manager|Events") FOnRoundStarted  OnRoundStarted;
+    UPROPERTY(BlueprintAssignable, Category = "Turn Manager|Events") FOnCombatEnded   OnCombatEnded;
+    UPROPERTY(BlueprintAssignable, Category = "Turn Manager|Events") FOnFighterDeath  OnFighterDeath;
+    UPROPERTY(BlueprintAssignable, Category = "Turn Manager|Events") FOnFighterJoined OnFighterJoined;
+
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") void InitializeCombat();
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") void StartCombat();
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") void NextTurn();
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") UFighter* GetCurrentFighter();
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") void SortFightersByInitiative();
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") void RemoveFighter(UFighter* Fighter);
+    UFUNCTION(BlueprintCallable, Category = "Turn Manager") void EndCombat();
+
+private:
+    UFUNCTION() void HandleFighterDeath(UFighter* DeadFighter);
+    UFUNCTION() void HandleFighterEndTurn(UFighter* Fighter);
+};
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>UTurnManager.cpp - InitializeCombat &amp; StartCombat</summary>
+                        <pre><code class="language-cpp">
+void UTurnManager::BeginPlay()
+{
+    Super::BeginPlay();
+    InitializeCombat();
+}
+
+void UTurnManager::InitializeCombat()
+{
+    Fighters.Empty();
+
+    // Iterate every actor and collect those with a UFighter component
+    TArray&lt;AActor*&gt; AllActors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), AllActors);
+
+    for (AActor* Actor : AllActors)
+    {
+        if (!Actor) continue;
+        UFighter* FighterComp = Actor-&gt;FindComponentByClass&lt;UFighter&gt;();
+        if (!FighterComp) continue;
+
+        Fighters.Add(FighterComp);
+
+        // Bind death &amp; turn-end events for automatic flow control
+        FighterComp-&gt;OnDeath.AddDynamic(this, &amp;UTurnManager::HandleFighterDeath);
+        FighterComp-&gt;OnEndTurn.AddDynamic(this, &amp;UTurnManager::HandleFighterEndTurn);
+
+        // If the actor also has an UEnemy component, wire up roster-update delegates
+        UEnemy* EnemyComp = Actor-&gt;FindComponentByClass&lt;UEnemy&gt;();
+        if (EnemyComp)
+        {
+            EnemyComp-&gt;InitializeEnemy(Fighters);
+            OnFighterJoined.AddDynamic(EnemyComp, &amp;UEnemy::OnFighterListChanged);
+            OnFighterDeath.AddDynamic(EnemyComp,  &amp;UEnemy::OnFighterListChanged);
+            ++EnemiesLeft;
+        }
+        OnFighterJoined.Broadcast(FighterComp);
+    }
+
+    SortFightersByInitiative();
+    // StartCombat() is called separately so Blueprint can delay the start
+}
+
+void UTurnManager::StartCombat()
+{
+    if (Fighters.Num() == 0) { return; }
+
+    bCombatActive = true;
+    CurrentTurnIndex = 0;
+    CurrentRound = 1;
+    OnRoundStarted.Broadcast();
+
+    // Reset all turns, then give the first fighter their turn
+    for (UFighter* Fighter : Fighters)
+        if (Fighter &amp;&amp; Fighter-&gt;bIsTurn) Fighter-&gt;bIsTurn = false;
+
+    UFighter* FirstFighter = GetCurrentFighter();
+    if (FirstFighter)
+    {
+        FirstFighter-&gt;StartTurn();
+        OnTurnChanged.Broadcast(FirstFighter);
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>UTurnManager.cpp - NextTurn, Round Tracking &amp; Initiative Sort</summary>
+                        <pre><code class="language-cpp">
+void UTurnManager::NextTurn()
+{
+    if (!bCombatActive || Fighters.Num() == 0) return;
+
+    CurrentTurnIndex++;
+
+    // Wrap index → new round
+    if (CurrentTurnIndex &gt;= Fighters.Num())
+    {
+        CurrentTurnIndex = 0;
+        CurrentRound++;
+        OnRoundStarted.Broadcast();
+    }
+
+    // Clear any lingering active turns
+    for (UFighter* Fighter : Fighters)
+        if (Fighter &amp;&amp; Fighter-&gt;bIsTurn) Fighter-&gt;bIsTurn = false;
+
+    UFighter* CurrentFighter = GetCurrentFighter();
+    if (CurrentFighter)
+    {
+        CurrentFighter-&gt;StartTurn();
+        OnTurnChanged.Broadcast(CurrentFighter);
+    }
+}
+
+UFighter* UTurnManager::GetCurrentFighter()
+{
+    return Fighters.IsValidIndex(CurrentTurnIndex) ? Fighters[CurrentTurnIndex] : nullptr;
+}
+
+// Descending sort - highest initiative goes first (classic D&D tiebreaker by score)
+void UTurnManager::SortFightersByInitiative()
+{
+    Fighters.Sort([](const UFighter&amp; A, const UFighter&amp; B)
+    {
+        return A.InitiativeScore &gt; B.InitiativeScore;
+    });
+}
+
+// Called by HandleFighterEndTurn delegate
+void UTurnManager::HandleFighterEndTurn(UFighter* Fighter)
+{
+    if (bCombatActive) NextTurn();
+}
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>UTurnManager.cpp - Fighter Removal, Victory &amp; Level Transition</summary>
+                        <pre><code class="language-cpp">
+void UTurnManager::RemoveFighter(UFighter* Fighter)
+{
+    if (!Fighter) return;
+
+    int32 RemovedIndex = Fighters.Find(Fighter);
+    if (RemovedIndex == INDEX_NONE) return;
+
+    Fighters.Remove(Fighter);
+
+    // Keep CurrentTurnIndex valid after removal
+    if (RemovedIndex &lt; CurrentTurnIndex)
+        CurrentTurnIndex--;
+    else if (RemovedIndex == CurrentTurnIndex &amp;&amp; CurrentTurnIndex &gt;= Fighters.Num())
+        CurrentTurnIndex = 0;
+
+    if (Fighters.Num() &lt;= 1) EndCombat();
+}
+
+void UTurnManager::EndCombat()
+{
+    bCombatActive = false;
+    OnCombatEnded.Broadcast();
+}
+
+// Bound to each fighter's OnDeath delegate during InitializeCombat()
+void UTurnManager::HandleFighterDeath(UFighter* DeadFighter)
+{
+    OnFighterDeath.Broadcast(DeadFighter);
+    RemoveFighter(DeadFighter);
+
+    // If it was an enemy, decrement counter and load the next level on victory
+    if (DeadFighter-&gt;GetOwner()-&gt;FindComponentByClass&lt;UEnemy&gt;())
+    {
+        --EnemiesLeft;
+        if (EnemiesLeft &lt;= 0)
+        {
+            UGameplayStatics::OpenLevel(GetWorld(), FName(NextLevel));
+        }
+    }
+}
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="blueprint-images-section">
+            <h2>Blueprint Showcases</h2>
+            <p class="overview-text">Unreal Engine Blueprint graphs built on top of the C++ foundation, handling AI decision-making, movement validation, and input processing.</p>
+            <div class="blueprint-gallery-grid">
+                <div class="blueprint-gallery-item">
+                    <img src="Media/Pieces/Reconnection/AI State Tree.png" alt="Enemy AI State Tree Blueprint" loading="lazy">
+                    <p class="blueprint-gallery-caption">AI State Tree</p>
+                    <p class="blueprint-gallery-description">The central thinking loop for every enemy. This Blueprint reads utility scores calculated in <code>UEnemy.cpp</code> and drives the State Tree that determines which action each enemy takes on their turn.</p>
+                </div>
+                <div class="blueprint-gallery-item">
+                    <img src="Media/Pieces/Reconnection/Enemy Brain 1.png" alt="Enemy Brain Blueprint - Part 1" loading="lazy">
+                    <p class="blueprint-gallery-caption">Enemy Brain (Part 1 of 2)</p>
+                    <p class="blueprint-gallery-description">The Enemy Brain graph initializes State Tree thoughts and instructs each enemy how to act upon them, translating the utility AI system into concrete in-world decisions.</p>
+                </div>
+                <div class="blueprint-gallery-item">
+                    <img src="Media/Pieces/Reconnection/Enemy Brain 2.png" alt="Enemy Brain Blueprint - Part 2" loading="lazy">
+                    <p class="blueprint-gallery-caption">Enemy Brain (Part 2 of 2)</p>
+                    <p class="blueprint-gallery-description">Continuation of the Enemy Brain graph, showing the downstream action execution after the State Tree has resolved which behavior scores highest for that turn.</p>
+                </div>
+                <div class="blueprint-gallery-item">
+                    <img src="Media/Pieces/Reconnection/Ghost Mover.png" alt="Ghost Mover Blueprint" loading="lazy">
+                    <p class="blueprint-gallery-caption">Ghost Mover</p>
+                    <p class="blueprint-gallery-description">A ghost mesh that pathfinds to the player's clicked destination and validates whether the target position is reachable within the player's movement constraints before committing the move.</p>
+                </div>
+                <div class="blueprint-gallery-item">
+                    <img src="Media/Pieces/Reconnection/Player Mouse Tracker.png" alt="Player Mouse Tracker Blueprint" loading="lazy">
+                    <p class="blueprint-gallery-caption">Player Mouse Tracker</p>
+                    <p class="blueprint-gallery-description">Line traces the mouse cursor on click to determine what was hit in the world, then routes that hit information back to Blueprint for downstream gameplay logic such as targeting and movement commands.</p>
                 </div>
             </div>
         </section>
@@ -734,5 +1209,6 @@ void UFighter::Die_Implementation()
 
     <!-- Mobile Menu Script -->
     <script src="header.js"></script>
+    <script src="lightbox.js"></script>
 </body>
 </html>
