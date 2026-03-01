@@ -85,6 +85,18 @@
     100% { background-position: 0% 50%; }
 }
 
+.coldsnap-page .static-background {
+    background: linear-gradient(135deg, #0a1929 0%, #1e3a5f 20%, #2d5a7b 40%, #87ceeb 60%, #b0d4e3 80%, #e0f7ff 100%);
+    background-size: 400% 400%;
+    animation: frozenAtmosphere 20s ease infinite;
+}
+
+@keyframes frozenAtmosphere {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: transparent;
@@ -2080,6 +2092,97 @@ section {
     border-radius: 0;
 }
 
+/* Reconnection Blueprint Gallery */
+.reconnection-showcase .blueprint-gallery-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 1rem;
+}
+
+.reconnection-showcase .blueprint-gallery-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.reconnection-showcase .blueprint-gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.reconnection-showcase .blueprint-gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 3px solid #f5576c;
+}
+
+.reconnection-showcase .blueprint-gallery-caption {
+    padding: 0.75rem 1rem 0.25rem;
+    text-align: center;
+    font-weight: 600;
+    color: #1a1a3e;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.reconnection-showcase .blueprint-gallery-description {
+    padding: 0 1rem 1rem;
+    text-align: center;
+    color: #4b5563;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Lightbox */
+#lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.92);
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+#lightbox-overlay.active {
+    display: flex;
+}
+
+#lightbox-overlay img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    cursor: default;
+}
+
+#lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+#lightbox-close:hover {
+    opacity: 1;
+}
+
 /* Responsive design inherits from Fearosis media queries */
 @media (max-width: 768px) {
     .reconnection-showcase {
@@ -2088,6 +2191,10 @@ section {
 
     .reconnection-logo {
         max-width: 250px;
+    }
+
+    .reconnection-showcase .blueprint-gallery-grid {
+        gap: 1.5rem;
     }
 }
 
@@ -3053,5 +3160,176 @@ footer {
     footer {
         padding: 1rem;
         font-size: 0.9rem;
+    }
+}
+/* ========================================
+   COLDSNAP PROJECT PAGE STYLES
+   ======================================== */
+
+.coldsnap-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.coldsnap-showcase .hero-section {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.coldsnap-showcase .project-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #1e3a5f;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 0 1rem 0;
+    letter-spacing: 3px;
+}
+
+.coldsnap-showcase .project-tagline {
+    font-size: 1.5rem;
+    color: #4a5568;
+    margin: 0 0 1.5rem 0;
+    font-style: italic;
+}
+
+.coldsnap-showcase .project-info-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.coldsnap-showcase .project-separator {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.coldsnap-showcase section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.coldsnap-showcase h2 {
+    font-size: 2.5rem;
+    color: #1e3a5f;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #87ceeb;
+    padding-bottom: 0.5rem;
+}
+
+.coldsnap-showcase .overview-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+}
+
+/* Music Showcase Section */
+.coldsnap-showcase .music-showcase-section .section-intro {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.coldsnap-showcase .music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.coldsnap-showcase .music-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid #87ceeb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.coldsnap-showcase .music-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-color: #1e3a5f;
+}
+
+.coldsnap-showcase .music-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.coldsnap-showcase .music-card h3 {
+    font-size: 1.5rem;
+    color: #1e3a5f;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.coldsnap-showcase .music-description {
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    min-height: 60px;
+}
+
+.coldsnap-showcase .music-player {
+    width: 100%;
+    margin-top: auto;
+    border-radius: 8px;
+    outline: none;
+}
+
+.coldsnap-showcase .coming-soon {
+    font-size: 1.1rem;
+    color: #87ceeb;
+    font-weight: 600;
+    font-style: italic;
+    padding: 1rem;
+    background: rgba(135, 206, 235, 0.1);
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.coldsnap-showcase .back-to-projects {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.coldsnap-showcase .back-to-projects .btn {
+    font-size: 1.1rem;
+    padding: 1rem 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .coldsnap-showcase .project-title {
+        font-size: 2.5rem;
+    }
+    
+    .coldsnap-showcase .project-tagline {
+        font-size: 1.2rem;
+    }
+    
+    .coldsnap-showcase .music-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .coldsnap-showcase .project-info-bar {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
