@@ -3502,6 +3502,29 @@ footer {
     font-size: 1rem;
 }
 
+.back-link-container {
+    text-align: center;
+    margin: 2rem 0 4rem;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, #FF007F 0%, #cc0066 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 0, 127, 0.35);
+}
+
+.back-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 0, 127, 0.5);
+}
+
 @media (max-width: 768px) {
     .artkana-showcase .project-title {
         font-size: 2.5rem;
