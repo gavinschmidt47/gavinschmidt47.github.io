@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C47TXLXECX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - Artkana</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+</head>
+<body class="artkana-page">
+    
+    <!-- Static Background -->
+    <div class="static-background"></div>
+    
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Designer, Composer, Programmer, and Software Engineer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Work</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="artkana-showcase">
+        <div class="hero-section">
+            <img src="Media/Artkana-Slipstream.jpg" alt="Artkana Logo" class="project-hero-image">
+            <h1 class="project-title">Artkana</h1>
+            <p class="project-tagline">Graffiti-Based 3D Momentum Platformer</p>
+        </div>
+
+        <div class="project-info-bar">
+            <div class="info-item">
+                <div class="info-icon">👥</div>
+                <span>Slipstream Studios</span>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">💻</div>
+                <span>Lead Programmer</span>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">⚙️</div>
+                <span>Unreal Engine 5</span>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">⏳</div>
+                <span>Current (WIP)</span>
+            </div>
+        </div>
+
+        <section class="project-overview-section">
+            <h2>Project Overview</h2>
+            <p class="overview-text">
+                **Artkana** is a <strong>3-D side-scrolling momentum-based platformer</strong> featuring a unique graffiti theme and dynamic upgrade system. Developed by <strong>Slipstream Studios</strong>, the game emphasizes flow, speed, and creative expression through movement.
+            </p>
+            <p class="overview-text">
+                I was brought on as <strong>Lead Programmer</strong> specifically for my C++ proficiency demonstrated during my work on <em>Reconnection</em> at Mystical Die Studio. My primary focus has been refactoring the codebase to improve performance and maintainability, ensuring a solid foundation for the design team to build upon.
+            </p>
+        </section>
+
+        <section class="video-section">
+            <h2>Gameplay Showcase</h2>
+            <div class="video-container-gameplay" style="box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-radius: 12px; overflow: hidden;">
+                <video autoplay loop muted playsinline width="100%">
+                    <source src="Media/Pieces/Artkana/Artkana Level 1 Gameplay.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p class="caption">Early gameplay footage showcasing momentum mechanics and level flow.</p>
+        </section>
+
+        <section class="technical-section">
+            <h2>Technical Contributions</h2>
+            <ul class="tech-list">
+                <li><strong>System Architecture Refactoring:</strong> Converting legacy Blueprint "spaghetti code" into organized, efficient C++ structures to improve maintainability and debugging.</li>
+                <li><strong>Upgrade System Overhaul:</strong> Redesigned the core upgrade mechanics to be more modular and extensible for designers.</li>
+                <li><strong>Performance Optimization:</strong> Aggressively optimizing actor ticks and event loops to free up CPU resources for complex gameplay logic.</li>
+                <li><strong>Designer-Centric Tools:</strong> Exposing C++ functionality to Blueprints in a clean, user-friendly way for less code-savvy team members.</li>
+            </ul>
+        </section>
+
+        <section class="gallery-section">
+            <h2>Visualizing the Refactor</h2>
+            <p>Moving from complex Blueprints to structured C++ architecture allows for cleaner inheritance and easier debugging.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Artkana/Ability Base Parent 1.png" alt="Ability Base Parent Blueprint 1">
+                    <p class="caption">Ability Base Parent Logic (Part 1)</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Artkana/Ability Base Parent 2.png" alt="Ability Base Parent Blueprint 2">
+                    <p class="caption">Ability Base Parent Logic (Part 2)</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Artkana/Inherited Ability.png" alt="Inherited Ability Blueprint">
+                    <p class="caption">Inherited Ability Implementation</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="Media/Pieces/Artkana/Overriden Ability.png" alt="Overriden Ability Blueprint">
+                    <p class="caption">Overridden Ability Logic</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2>Team</h2>
+            <div class="team-grid">
+                 <div class="team-member">
+                    <div class="team-icon">🏢</div>
+                    <strong>Slipstream Studios</strong>
+                    <span>Development Team</span>
+                </div>
+                 <div class="team-member">
+                    <div class="team-icon">💻</div>
+                    <strong>Gavin Schmidt</strong>
+                    <span>Lead Programmer</span>
+                </div>
+            </div>
+        </section>
+        
+        <div class="back-link-container">
+            <a href="projects.html" class="back-link">← Back to Projects</a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">Gavin Schmidt</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="music.html">Music</a>
+                <a href="resume.html">Resume</a>
+            </div>
+            <p class="copyright">© 2026 Gavin Schmidt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="header.js"></script>
+</body>
+</html>
