@@ -23,8 +23,8 @@
     overlay.appendChild(lbImg);
     document.body.appendChild(overlay);
 
-    // Target all project/showcase images
-    var selector = 'img[src*="Media/Pieces/"]';
+    // Target all content images (inside <main>)
+    var selector = 'main img';
 
     function openLightbox(img) {
         lbImg.src = img.src;

@@ -36,6 +36,7 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 - **Prism.js integration**: Detail pages load `prism-okaidia.min.css` + language-specific component (`prism-csharp.min.js` or `prism-cpp.min.js`)
 - **Code examples in collapsible `<details>`**: Code wrapped in `<pre><code class="language-csharp">` for syntax highlighting
 - **Gameplay videos**: Use `<video autoplay loop muted playsinline>` with MP4/WebM sources in `.video-container-gameplay` divs (see [SolarScavenger.html](../SolarScavenger.html) for reference implementation)
+- **Lightbox**: Every detail page and projects.html must include `<script src="lightbox.js"></script>` before `</body>`. The script auto-attaches a click-to-expand lightbox to every `<img>` inside `<main>` — no extra markup or attributes needed. Never omit this script from detail pages.
 
 ### Project Entry Style Guide
 All project entries must follow consistent conventions across [projects.html](../projects.html), [index.html](../index.html) featured cards, and detail pages:
@@ -111,6 +112,12 @@ The `<a href="{Project}.html" class="button">Learn More</a>` button **must be in
 - Use existing color variables/patterns: check `.main-header` (line 135), `.hero-section` (line 358), `.btn-primary` (line 457) for reference
 - **Mobile responsiveness**: Test hamburger menu doesn't conflict with new content; add breakpoints at `@media (max-width: 768px)` and `@media (max-width: 480px)`
 - **SVG icons**: Inline SVGs for UI elements (see project info icons), PNG/JPG for photos/screenshots
+- **Canonical Info-Section SVGs**: Always use the exact shapes below — never substitute alternative icons:
+  - **Team/Studio** (users): `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>`
+  - **Role** (layers): `<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>`
+  - **Time** (clock): `<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>`
+  - **Engine** (gamepad): `<rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect><circle cx="8" cy="12" r="1"></circle><circle cx="16" cy="12" r="1"></circle><rect x="6" y="6" width="2" height="2"></rect><rect x="16" y="6" width="2" height="2"></rect>`
+  - All four use `viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"`
 - **Prism.js**: For code syntax highlighting, load `prism-okaidia.min.css` + language component in `<head>`, wrap code in `<details><summary>` pattern
 
 ### Common Maintenance Tasks
