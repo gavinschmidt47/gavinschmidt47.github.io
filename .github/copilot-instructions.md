@@ -59,10 +59,17 @@ Each `<li class="Project">` must contain:
      - Team Size (users icon) or "Studio: {Name}" for contract work
      - Team Role (layers icon) using standard role titles above
      - Time (clock icon) - use "X months (WIP)" for in-progress, "X hours/days" for jams, specific date ranges for contract work
-     - Engine (gamepad icon) with "Learn More" button inside this final Info-Section div
+     - Engine (gamepad icon)
 
 **Button Placement Rule:**
-The `<a href="{Project}.html" class="button">Learn More</a>` button **must be inside the last Info-Section div** (the Engine section), not outside the container. This ensures consistent styling and layout.
+The `<a href="{Project}.html" class="button">Learn More</a>` button **must be placed outside the second `container` div but still inside the `Info-Grid` div** — as a direct sibling of the two `container` divs, after the closing `</div>` of the second container. It must **never** be nested inside an `Info-Section` or inside a `container`. Correct structure:
+```html
+<div class="Info-Grid">
+    <div class="container"><!-- description --></div>
+    <div class="container"><!-- Info-Sections --></div>
+    <a href="Project.html" class="button button-projectname">Learn More</a>
+</div>
+```
 
 **index.html Featured Cards:**
 - Use same role titles as projects.html and detail pages
@@ -154,6 +161,7 @@ The hamburger menu logic exists in [header.js](../header.js) but is **currently 
 ## Important Notes
 - **No package manager**: This project intentionally avoids npm, yarn, webpack, etc. for GitHub Pages simplicity
 - **No em-dashes**: Never use em-dashes (—) in any content. Use colons, periods, commas, or semicolons instead for clarity and readability
+- **Research/data content**: When writing findings, analysis, or conclusions for a research-based project page (e.g. a math model or data study), **do not assume or invent data**. If specific numbers, results, or findings are needed and no source file is available in the workspace, **ask the user to provide the data first** before writing any content that references it.
 - **Mobile menu refactoring**: Inline scripts at bottom of each page should be replaced with `<script src="header.js"></script>` - [header.js](../header.js) contains the proper centralized logic
 - **Resume updates**: Only the PDF file needs to be replaced; [resume.html](../resume.html) uses `<embed>` tag pointing to static path
 - **Background styling**: Each project detail page uses `.{project}-page .static-background` CSS rule for unique backgrounds (images or gradients)

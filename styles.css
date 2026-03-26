@@ -97,6 +97,18 @@
     100% { background-position: 0% 50%; }
 }
 
+.dnd-page .static-background {
+    background: linear-gradient(135deg, #1a0033 0%, #3d0015 25%, #200015 50%, #0d001a 75%, #1a0033 100%);
+    background-size: 400% 400%;
+    animation: dndMystic 25s ease infinite;
+}
+
+@keyframes dndMystic {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: transparent;
@@ -893,6 +905,138 @@ section {
 
 .view-all-projects {
     text-align: center;
+}
+
+/* ========================================
+   FEATURED CAROUSEL
+   ======================================== */
+
+.featured-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.carousel-slides {
+    flex: 1;
+    min-width: 0;
+}
+
+.carousel-slide {
+    display: none;
+}
+
+.carousel-slide.active {
+    display: block;
+    animation: carouselFadeIn 0.7s ease;
+}
+
+@keyframes carouselFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Horizontal two-pane layout for carousel cards */
+.carousel-slide .featured-card {
+    display: flex;
+    flex-direction: row;
+    max-width: 860px;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+.carousel-slide .featured-image-container {
+    width: 380px;
+    height: 320px;
+    flex-shrink: 0;
+}
+
+.carousel-slide .featured-content {
+    flex: 1;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel-slide .featured-content h3 {
+    font-size: 1.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.carousel-slide .featured-description {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.carousel-btn {
+    background: rgba(0, 7, 45, 0.08);
+    border: 2px solid rgba(0, 7, 45, 0.18);
+    color: #00072D;
+    font-size: 2.5rem;
+    line-height: 1;
+    cursor: pointer;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.carousel-btn:hover {
+    background: #00072D;
+    color: white;
+    border-color: transparent;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d1d5db;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    padding: 0;
+}
+
+.dot.active {
+    background: #00072D;
+    transform: scale(1.4);
+}
+
+@media (max-width: 768px) {
+    .carousel-slide .featured-card {
+        flex-direction: column;
+    }
+
+    .carousel-slide .featured-image-container {
+        width: 100%;
+        height: 220px;
+    }
+
+    .carousel-slide .featured-content {
+        padding: 1.5rem;
+    }
+
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.8rem;
+    }
 }
 
 /* Contact Section */
@@ -1704,6 +1848,16 @@ section {
 .button-campfirecryptid:hover {
     background-position: right center !important;
     box-shadow: 0 8px 24px rgba(249, 115, 22, 0.6) !important;
+}
+
+.button-dnd {
+    background: linear-gradient(135deg, #7b1536 0%, #a31d47 50%, #7b1536 100%) !important;
+    background-size: 200% auto !important;
+    box-shadow: 0 4px 14px rgba(163, 29, 71, 0.4) !important;
+}
+.button-dnd:hover {
+    background-position: right center !important;
+    box-shadow: 0 8px 24px rgba(163, 29, 71, 0.6) !important;
 }
 
 /* ========================================
@@ -3277,6 +3431,80 @@ section {
 /* ========================================
    CODE & MEDIA CONTAINERS
    ======================================== */
+
+/* ========================================
+   D&D FITNESS MODEL PORTFOLIO STYLES
+   ======================================== */
+
+.dnd-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.7;
+    color: #2c3e50;
+}
+
+/* D&D hero with deep crimson/purple gradient */
+.dnd-showcase .hero-section {
+    background: linear-gradient(135deg, #1a0033 0%, #4a0020 40%, #7b1536 70%, #3d0015 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.dnd-showcase .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(255, 200, 100, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.dnd-showcase .jam-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.dnd-graph-section {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.dnd-graph-section h2 {
+    color: #1a0033;
+    margin-bottom: 1rem;
+}
+
+.dnd-graph-container {
+    max-width: 960px;
+    margin: 1.5rem auto;
+    text-align: center;
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e8e8e8;
+}
+
+.dnd-graph-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
 
 .Project-Showcase {
     display: flex;

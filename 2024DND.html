@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C47TXLXECX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - 2024 D&amp;D Fitness Math Model</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dnd-page">
+
+    <!-- Static Background -->
+    <div class="static-background"></div>
+
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Designer, Composer, Programmer, and Software Engineer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Work</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dnd-showcase">
+
+        <div class="hero-section">
+            <h1 class="project-title">2024 D&amp;D Fitness Math Model</h1>
+            <p class="project-tagline">A Data-Driven Combat Balance Analysis of 1st-Level D&amp;D 5e Classes</p>
+            <div class="jam-info">
+                <span class="jam-detail">📊 Personal Research</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">🎲 12 Classes Analyzed</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">📐 Solo Creator</span>
+            </div>
+        </div>
+
+        <section class="project-overview-section">
+            <h2>Project Overview</h2>
+            <p class="overview-text">
+                Every D&amp;D 5e class promises a unique combat identity, but how balanced are they actually at first level? To answer this, I built a mathematical model that quantifies two key axes for each of the 12 core classes: <strong>Fitness</strong> (raw combat effectiveness) and <strong>Complexity</strong> (how many rules and features a player must manage at level 1). By placing every class on both axes simultaneously, the model reveals which classes are genuinely worth their rules overhead and which ones either over- or under-perform relative to their complexity.
+            </p>
+            <p class="overview-text">
+                The core insight driving this research is that balance in a tabletop game is not just about power: it is about the deal a player makes when they pick a class. A class that is very powerful <em>and</em> very simple is arguably too good a deal. A class that is weak <em>and</em> complicated offers a poor one. The <strong>Fitness-Complexity model</strong> makes that deal visible and measurable, transforming subjective community debates into a concrete, data-backed comparison.
+            </p>
+        </section>
+
+        <section class="key-features-section">
+            <h2>Methodology: Calculating Fitness</h2>
+            <p class="overview-text" style="text-align: center; margin-bottom: 2rem;">
+                Each class was assigned a <strong>Fitness Score</strong> based on four objective combat metrics, all calculated under the same baseline assumptions: standard point-buy statistics, a primary attack with the class's recommended weapon or spell, and an average monster AC of 10 (a typical challenge at early levels). The four components are:
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Starting Health</h3>
+                    <p>Maximum hit die value plus Constitution modifier. This represents the raw hit-point pool a class brings into combat, measuring how much punishment it can sustain before going down.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Hit Rate</h3>
+                    <p>The probability of a standard attack connecting against a target AC of 10, factoring in the proficiency bonus and the relevant attack-stat modifier. Higher hit rate multiplies the value of every point of damage a class can deal.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Average Damage</h3>
+                    <p>Expected damage per successful hit, accounting for weapon die, ability modifier, and any first-level damage-enhancing features such as Sneak Attack for Rogues. Spellcaster classes use their primary damaging cantrip or 1st-level spell slot equivalent.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Damage Block</h3>
+                    <p>A measure of how effectively a class mitigates incoming hits, derived from starting Armor Class and any built-in first-level damage-reduction features such as Unarmored Defense for Barbarians. Higher Damage Block reduces the effective damage the class takes per round of combat.</p>
+                </div>
+            </div>
+            <p class="overview-text" style="text-align: center; margin-top: 2rem;">
+                These four values feed into a combined <strong>Fitness Score</strong> representing the total "health moved" per round: how much damage the class deals (Hit Rate × Average Damage) weighted against how long it survives to keep dealing it (Starting Health relative to Damage Block). Classes that move more health per round relative to their complexity score offer the most efficient combat performance per rules-investment.
+            </p>
+        </section>
+
+        <section class="dnd-graph-section">
+            <h2>Class Stats at Level 1</h2>
+            <p class="overview-text">
+                The Stats graph presents the raw calculated values for every class side by side. Reading it across any single class gives you its full combat profile before any comparison or weighting is applied: how much health it starts with, how reliably it hits, how much it deals per hit, and how well its defenses hold up. These numbers are the direct inputs to the Fitness Score and provide the clearest view of where each class truly stands on each individual metric.
+            </p>
+            <div class="dnd-graph-container">
+                <img src="Media/Pieces/2024DND/2024DND Stats.png" alt="Bar chart showing raw starting health, hit rate, average damage, and damage block statistics for all 12 D&amp;D 5e classes at level 1">
+            </div>
+            <p class="overview-text">
+                A few patterns stand out immediately. Both the <strong>Barbarian</strong> and the <strong>Fighter</strong> dominate the low-complexity, high-survivability corner of the chart exactly as any experienced player would predict. The Barbarian leads all classes in starting health and Damage Block thanks to Unarmored Defense and its d12 hit die, while the Fighter matches it in Fitness at essentially the same complexity cost, confirming that both classes are genuinely, unsurprisingly excellent at doing the one thing combat demands. Perhaps the most striking raw-data result belongs to the <strong>Rogue</strong>: although Sneak Attack gives it a competitive single-hit damage number, its overall Fitness Score of <strong>20.87</strong> sits well below the class average of <strong>30.93</strong>. The Rogue is one of the most beloved classes in the game, but at level 1 the numbers tell a more modest story. That gap closes dramatically as the class scales, but the data makes clear that the Rogue's reputation is built on higher-level power, not a strong first impression. Full spellcasters like the <strong>Wizard</strong> cluster at the low end of most physical metrics, validating the community perception that they trade early combat durability for utility and long-term scaling potential.
+            </p>
+        </section>
+
+        <section class="dnd-graph-section">
+            <h2>Fitness vs. Complexity</h2>
+            <p class="overview-text">
+                The FitnessComplexity graph is the central piece of this research. It plots every class's <strong>Fitness Score</strong> on one axis against its <strong>Complexity Score</strong> on the other, where Complexity is derived from the count and type of distinct features, choices, and resource systems a class must manage at level 1. The resulting chart reveals whether there is a meaningful relationship between how powerful a class is in combat and how much rules weight it places on the player.
+            </p>
+            <div class="dnd-graph-container">
+                <img src="Media/Pieces/2024DND/2024DND FitnessComplexity.png" alt="Scatter plot correlating Fitness Score and Complexity Score for all 12 D&amp;D 5e classes at level 1">
+            </div>
+            <p class="overview-text">
+                The graph shows a loose but meaningful positive correlation: classes that perform better in combat do tend to carry more features to manage. However, the correlation is far from perfect, and the outliers are the most interesting data points. The <strong>Barbarian</strong> and <strong>Fighter</strong> both sit in the high-value bottom-left cluster: strong Fitness, minimal Complexity, exactly the profile you want if your goal is uncomplicated combat effectiveness. The <strong>Rogue</strong> is a notable outlier in the opposite direction: its Complexity Score is the <em>lowest</em> of all 12 classes at just 7.69, yet its Fitness Score of 20.87 is also one of the lowest. It is a simple class that is also a weak one at this level, which is unusual. Its positive community reputation is entirely a product of later-level scaling, not a level-1 advantage. The <strong>Warlock</strong> presents a different kind of problem: its complexity is comparably low, but its Fitness Score of 20.55 is the second-lowest in the dataset, producing one of the worst value propositions on the chart. Unlike the Rogue, the Warlock does not have a compelling higher-level argument to rescue that result, which maps directly to the community consensus that it is among the hardest classes to justify.
+            </p>
+        </section>
+
+        <section class="dnd-graph-section">
+            <h2>Class Rankings</h2>
+            <p class="overview-text">
+                The Ranking graph combines both axes into a single composite score per class. A class earns a positive contribution for being above the average Fitness Score and an additional positive contribution for being below the average Complexity Score. The inverse applies for below-average fitness or above-average complexity. The result is a ranked list measuring which classes are the <strong>best value</strong> in combat at level 1: the most effective for their rules investment.
+            </p>
+            <div class="dnd-graph-container">
+                <img src="Media/Pieces/2024DND/2024DND Ranking.png" alt="Bar chart ranking all 12 D&amp;D 5e classes by their combined Fitness and Complexity composite score at level 1">
+            </div>
+            <p class="overview-text">
+                The top of the ranking belongs to the <strong>Barbarian</strong> (+32.43) and the <strong>Fighter</strong> (+30.89), separated by less than two points. Neither result is surprising to anyone who has played the game, but seeing the data confirm the intuition so cleanly is satisfying. Both classes deliver above-average combat output at a complexity cost that is a fraction of the class average, and no other class in the dataset comes close to that combination at level 1. The <strong>Rogue</strong> places mid-table at +13.18: positive, but modest. Its below-average Fitness is partially offset by having the lowest Complexity Score in the game, which keeps the rating from turning negative. The Rogue's fan-favorite status is real, but it is earned over a full campaign, not a single session. Two classes share the bottom of the ranking by a significant margin: the <strong>Warlock</strong> at <strong>-56.26</strong> and the <strong>Wizard</strong> at <strong>-49.27</strong>. The Warlock's result is particularly striking because its Complexity Score is low; the deeply negative rating is driven almost entirely by a Fitness Score that is the worst in the dataset. The model confirms what a large portion of the community has long argued: the Warlock is the weakest class in combat at level 1, and the numbers leave little room for debate.
+            </p>
+        </section>
+
+        <section class="reflection-section">
+            <h2>Researcher Reflection</h2>
+            <blockquote>
+                I started this project after a long debate at the table about whether Wizards are actually too weak at level 1. The argument circled endlessly because everyone was using a different mental model: some people weighted survivability heavily, others focused on raw damage numbers, and nobody was agreeing on how much complexity should cost. Building this model forced me to make every assumption explicit and numerical, which immediately made the conversation more tractable. The least surprising results were the most satisfying: the Barbarian and the Fighter finishing first and second confirms that the community's instinct about martial simplicity being genuinely powerful is correct. Both classes do an enormous amount of work for essentially no rules overhead, and the gap between them and the rest of the pack at level 1 is larger than most players realize. The Rogue result was the one that gave me the most pause. It is the most popular class in the game by many measures, and for good reason: it scales beautifully, its fantasy is compelling, and Sneak Attack feels powerful. But at level 1, the Fitness Score tells a different story. The Rogue is surviving on its reputation at that stage. The Warlock landing at the absolute bottom of the ranking was not surprising to me, and it should not be surprising to anyone who has seriously played one at low levels. A barely-functional Fitness Score combined with severe spell slot constraints makes the level-1 Warlock an exercise in patience. The data confirms what the community has said for years: the Warlock asks you to trust a payoff that does not arrive for several levels. For me, this exercise was a reminder that good game design analysis has to start with clear, agreed-upon definitions of what you are actually measuring.
+            </blockquote>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                &copy; 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="header.js"></script>
+    <script src="lightbox.js"></script>
+</body>
+</html>
