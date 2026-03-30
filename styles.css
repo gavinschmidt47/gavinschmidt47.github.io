@@ -4369,9 +4369,11 @@ footer {
 /* Artifact frames */
 .steambans-artifact-frame {
     width: 100%;
+    box-sizing: border-box;
     position: relative;
     background: #fafafa;
     border-top: none;
+    overflow: hidden;
 }
 
 .steambans-frame-tall {
@@ -4601,5 +4603,23 @@ footer {
     border-radius: 8px;
     border: 1px solid rgba(180,0,60,0.1);
     min-height: 3rem;
+}
+
+/* Canvas wrapper — ensures Chart.js has a correctly-sized, overflow-clipped parent */
+.steambans-canvas-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Games chart wrapper — allows the parent to grow dynamically with JS height changes */
+.steambans-games-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
