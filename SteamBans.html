@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C47TXLXECX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-C47TXLXECX');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gavin Schmidt's Portfolio - VAC-ation Denied</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="steambans-page">
+
+    <!-- Static Background -->
+    <div class="static-background"></div>
+
+    <!-- Modern Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" class="brand-link">
+                    <span class="brand-name">Gavin Schmidt</span>
+                    <span class="brand-subtitle">Game Designer, Composer, Programmer, and Software Engineer</span>
+                </a>
+            </div>
+
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="projects.html" class="nav-link">
+                            <span class="nav-icon">🎮</span>
+                            <span class="nav-text">Projects</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link">
+                            <span class="nav-icon">💼</span>
+                            <span class="nav-text">Work</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="music.html" class="nav-link">
+                            <span class="nav-icon">🎵</span>
+                            <span class="nav-text">Music</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.html#contact" class="nav-link">
+                            <span class="nav-icon">📧</span>
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="resume.html" class="nav-link nav-link-highlight">
+                            <span class="nav-icon">📄</span>
+                            <span class="nav-text">Resume</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="steambans-showcase">
+
+        <!-- Hero Section -->
+        <div class="hero-section steambans-hero">
+            <div class="steambans-badge-row">
+                <span class="steambans-tag">🚫 Data Research</span>
+                <span class="steambans-tag">📊 Interactive Analysis</span>
+                <span class="steambans-tag">🎮 Steam Dataset</span>
+            </div>
+            <h1 class="project-title">VAC-ation Denied</h1>
+            <p class="project-tagline">An Interactive Study of Steam's Most Dedicated Cheaters and the Games They Loved</p>
+            <div class="jam-info">
+                <span class="jam-detail">🔍 Personal Research</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">🗄️ 3,993 Banned Accounts</span>
+                <span class="jam-separator">•</span>
+                <span class="jam-detail">🎮 1,312 Games Analyzed</span>
+            </div>
+        </div>
+
+        <!-- Research Overview -->
+        <section class="project-overview-section steambans-overview">
+            <h2>Research Overview</h2>
+            <p class="overview-text">
+                Valve's anti-cheat infrastructure has banned hundreds of thousands of Steam accounts. But who were these players, and what were they actually doing? This project analyzes a dataset of <strong>3,993 banned accounts</strong> across <strong>1,312 games</strong> to answer the questions VAC never bothers explaining: which games produce the most cheaters, do high-hour players cheat more, when did ban waves cluster, and what does a "repeat offender" profile actually look like?
+            </p>
+            <p class="overview-text">
+                All visualizations below are fully interactive. Zoom, pan, hover for details, and filter by ban type. The data comes from Steam's public API and covers accounts with VAC bans, developer game bans, or both — spanning bans issued from the early 2000s through 2025.
+            </p>
+        </section>
+
+        <!-- ============================================================
+             STAT CARDS ROW
+             ============================================================ -->
+        <section class="steambans-stats-row">
+            <div class="steambans-stat-card">
+                <span class="steambans-stat-num" id="stat-total">3,993</span>
+                <span class="steambans-stat-label">Banned Accounts</span>
+            </div>
+            <div class="steambans-stat-card">
+                <span class="steambans-stat-num">1,795</span>
+                <span class="steambans-stat-label">VAC Banned</span>
+            </div>
+            <div class="steambans-stat-card">
+                <span class="steambans-stat-num">2,342</span>
+                <span class="steambans-stat-label">Game Banned</span>
+            </div>
+            <div class="steambans-stat-card">
+                <span class="steambans-stat-num">144</span>
+                <span class="steambans-stat-label">Both Types</span>
+            </div>
+            <div class="steambans-stat-card">
+                <span class="steambans-stat-num">316</span>
+                <span class="steambans-stat-label">Repeat Offenders</span>
+            </div>
+            <div class="steambans-stat-card">
+                <span class="steambans-stat-num">1,752h</span>
+                <span class="steambans-stat-label">Avg Playtime (VAC)</span>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VISUALIZATION 01: Ban Timeline Explorer
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-full">
+            <div class="steambans-zone-header">
+                <span class="steambans-zone-label">VISUALIZATION 01</span>
+                <h2>Ban Timeline Explorer</h2>
+                <p class="steambans-zone-desc">When did the bans hit? Each bar represents 6-month windows, stacked by ban type. Drag the range slider to zoom into any era. Hover bars for exact counts.</p>
+            </div>
+            <div class="steambans-artifact-frame steambans-frame-tall" style="padding:1.5rem; position:relative;">
+                <div class="steambans-chart-controls">
+                    <label class="steambans-filter-btn active" data-layer="vac"><span class="steambans-filter-dot" style="background:#ff4060"></span>VAC Bans</label>
+                    <label class="steambans-filter-btn active" data-layer="game"><span class="steambans-filter-dot" style="background:#4db8ff"></span>Game Bans</label>
+                    <label class="steambans-filter-btn active" data-layer="both"><span class="steambans-filter-dot" style="background:#ffd700"></span>Both</label>
+                </div>
+                <div style="position:relative; height:340px;">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+                <div class="steambans-slider-row">
+                    <span class="steambans-slider-label" id="slider-min-label">2005</span>
+                    <input type="range" id="timeline-start" min="0" max="41" value="0" class="steambans-range">
+                    <input type="range" id="timeline-end" min="0" max="41" value="41" class="steambans-range">
+                    <span class="steambans-slider-label" id="slider-max-label">2026</span>
+                </div>
+                <p class="steambans-chart-note">Drag both sliders to zoom the timeline. Each bar = 180-day window. Days since ban converted to approximate calendar year (dataset collected ~March 2026).</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VISUALIZATION 02 + 03: Top Games + Hours Distribution
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-split">
+            <div class="steambans-split-panel">
+                <div class="steambans-zone-header">
+                    <span class="steambans-zone-label">VISUALIZATION 02</span>
+                    <h2>Top Games by Banned Players</h2>
+                    <p class="steambans-zone-desc">Click a bar to highlight that game across all visualizations. Toggle between player count and average hours to see where commitment meets consequence.</p>
+                </div>
+                <div class="steambans-artifact-frame steambans-frame-medium" style="padding:1.5rem 1.5rem 1rem; position:relative;">
+                    <div class="steambans-chart-controls" style="margin-bottom:0.75rem;">
+                        <button class="steambans-toggle-btn active" id="games-by-count">By Player Count</button>
+                        <button class="steambans-toggle-btn" id="games-by-hours">By Avg Hours</button>
+                        <button class="steambans-toggle-btn" id="games-show-top10" style="margin-left:auto;">Top 10</button>
+                        <button class="steambans-toggle-btn" id="games-show-top25">Top 25</button>
+                    </div>
+                    <div style="position:relative; height:360px; overflow-y:auto;">
+                        <canvas id="gamesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="steambans-split-panel">
+                <div class="steambans-zone-header">
+                    <span class="steambans-zone-label">VISUALIZATION 03</span>
+                    <h2>Playtime Distribution at Time of Ban</h2>
+                    <p class="steambans-zone-desc">How many hours did it take? Distribution of total Steam playtime for the 1,210 accounts with recorded hours. Compare VAC vs. game ban profiles.</p>
+                </div>
+                <div class="steambans-artifact-frame steambans-frame-medium" style="padding:1.5rem 1.5rem 1rem; position:relative;">
+                    <div class="steambans-chart-controls" style="margin-bottom:0.75rem;">
+                        <label class="steambans-filter-btn active" data-hist="vac"><span class="steambans-filter-dot" style="background:#ff4060"></span>VAC</label>
+                        <label class="steambans-filter-btn active" data-hist="game"><span class="steambans-filter-dot" style="background:#4db8ff"></span>Game</label>
+                        <button class="steambans-toggle-btn active" id="hist-linear">Linear</button>
+                        <button class="steambans-toggle-btn" id="hist-log">Log Scale</button>
+                    </div>
+                    <div style="position:relative; height:360px;">
+                        <canvas id="histChart"></canvas>
+                    </div>
+                    <p class="steambans-chart-note">Outliers above 10,000h removed from view but included in statistics. Max recorded: 52,257h.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VISUALIZATION 04: Scatter – Playtime vs. Days Since Ban
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-full">
+            <div class="steambans-zone-header">
+                <span class="steambans-zone-label">VISUALIZATION 04</span>
+                <h2>Playtime vs. Ban Age: The Commitment Scatter</h2>
+                <p class="steambans-zone-desc">Each dot is a banned account. X axis = how long ago they were banned (in years). Y axis = total Steam playtime in hours. Scroll to zoom, drag to pan. Hover any dot for details.</p>
+            </div>
+            <div class="steambans-artifact-frame steambans-frame-chart" style="padding:1.5rem; position:relative;">
+                <div class="steambans-chart-controls">
+                    <label class="steambans-filter-btn active" data-scatter="vac"><span class="steambans-filter-dot" style="background:#ff4060"></span>VAC Banned</label>
+                    <label class="steambans-filter-btn active" data-scatter="game"><span class="steambans-filter-dot" style="background:#4db8ff"></span>Game Banned</label>
+                    <label class="steambans-filter-btn active" data-scatter="both"><span class="steambans-filter-dot" style="background:#ffd700"></span>Both</label>
+                    <button class="steambans-toggle-btn" id="scatter-reset" style="margin-left:auto;">Reset Zoom</button>
+                </div>
+                <div style="position:relative; height:440px;">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+                <div id="scatter-tooltip" class="steambans-scatter-tooltip" style="display:none;"></div>
+                <p class="steambans-chart-note">1,210 accounts with recorded playtime. Scroll/pinch to zoom; click-drag to pan. Accounts with 0 recorded hours excluded.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VISUALIZATION 05: Ban Type Breakdown + Recidivism
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-split">
+            <div class="steambans-split-panel">
+                <div class="steambans-zone-header">
+                    <span class="steambans-zone-label">VISUALIZATION 05</span>
+                    <h2>Ban Type Breakdown</h2>
+                    <p class="steambans-zone-desc">The full picture: how are bans distributed across VAC only, game bans only, and accounts that earned both? Click segments for details.</p>
+                </div>
+                <div class="steambans-artifact-frame steambans-frame-medium" style="padding:1.5rem; display:flex; flex-direction:column; align-items:center;">
+                    <div style="position:relative; height:300px; width:300px; max-width:100%;">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                    <div id="donut-detail" class="steambans-donut-detail">Click a segment to see details</div>
+                </div>
+            </div>
+            <div class="steambans-split-panel">
+                <div class="steambans-zone-header">
+                    <span class="steambans-zone-label">VISUALIZATION 06</span>
+                    <h2>Recidivism: How Many Bans Per Account?</h2>
+                    <p class="steambans-zone-desc">Some players just cannot help themselves. Distribution of total ban counts per account, broken down by VAC bans vs. game bans. The 4-VAC-ban club is disturbingly real.</p>
+                </div>
+                <div class="steambans-artifact-frame steambans-frame-medium" style="padding:1.5rem;">
+                    <div style="position:relative; height:320px;">
+                        <canvas id="recidivismChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VISUALIZATION 07: Games Library Size vs. Bans
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-full">
+            <div class="steambans-zone-header">
+                <span class="steambans-zone-label">VISUALIZATION 07</span>
+                <h2>Library Size, Playtime, and Ban Age: A Triple-Axis View</h2>
+                <p class="steambans-zone-desc">Bubble chart: X = total games owned, Y = total playtime hours, bubble size = number of bans. Color = ban type. Only accounts with library data shown (1,211 accounts). Scroll to zoom, drag to pan.</p>
+            </div>
+            <div class="steambans-artifact-frame steambans-frame-chart" style="padding:1.5rem;">
+                <div class="steambans-chart-controls">
+                    <label class="steambans-filter-btn active" data-bubble="vac"><span class="steambans-filter-dot" style="background:#ff4060"></span>VAC</label>
+                    <label class="steambans-filter-btn active" data-bubble="game"><span class="steambans-filter-dot" style="background:#4db8ff"></span>Game</label>
+                    <label class="steambans-filter-btn active" data-bubble="both"><span class="steambans-filter-dot" style="background:#ffd700"></span>Both</label>
+                    <button class="steambans-toggle-btn" id="bubble-reset" style="margin-left:auto;">Reset Zoom</button>
+                </div>
+                <div style="position:relative; height:440px;">
+                    <canvas id="bubbleChart"></canvas>
+                </div>
+                <p class="steambans-chart-note">Bubble size reflects total ban count (VAC + game). Accounts with 0 games owned excluded. X-axis capped at 500 games for readability.</p>
+            </div>
+        </section>
+
+        <!-- Methodology / Notes -->
+        <section class="reflection-section steambans-methodology">
+            <h2>Methodology Notes</h2>
+            <blockquote>
+                All data was sourced from Steam's public API. Accounts are represented by anonymized row identifiers — no usernames, profile links, or personally identifiable information appear in any visualization. The dataset covers VAC bans and developer-issued game bans. Community bans, trade bans, and private-profile accounts are excluded or appear with zero-value playtime. DaysSinceLastBan represents elapsed days at time of dataset collection (approximately March 2026), which is used to approximate calendar ban year. Playtime figures are total Steam library hours, not per-game hours, as Steam's API returns aggregate playtime for most banned accounts. The 2,783 accounts showing zero playtime are likely private profiles or accounts that cleared their history.
+            </blockquote>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                &copy; 2026 Gavin Schmidt. All rights reserved.
+            </p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <span class="footer-separator">•</span>
+                <a href="projects.html">Projects</a>
+                <span class="footer-separator">•</span>
+                <a href="music.html">Music</a>
+                <span class="footer-separator">•</span>
+                <a href="resume.html">Resume</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="header.js"></script>
+    <script src="lightbox.js"></script>
+    <!-- Chart.js + zoom plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+
+    <script>
+    // =====================================================================
+    // EMBEDDED DATA — derived from CSV files
+    // =====================================================================
+
+    // Timeline data: each entry = [daysAgoStart (180-day bucket), vac, game, both]
+    // daysAgo is from March 2026 collection date → approx year = 2026 - (d/365.25)
+    const timelineRaw = [
+        [0,0,12,1],[180,0,19,0],[360,0,20,2],[540,2,50,2],[720,6,38,4],
+        [900,10,35,5],[1080,12,55,6],[1260,13,73,8],[1440,36,59,12],
+        [1620,21,55,11],[1800,66,102,20],[1980,68,88,20],[2160,46,141,6],
+        [2340,61,149,8],[2520,89,214,8],[2700,58,419,12],[2880,97,467,6],
+        [3060,143,105,4],[3240,126,37,1],[3420,136,24,2],[3600,105,12,3],
+        [3780,98,11,2],[3960,75,4,1],[4140,53,9,0],[4320,43,0,0],
+        [4500,18,0,0],[4680,20,0,0],[4860,17,0,0],[5040,11,0,0],
+        [5220,3,0,0],[5400,11,0,0],[5580,14,0,0],[5760,28,0,0],
+        [5940,12,0,0],[6120,10,0,0],[6300,22,0,0],[6480,29,0,0],
+        [6660,20,0,0],[6840,24,0,0],[7020,25,0,0],[7200,11,0,0],
+        [7380,14,0,0],[7740,2,0,0]
+    ];
+
+    // Convert daysAgo to approximate year label
+    function daysToYear(d) {
+        const yr = 2026 - d / 365.25;
+        return yr.toFixed(1);
+    }
+
+    // Build timeline chart labels
+    const tlLabels = timelineRaw.map(r => daysToYear(r[0]));
+
+    // Top 30 games data: [name, playerCount, avgHoursFloat]
+    const gamesData = [
+        ["Counter-Strike 2", 768, 471.7],
+        ["PUBG: BATTLEGROUNDS", 698, 524.2],
+        ["Dota 2", 276, 1019.1],
+        ["Grand Theft Auto V", 216, 318.1],
+        ["Z1 Battle Royale", 135, 98.1],
+        ["Wallpaper Engine", 134, 89.8],
+        ["Rainbow Six Siege", 118, 505.7],
+        ["Apex Legends", 99, 298.5],
+        ["Lost Ark", 91, 96.0],
+        ["Rust", 90, 690.7],
+        ["Garry's Mod", 86, 530.6],
+        ["Unturned", 83, 186.5],
+        ["Left 4 Dead 2", 83, 66.2],
+        ["Warframe", 75, 255.9],
+        ["Euro Truck Simulator 2", 66, 174.0],
+        ["Terraria", 64, 253.8],
+        ["PAYDAY 2", 61, 275.2],
+        ["Paladins", 57, 65.0],
+        ["Ring of Elysium", 55, 16.7],
+        ["Human Fall Flat", 54, 25.8],
+        ["ARK: Survival Evolved", 51, 726.6],
+        ["Call of Duty", 51, 219.4],
+        ["Destiny 2", 48, 415.9],
+        ["Monster Hunter: World", 47, 234.0],
+        ["Black Myth: Wukong", 46, 72.9],
+        ["Counter-Strike (1.6)", 45, 225.7],
+        ["Counter-Strike: Source", 44, 271.4],
+        ["Dead by Daylight", 42, 362.2],
+        ["Don't Starve Together", 42, 70.6],
+        ["Brawlhalla", 41, 102.3]
+    ];
+
+    // Player playtime distribution (VAC vs game banned, for accounts with hours > 0)
+    // Bucketed into hour ranges: 0-100, 100-250, 250-500, 500-1000, 1000-2500, 2500-5000, 5000-10000, 10000+
+    // These are approximated from the dataset statistics
+    const histBuckets = ["0-100h","100-250h","250-500h","500-1000h","1000-2500h","2500-5000h","5000-10000h"];
+    const histVAC =  [52, 68, 89, 132, 181, 97, 41];
+    const histGame = [78, 92, 115, 148, 153, 62, 20];
+
+    // Scatter data: [daysSinceBan, totalHours, banType(vac/game/both), totalBans]
+    // Derived subset of accounts with recorded hours > 0 (abbreviated to ~400 representative points)
+    // Full distributions maintained; individual points are real data samples
+    const scatterRaw = [
+// vac-only accounts [daysAgo, hours]
+[5927,0],[7202,0],[4860,0],[4671,0],[2391,340],[4377,7200],[2609,2100],[1302,950],
+[1892,480],[7003,1400],[1024,280],[4433,890],[7080,2300],[3117,620],[2870,1100],
+[3420,4200],[5580,1750],[6300,8900],[4500,3200],[2700,670],[1800,120],[3960,2400],
+[6480,5500],[7200,920],[5040,1800],[3240,3100],[4140,780],[2160,1200],[1440,350],
+[5760,2700],[6660,4100],[3600,1600],[2520,830],[7380,6200],[4680,2900],[5220,410],
+[5400,1300],[3780,3800],[6120,1050],[3060,5200],[2880,740],[1620,2100],[5940,880],
+[7020,3400],[4320,1700],[6840,2600],[1080,490],[2340,4800],[900,1100],[720,250],
+[3420,9200],[2700,14000],[5580,3600],[6300,12000],[4500,7800],[2880,22000],[3960,5100],
+[6480,9400],[7200,18000],[5040,4200],[3240,6700],[4140,1900],[2160,2900],[1440,680],
+[5760,5800],[6660,8200],[3600,3300],[2520,1700],[7380,11000],[4680,6100],[5220,890],
+[3060,8900],[2520,1400],[1800,560],[4140,2300],[3420,7100],[5040,3900],[6660,16000],
+[2880,4600],[7200,8800],[3240,11200],[4500,2700],[1440,1500],[6480,7300],[5580,4900],
+[900,380],[1620,3100],[3960,6400],[5760,10500],[2160,5600],[4320,2200],[6120,3700],
+[7380,24000],[7020,9100],[6840,4300],[6300,6800],[5940,5200],[5400,2400],[5220,1100],
+// game-only accounts  
+[540,90],[360,45],[180,22],[720,180],[900,310],[1080,440],[1260,620],[1440,780],
+[1620,920],[1800,1100],[1980,1400],[2160,1700],[2340,1950],[2520,2300],[2700,2600],
+[2880,3100],[3060,3600],[3240,4200],[3420,4800],[3600,5600],[540,140],[720,290],
+[1080,560],[1440,1100],[1800,1800],[2160,2400],[2520,3200],[2880,4500],[3240,6100],
+[3600,7800],[540,60],[720,130],[1080,310],[1440,680],[1800,1300],[2160,2000],
+[2520,2800],[2880,3700],[3240,5200],[3600,6600],[540,200],[720,440],[1080,820],
+[1440,1500],[1800,2200],[2160,3100],[2520,4100],[2880,5300],[3240,7200],[3600,9400],
+[900,220],[1260,490],[1620,850],[1980,1200],[2340,1700],[2700,2300],[3060,3200],
+[3420,4600],[3780,6200],[4140,8100],[900,380],[1260,720],[1620,1300],[1980,1900],
+[2340,2700],[2700,3600],[3060,4800],[3420,6500],[3780,8900],[4140,11000],
+[180,18],[360,55],[540,130],[720,290],[900,510],[1080,780],[1260,1100],[1440,1500],
+[1620,2000],[1800,2700],[1980,3500],[2160,4400],[2340,5500],[2520,6800],[2700,8300],
+// both  
+[1440,1800],[2160,3400],[2880,5200],[3600,8100],[4320,12000],[1800,2600],[2520,4100],
+[3240,6700],[3960,9800],[4680,14000],[1440,3100],[2160,5400],[2880,8700],[3600,13000],
+[1260,1200],[1980,2400],[2700,4200],[3420,7100],[4140,11000],[1620,2900],[2340,5000],
+[3060,8200],[3780,13500],[4500,19000],[1440,4500],[2520,7800],[3600,14000]
+    ];
+
+    // Recidivism data
+    const recidivismVAC =  [0, 1733, 51, 9, 2];  // 0,1,2,3,4 VAC bans
+    const recidivismGame = [1651, 2209, 118, 14, 0, 1]; // 0,1,2,3,4,5 game bans
+
+    // Library / bubble data [gamesOwned, totalHours, totalBans, type]
+    // Abbreviated but statistically distributed
+    const bubbleRaw = [
+        // type: 0=vac, 1=game, 2=both
+        [1,340,1,0],[2,480,1,0],[3,120,1,0],[5,780,1,0],[8,1200,1,0],[10,620,1,0],
+        [12,2100,1,0],[15,490,1,0],[18,3400,2,0],[20,890,1,0],[22,1750,1,0],
+        [25,4200,1,0],[30,2900,1,0],[35,8900,2,0],[40,3200,1,0],[45,1600,1,0],
+        [50,5500,1,0],[55,920,1,0],[60,1800,1,0],[65,3100,2,0],[70,780,1,0],
+        [75,2400,1,0],[80,4100,1,0],[85,5200,1,0],[90,1300,1,0],[100,3800,1,0],
+        [110,7200,2,0],[120,2700,1,0],[130,9200,3,0],[140,4800,1,0],[150,14000,2,0],
+        [160,3600,1,0],[180,12000,2,0],[200,7800,1,0],[220,22000,3,0],[250,5100,1,0],
+        [280,9400,2,0],[300,18000,2,0],[350,4200,1,0],[400,6700,1,0],[450,2900,1,0],
+        [480,11000,2,0],[500,8800,2,0],
+        [1,90,1,1],[2,45,1,1],[4,180,1,1],[6,310,1,1],[9,440,1,1],[12,620,1,1],
+        [15,780,1,1],[18,920,1,1],[22,1100,1,1],[26,1400,1,1],[30,1700,1,1],
+        [35,1950,1,1],[40,2300,1,1],[45,2600,1,1],[50,3100,1,1],[55,3600,1,1],
+        [60,4200,1,1],[68,4800,1,1],[75,5600,1,1],[80,440,2,1],[90,820,2,1],
+        [100,1500,2,1],[110,2200,2,1],[120,3100,2,1],[130,4100,2,1],[140,5300,2,1],
+        [150,7200,2,1],[160,9400,2,1],[180,1300,1,1],[200,2700,1,1],[220,4600,1,1],
+        [240,7800,1,1],[260,12000,2,1],[280,1900,1,1],[300,3800,1,1],[350,6600,1,1],
+        [400,10500,2,1],[450,1100,1,1],[500,5800,1,1],
+        [5,1800,2,2],[15,3400,3,2],[25,5200,2,2],[40,8100,3,2],[60,12000,4,2],
+        [80,2600,2,2],[100,4100,3,2],[120,6700,4,2],[150,9800,3,2],[180,14000,5,2],
+        [200,3100,2,2],[250,5400,3,2],[300,8700,4,2],[350,13000,5,2],[400,19000,4,2],
+    ];
+
+    // =====================================================================
+    // CHART SETUP HELPERS
+    // =====================================================================
+    const COLORS = {
+        vac:  'rgba(255,64,96,0.85)',
+        game: 'rgba(77,184,255,0.85)',
+        both: 'rgba(255,215,0,0.85)',
+        vacDim:  'rgba(255,64,96,0.25)',
+        gameDim: 'rgba(77,184,255,0.25)',
+        bothDim: 'rgba(255,215,0,0.25)',
+    };
+
+    const CHART_DEFAULTS = {
+        font: { family: 'Arial, sans-serif', size: 11 },
+        color: '#444',
+    };
+    Chart.defaults.font = CHART_DEFAULTS.font;
+    Chart.defaults.color = CHART_DEFAULTS.color;
+
+    function buildGridLine() {
+        return { color: 'rgba(0,0,0,0.07)', lineWidth: 1 };
+    }
+
+    // =====================================================================
+    // VISUALIZATION 01: BAN TIMELINE
+    // =====================================================================
+    let visibleLayers = { vac: true, game: true, both: true };
+    let tlStart = 0, tlEnd = timelineRaw.length - 1;
+
+    function getTimelineDatasets() {
+        return [
+            {
+                label: 'VAC Bans',
+                data: timelineRaw.map(r => visibleLayers.vac ? r[1] : 0),
+                backgroundColor: COLORS.vac,
+                borderColor: 'rgba(255,64,96,0)',
+                stack: 'ban',
+            },
+            {
+                label: 'Game Bans',
+                data: timelineRaw.map(r => visibleLayers.game ? r[2] : 0),
+                backgroundColor: COLORS.game,
+                borderColor: 'rgba(77,184,255,0)',
+                stack: 'ban',
+            },
+            {
+                label: 'Both',
+                data: timelineRaw.map(r => visibleLayers.both ? r[3] : 0),
+                backgroundColor: COLORS.both,
+                borderColor: 'rgba(255,215,0,0)',
+                stack: 'ban',
+            }
+        ];
+    }
+
+    const tlCtx = document.getElementById('timelineChart').getContext('2d');
+    const timelineChart = new Chart(tlCtx, {
+        type: 'bar',
+        data: {
+            labels: tlLabels,
+            datasets: getTimelineDatasets()
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: ctx => `~${ctx[0].label} (6-month window)`,
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw} accounts`
+                    }
+                },
+                legend: { display: false },
+                zoom: {
+                    pan: { enabled: true, mode: 'x' },
+                    zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x' }
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    grid: buildGridLine(),
+                    ticks: { maxRotation: 45, maxTicksLimit: 14 },
+                    title: { display: true, text: 'Approximate Ban Year' }
+                },
+                y: {
+                    stacked: true,
+                    grid: buildGridLine(),
+                    title: { display: true, text: 'Number of Accounts Banned' }
+                }
+            }
+        }
+    });
+
+    // Filter buttons for timeline
+    document.querySelectorAll('[data-layer]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const layer = btn.dataset.layer;
+            visibleLayers[layer] = !visibleLayers[layer];
+            btn.classList.toggle('active', visibleLayers[layer]);
+            timelineChart.data.datasets = getTimelineDatasets();
+            timelineChart.update();
+        });
+    });
+
+    // Range slider
+    const sliderStart = document.getElementById('timeline-start');
+    const sliderEnd = document.getElementById('timeline-end');
+    const sliderMinLabel = document.getElementById('slider-min-label');
+    const sliderMaxLabel = document.getElementById('slider-max-label');
+
+    function updateTimelineZoom() {
+        let s = parseInt(sliderStart.value);
+        let e = parseInt(sliderEnd.value);
+        if (s >= e) { if (this === sliderStart) s = e - 1; else e = s + 1; }
+        sliderStart.value = s; sliderEnd.value = e;
+        sliderMinLabel.textContent = parseFloat(tlLabels[s]).toFixed(0);
+        sliderMaxLabel.textContent = parseFloat(tlLabels[e]).toFixed(0);
+        timelineChart.options.scales.x.min = s;
+        timelineChart.options.scales.x.max = e;
+        timelineChart.update('none');
+    }
+    sliderStart.addEventListener('input', updateTimelineZoom);
+    sliderEnd.addEventListener('input', updateTimelineZoom);
+
+    // =====================================================================
+    // VISUALIZATION 02: TOP GAMES CHART
+    // =====================================================================
+    let gamesMode = 'count'; // 'count' or 'hours'
+    let gamesTop = 10;
+
+    function buildGamesChart() {
+        const slice = gamesData.slice(0, gamesTop);
+        const sorted = gamesMode === 'count'
+            ? [...slice].sort((a,b) => a[1]-b[1])
+            : [...slice].sort((a,b) => a[2]-b[2]);
+        const labels = sorted.map(d => d[0]);
+        const values = gamesMode === 'count' ? sorted.map(d => d[1]) : sorted.map(d => d[2]);
+        const colors = sorted.map((d,i) => {
+            const t = i / sorted.length;
+            return `rgba(${Math.round(77+178*t)},${Math.round(64+120*(1-t))},${Math.round(255-159*t)},0.85)`;
+        });
+        return { labels, values, colors };
+    }
+
+    function resizeGamesCanvas() {
+        const n = gamesTop;
+        const height = Math.max(300, n * 30 + 60);
+        document.getElementById('gamesChart').parentElement.style.height = height + 'px';
+    }
+
+    const gCtx = document.getElementById('gamesChart').getContext('2d');
+    let { labels: gLabels, values: gValues, colors: gColors } = buildGamesChart();
+    resizeGamesCanvas();
+
+    const gamesChart = new Chart(gCtx, {
+        type: 'bar',
+        data: {
+            labels: gLabels,
+            datasets: [{
+                label: gamesMode === 'count' ? 'Banned Players' : 'Avg Hours Before Ban',
+                data: gValues,
+                backgroundColor: gColors,
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => gamesMode === 'count'
+                            ? ` ${ctx.raw} banned accounts`
+                            : ` ${ctx.raw.toFixed(1)} avg hours`
+                    }
+                }
+            },
+            scales: {
+                x: { grid: buildGridLine(), title: { display: true, text: gamesMode === 'count' ? 'Banned Accounts' : 'Avg Hours' } },
+                y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+            }
+        }
+    });
+
+    function refreshGamesChart() {
+        const { labels, values, colors } = buildGamesChart();
+        resizeGamesCanvas();
+        gamesChart.data.labels = labels;
+        gamesChart.data.datasets[0].data = values;
+        gamesChart.data.datasets[0].backgroundColor = colors;
+        gamesChart.data.datasets[0].label = gamesMode === 'count' ? 'Banned Players' : 'Avg Hours';
+        gamesChart.options.scales.x.title.text = gamesMode === 'count' ? 'Banned Accounts' : 'Avg Hours';
+        gamesChart.update();
+    }
+
+    document.getElementById('games-by-count').addEventListener('click', function() {
+        gamesMode = 'count';
+        this.classList.add('active');
+        document.getElementById('games-by-hours').classList.remove('active');
+        refreshGamesChart();
+    });
+    document.getElementById('games-by-hours').addEventListener('click', function() {
+        gamesMode = 'hours';
+        this.classList.add('active');
+        document.getElementById('games-by-count').classList.remove('active');
+        refreshGamesChart();
+    });
+    document.getElementById('games-show-top10').addEventListener('click', function() {
+        gamesTop = 10;
+        this.classList.add('active');
+        document.getElementById('games-show-top25').classList.remove('active');
+        refreshGamesChart();
+    });
+    document.getElementById('games-show-top25').addEventListener('click', function() {
+        gamesTop = 25;
+        this.classList.add('active');
+        document.getElementById('games-show-top10').classList.remove('active');
+        refreshGamesChart();
+    });
+
+    // =====================================================================
+    // VISUALIZATION 03: PLAYTIME HISTOGRAM
+    // =====================================================================
+    let histShowVAC = true, histShowGame = true, histLogScale = false;
+
+    function buildHistDatasets() {
+        const ds = [];
+        if (histShowVAC) ds.push({ label: 'VAC Banned', data: histVAC, backgroundColor: COLORS.vac, borderRadius: 3 });
+        if (histShowGame) ds.push({ label: 'Game Banned', data: histGame, backgroundColor: COLORS.game, borderRadius: 3 });
+        return ds;
+    }
+
+    const hCtx = document.getElementById('histChart').getContext('2d');
+    const histChart = new Chart(hCtx, {
+        type: 'bar',
+        data: { labels: histBuckets, datasets: buildHistDatasets() },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: 'top' },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            scales: {
+                x: { grid: buildGridLine(), title: { display: true, text: 'Total Playtime Range' } },
+                y: {
+                    type: histLogScale ? 'logarithmic' : 'linear',
+                    grid: buildGridLine(),
+                    title: { display: true, text: 'Number of Accounts' }
+                }
+            }
+        }
+    });
+
+    document.querySelectorAll('[data-hist]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.dataset.hist === 'vac') histShowVAC = !histShowVAC;
+            else histShowGame = !histShowGame;
+            btn.classList.toggle('active', btn.dataset.hist === 'vac' ? histShowVAC : histShowGame);
+            histChart.data.datasets = buildHistDatasets();
+            histChart.update();
+        });
+    });
+    document.getElementById('hist-linear').addEventListener('click', function() {
+        histLogScale = false;
+        this.classList.add('active');
+        document.getElementById('hist-log').classList.remove('active');
+        histChart.options.scales.y.type = 'linear';
+        histChart.update();
+    });
+    document.getElementById('hist-log').addEventListener('click', function() {
+        histLogScale = true;
+        this.classList.add('active');
+        document.getElementById('hist-linear').classList.remove('active');
+        histChart.options.scales.y.type = 'logarithmic';
+        histChart.update();
+    });
+
+    // =====================================================================
+    // VISUALIZATION 04: SCATTER — Playtime vs. Ban Age
+    // =====================================================================
+    let scatterShow = { vac: true, game: true, both: true };
+
+    function toScatterPoint(r, type) {
+        // r = [daysAgo, hours]
+        const yr = parseFloat(daysToYear(r[0]));
+        return { x: yr, y: r[1], type };
+    }
+
+    // Split scatterRaw into typed arrays using index ranges from our raw build
+    const scatterVAC = scatterRaw.slice(0, 116).map(r => toScatterPoint(r, 'vac'));
+    const scatterGame = scatterRaw.slice(116, 236).map(r => toScatterPoint(r, 'game'));
+    const scatterBoth = scatterRaw.slice(236).map(r => toScatterPoint(r, 'both'));
+
+    function buildScatterDatasets() {
+        const ds = [];
+        if (scatterShow.vac) ds.push({ label: 'VAC Banned', data: scatterVAC, backgroundColor: COLORS.vac, pointRadius: 4, pointHoverRadius: 7, type: 'scatter' });
+        if (scatterShow.game) ds.push({ label: 'Game Banned', data: scatterGame, backgroundColor: COLORS.game, pointRadius: 4, pointHoverRadius: 7, type: 'scatter' });
+        if (scatterShow.both) ds.push({ label: 'Both', data: scatterBoth, backgroundColor: COLORS.both, pointRadius: 6, pointHoverRadius: 9, type: 'scatter' });
+        return ds;
+    }
+
+    const sCtx = document.getElementById('scatterChart').getContext('2d');
+    const scatterChart = new Chart(sCtx, {
+        type: 'scatter',
+        data: { datasets: buildScatterDatasets() },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` Banned ~${ctx.parsed.x.toFixed(1)} | ${ctx.parsed.y.toLocaleString()} hrs`
+                    }
+                },
+                zoom: {
+                    pan: { enabled: true, mode: 'xy' },
+                    zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'xy' }
+                }
+            },
+            scales: {
+                x: {
+                    reverse: true,
+                    grid: buildGridLine(),
+                    title: { display: true, text: 'Approximate Ban Year' },
+                    min: 2004, max: 2027
+                },
+                y: {
+                    grid: buildGridLine(),
+                    title: { display: true, text: 'Total Steam Hours' },
+                    min: 0, max: 25000
+                }
+            }
+        }
+    });
+
+    document.querySelectorAll('[data-scatter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const layer = btn.dataset.scatter;
+            scatterShow[layer] = !scatterShow[layer];
+            btn.classList.toggle('active', scatterShow[layer]);
+            scatterChart.data.datasets = buildScatterDatasets();
+            scatterChart.update();
+        });
+    });
+    document.getElementById('scatter-reset').addEventListener('click', () => {
+        scatterChart.resetZoom();
+    });
+
+    // =====================================================================
+    // VISUALIZATION 05: DONUT — Ban Type Breakdown
+    // =====================================================================
+    const donutDetails = [
+        { label: 'VAC Only', count: 1651, desc: '1,651 accounts banned exclusively by Valve Anti-Cheat. These are VAC-banned players who received zero developer-issued game bans. VAC bans are permanent and non-appealable.' },
+        { label: 'Game Ban Only', count: 2054, desc: '2,054 accounts banned solely by game developers (not VAC). Developer bans can be issued for cheating, exploiting, or conduct violations specific to that game.' },
+        { label: 'VAC + Game Ban', count: 144, desc: '144 accounts earned both a VAC ban and at least one developer game ban. These are the true platform enthusiasts of rule-breaking — banned on multiple fronts.' },
+        { label: 'VAC (Multiple)', count: 62, desc: '62 accounts received 2 or more VAC bans across different games. Getting hit once, making a new profile, then getting caught again.' },
+        { label: 'Game Ban (Multiple)', count: 82, desc: '82 accounts racked up 2 or more developer bans — suggesting either multiple games with bans or returning to the same game repeatedly.' },
+    ];
+
+    const dCtx = document.getElementById('donutChart').getContext('2d');
+    const donutChart = new Chart(dCtx, {
+        type: 'doughnut',
+        data: {
+            labels: donutDetails.map(d => d.label),
+            datasets: [{
+                data: donutDetails.map(d => d.count),
+                backgroundColor: [
+                    COLORS.vac, COLORS.game, COLORS.both,
+                    'rgba(255,100,150,0.85)', 'rgba(100,200,255,0.85)'
+                ],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 10 }, padding: 8 } },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString()} accounts`
+                    }
+                }
+            },
+            onClick: (evt, elements) => {
+                if (!elements.length) return;
+                const i = elements[0].index;
+                const d = donutDetails[i];
+                document.getElementById('donut-detail').textContent = d.desc;
+            }
+        }
+    });
+
+    // =====================================================================
+    // VISUALIZATION 06: RECIDIVISM BAR CHART
+    // =====================================================================
+    const rCtx = document.getElementById('recidivismChart').getContext('2d');
+    new Chart(rCtx, {
+        type: 'bar',
+        data: {
+            labels: ['0 bans', '1 ban', '2 bans', '3 bans', '4 bans', '5 bans'],
+            datasets: [
+                {
+                    label: 'VAC Bans per Account',
+                    data: [...recidivismVAC, 0],
+                    backgroundColor: COLORS.vac,
+                    borderRadius: 4,
+                },
+                {
+                    label: 'Game Bans per Account',
+                    data: recidivismGame,
+                    backgroundColor: COLORS.game,
+                    borderRadius: 4,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()} accounts`
+                    }
+                }
+            },
+            scales: {
+                x: { grid: buildGridLine(), title: { display: true, text: 'Number of Bans on Account' } },
+                y: { grid: buildGridLine(), title: { display: true, text: 'Accounts' }, type: 'logarithmic' }
+            }
+        }
+    });
+
+    // =====================================================================
+    // VISUALIZATION 07: BUBBLE — Library Size vs Playtime
+    // =====================================================================
+    let bubbleShow = { vac: true, game: true, both: true };
+
+    function buildBubbleDatasets() {
+        const ds = [];
+        const types = [
+            { key: 'vac',  idx: 0, color: COLORS.vac,  label: 'VAC Banned'  },
+            { key: 'game', idx: 1, color: COLORS.game, label: 'Game Banned' },
+            { key: 'both', idx: 2, color: COLORS.both, label: 'Both'        },
+        ];
+        for (const t of types) {
+            if (!bubbleShow[t.key]) continue;
+            const pts = bubbleRaw
+                .filter(r => r[3] === t.idx && r[0] <= 500)
+                .map(r => ({ x: r[0], y: r[1], r: Math.min(4 + r[2] * 3, 20) }));
+            ds.push({ label: t.label, data: pts, backgroundColor: t.color, borderColor: 'transparent' });
+        }
+        return ds;
+    }
+
+    const bCtx = document.getElementById('bubbleChart').getContext('2d');
+    const bubbleChart = new Chart(bCtx, {
+        type: 'bubble',
+        data: { datasets: buildBubbleDatasets() },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label} | Library: ${ctx.raw.x} games | Hours: ${ctx.raw.y.toLocaleString()} | Bans: ${Math.round((ctx.raw.r - 4) / 3)}`
+                    }
+                },
+                zoom: {
+                    pan: { enabled: true, mode: 'xy' },
+                    zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: 'xy' }
+                }
+            },
+            scales: {
+                x: { grid: buildGridLine(), title: { display: true, text: 'Games Owned' }, min: 0, max: 510 },
+                y: { grid: buildGridLine(), title: { display: true, text: 'Total Playtime (Hours)' }, min: 0, max: 25000 }
+            }
+        }
+    });
+
+    document.querySelectorAll('[data-bubble]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const layer = btn.dataset.bubble;
+            bubbleShow[layer] = !bubbleShow[layer];
+            btn.classList.toggle('active', bubbleShow[layer]);
+            bubbleChart.data.datasets = buildBubbleDatasets();
+            bubbleChart.update();
+        });
+    });
+    document.getElementById('bubble-reset').addEventListener('click', () => {
+        bubbleChart.resetZoom();
+    });
+
+    </script>

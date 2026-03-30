@@ -109,6 +109,26 @@
     100% { background-position: 0% 50%; }
 }
 
+.steambans-page .static-background {
+    background: linear-gradient(135deg,
+        #0a0008 0%,
+        #1a0510 15%,
+        #0d0d1a 35%,
+        #12001a 55%,
+        #1a0010 75%,
+        #0a0a12 90%,
+        #0f0008 100%
+    );
+    background-size: 400% 400%;
+    animation: bannedAtmosphere 22s ease infinite;
+}
+
+@keyframes bannedAtmosphere {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: transparent;
@@ -4217,5 +4237,369 @@ footer {
     .artkana-showcase .project-title {
         font-size: 2.5rem;
     }
+}
+
+/* ========================================
+   VAC-ATION DENIED — STEAM BAN RESEARCH
+   ======================================== */
+
+.steambans-showcase {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+}
+
+/* Hero overrides */
+.steambans-hero {
+    background: linear-gradient(160deg, rgba(20, 0, 12, 0.92) 0%, rgba(10, 0, 20, 0.88) 100%);
+    border-bottom: 2px solid rgba(180, 0, 60, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.steambans-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(180, 0, 60, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.steambans-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 1.4rem;
+}
+
+.steambans-tag {
+    background: rgba(180, 0, 60, 0.18);
+    color: #ff8aaa;
+    border: 1px solid rgba(180, 0, 60, 0.45);
+    border-radius: 20px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.steambans-subtagline {
+    color: rgba(255, 138, 170, 0.75);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-top: -0.6rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Overview section */
+.steambans-overview {
+    border-left: 4px solid rgba(180, 0, 60, 0.5);
+    background: rgba(255, 255, 255, 0.88);
+}
+
+.steambans-overview h2 {
+    color: #1a0010;
+}
+
+/* Artifact zone containers */
+.steambans-artifact-zone {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(100, 0, 30, 0.12), 0 1px 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(180, 0, 60, 0.15);
+}
+
+.steambans-zone-full {
+    width: 100%;
+}
+
+.steambans-zone-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.steambans-split-panel {
+    padding: 0;
+}
+
+.steambans-split-panel:first-child {
+    border-right: 1px solid rgba(180, 0, 60, 0.15);
+}
+
+/* Zone header labels */
+.steambans-zone-header {
+    padding: 1.4rem 1.8rem 1rem;
+    border-bottom: 1px solid rgba(180, 0, 60, 0.12);
+    background: rgba(20, 0, 12, 0.04);
+}
+
+.steambans-zone-label {
+    display: inline-block;
+    background: rgba(180, 0, 60, 0.12);
+    color: #990030;
+    border: 1px solid rgba(180, 0, 60, 0.3);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 0.6rem;
+}
+
+.steambans-zone-header h2 {
+    margin: 0.3rem 0 0.4rem;
+    font-size: 1.25rem;
+    color: #0a0015;
+}
+
+.steambans-zone-desc {
+    color: #555;
+    font-size: 0.88rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Artifact frames */
+.steambans-artifact-frame {
+    width: 100%;
+    position: relative;
+    background: #fafafa;
+    border-top: none;
+}
+
+.steambans-frame-tall {
+    min-height: 520px;
+}
+
+.steambans-frame-medium {
+    min-height: 380px;
+}
+
+/* Placeholder shown before artifact is pasted */
+.steambans-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(100, 0, 30, 0.35);
+    pointer-events: none;
+    user-select: none;
+}
+
+.steambans-placeholder-icon {
+    display: block;
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+}
+
+.steambans-placeholder p {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin: 0 0 0.2rem;
+}
+
+.steambans-placeholder-sub {
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    font-family: 'Courier New', monospace;
+    opacity: 0.7;
+}
+
+/* Methodology section */
+.steambans-methodology {
+    background: rgba(255, 255, 255, 0.88);
+    border-left: 4px solid rgba(180, 0, 60, 0.35);
+}
+
+.steambans-methodology h2 {
+    color: #1a0010;
+}
+
+.steambans-methodology blockquote {
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.75;
+}
+
+/* Responsive: collapse split to single column on mobile */
+@media (max-width: 768px) {
+    .steambans-zone-split {
+        grid-template-columns: 1fr;
+    }
+
+    .steambans-split-panel:first-child {
+        border-right: none;
+        border-bottom: 1px solid rgba(180, 0, 60, 0.15);
+    }
+
+    .steambans-showcase {
+        padding: 0 0.75rem 3rem;
+    }
+
+    .steambans-hero .project-title {
+        font-size: 2.2rem;
+    }
+}
+
+/* Stat cards row */
+.steambans-stats-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.steambans-stat-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(180,0,60,0.15);
+    border-radius: 10px;
+    padding: 1rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 2px 10px rgba(100,0,30,0.07);
+}
+
+.steambans-stat-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #cc0030;
+    line-height: 1;
+    font-family: 'Courier New', monospace;
+}
+
+.steambans-stat-label {
+    font-size: 0.72rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .steambans-stats-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 540px) {
+    .steambans-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Chart control buttons */
+.steambans-chart-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.steambans-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid rgba(180,0,60,0.3);
+    background: rgba(180,0,60,0.07);
+    color: #555;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+.steambans-filter-btn.active {
+    background: rgba(180,0,60,0.15);
+    color: #990030;
+    border-color: rgba(180,0,60,0.5);
+}
+
+.steambans-filter-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.steambans-toggle-btn {
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid rgba(180,0,60,0.3);
+    background: transparent;
+    color: #666;
+    transition: all 0.15s ease;
+}
+.steambans-toggle-btn.active,
+.steambans-toggle-btn:hover {
+    background: rgba(180,0,60,0.12);
+    color: #990030;
+    border-color: rgba(180,0,60,0.5);
+}
+
+/* Range sliders */
+.steambans-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+.steambans-range {
+    flex: 1;
+    accent-color: #cc0030;
+    cursor: pointer;
+}
+.steambans-slider-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #990030;
+    min-width: 2.5rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+.steambans-chart-note {
+    font-size: 0.72rem;
+    color: #888;
+    margin: 0.5rem 0 0;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* Taller frame for scatter/bubble */
+.steambans-frame-chart {
+    min-height: 540px;
+}
+
+/* Donut detail text */
+.steambans-donut-detail {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: #555;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 360px;
+    padding: 0.5rem 1rem;
+    background: rgba(180,0,60,0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(180,0,60,0.1);
+    min-height: 3rem;
 }
 
