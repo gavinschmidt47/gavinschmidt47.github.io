@@ -37,6 +37,7 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 - **Code examples in collapsible `<details>`**: Code wrapped in `<pre><code class="language-csharp">` for syntax highlighting
 - **Gameplay videos**: Use `<video autoplay loop muted playsinline>` with MP4/WebM sources in `.video-container-gameplay` divs (see [SolarScavenger.html](../SolarScavenger.html) for reference implementation)
 - **Lightbox**: Every detail page and projects.html must include `<script src="lightbox.js"></script>` before `</body>`. The script auto-attaches a click-to-expand lightbox to every `<img>` inside `<main>` — no extra markup or attributes needed. Never omit this script from detail pages.
+- **Back to Projects button**: Every project detail page must have a `<section class="back-to-projects">` containing `<a href="projects.html" class="btn btn-primary">← Back to All Projects</a>` as the last element inside `<main>`, after the reflection section. A global `.back-to-projects` CSS rule handles centering and spacing — do not add page-scoped overrides unless necessary.
 
 ### Project Entry Style Guide
 All project entries must follow consistent conventions across [projects.html](../projects.html), [index.html](../index.html) featured cards, and detail pages:
