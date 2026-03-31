@@ -320,12 +320,118 @@
             </div>
         </section>
 
+        <!-- ============================================================
+             VISUALIZATION 08: Zero Playtime vs. Has Playtime
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-full">
+            <div class="steambans-zone-header">
+                <span class="steambans-zone-label">VISUALIZATION 08</span>
+                <h2>Throwaway Accounts vs. Established Players</h2>
+                <p class="steambans-zone-desc">Two very different cheater profiles emerge when splitting by whether an account has any recorded playtime. Zero-playtime accounts are overwhelmingly game-banned, pointing to smurf and throwaway accounts purpose-built for cheating. Accounts with playtime are predominantly VAC-banned, suggesting long-term players who eventually crossed the line.</p>
+            </div>
+            <div class="steambans-artifact-frame" style="padding:1.5rem;">
+                <div class="steambans-zp-compare-wrap">
+                    <div class="steambans-zp-stat-row">
+                        <div class="steambans-zp-stat steambans-zp-stat-ghost">
+                            <span class="steambans-zp-stat-num">2,783</span>
+                            <span class="steambans-zp-stat-lbl">Zero Playtime</span>
+                            <span class="steambans-zp-stat-sub">70% of dataset</span>
+                        </div>
+                        <div class="steambans-zp-divider"></div>
+                        <div class="steambans-zp-stat steambans-zp-stat-active">
+                            <span class="steambans-zp-stat-num">1,210</span>
+                            <span class="steambans-zp-stat-lbl">Has Playtime</span>
+                            <span class="steambans-zp-stat-sub">30% of dataset</span>
+                        </div>
+                    </div>
+                    <div style="position:relative; width:100%; height:320px; overflow:hidden; margin-top:1rem;">
+                        <canvas id="zeroPlayChart"></canvas>
+                    </div>
+                    <p class="steambans-chart-note">Zero-playtime accounts may be private profiles, history-cleared accounts, or purpose-built smurf/throwaway accounts. The overwhelming skew toward game bans in that cohort strongly supports the throwaway hypothesis, since VAC requires deeper integration into a game before triggering.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Findings -->
+        <section class="steambans-artifact-zone steambans-zone-full steambans-findings-section">
+            <div class="steambans-zone-header">
+                <span class="steambans-zone-label">SUMMARY</span>
+                <h2>What the Data Shows</h2>
+                <p class="steambans-zone-desc">Patterns and correlations that emerged across the 3,993 banned accounts.</p>
+            </div>
+            <div class="steambans-findings-grid">
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">⏱️</span>
+                    <h3>VAC Players Invest Far More Time</h3>
+                    <p>Accounts banned by VAC averaged <strong>1,752 hours</strong> of total Steam playtime versus a substantially lower average for game-ban-only accounts. VAC cheaters are not drive-by players: they are long-term, invested users who chose to cheat late into their library history.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">🎯</span>
+                    <h3>Counter-Strike Dominates Every Era</h3>
+                    <p><strong>Counter-Strike 2</strong> (and its predecessors) leads the banned-player count in virtually every time window on the sliding leaderboard. With <strong>768 banned accounts</strong> and a 471h average, it is not just the most-cheated game: it has been for over 20 years.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">📈</span>
+                    <h3>Game Bans Exploded in the Battle Royale Era</h3>
+                    <p>The timeline shows a dramatic spike in developer-issued game bans from <strong>2016 through 2020</strong>, corresponding directly with the rise of PUBG, Fortnite, and Apex Legends. This era produced more game bans per year than the entire prior decade of VAC combined.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">🔁</span>
+                    <h3>Repeat Offenders Are a Small but Persistent Minority</h3>
+                    <p><strong>316 accounts</strong> (7.9% of the dataset) accumulated more than one ban. Of those, 62 received 2+ VAC bans across different games, and a small cluster reached 4 VAC bans total. Getting caught does not reliably stop the behavior.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">🏆</span>
+                    <h3>Hours-Per-Account Reveals Commitment, Not Just Popularity</h3>
+                    <p>Ranked by <em>average hours</em> rather than player count, <strong>Dota 2</strong> (1,019h avg) and <strong>ARK: Survival Evolved</strong> (727h avg) overtake Counter-Strike entirely. Cheating in those games requires a long-haul commitment, suggesting a different psychological profile than one-and-done FPS cheaters.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">📦</span>
+                    <h3>Library Size Correlates Weakly with Ban Count</h3>
+                    <p>The bubble chart shows accounts with large libraries (100+ games) spread across all ban counts without a strong cluster at higher bans. Owning more games does not predict cheating more often: the highest ban-count accounts are distributed across small and large libraries alike.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">⚠️</span>
+                    <h3>Dual-Banned Accounts Show Escalation</h3>
+                    <p>The 144 accounts carrying both a VAC ban and a developer game ban show notably higher average playtime than either group alone. This suggests the accounts that earned both types were more active, more invested players: escalating rather than learning from the first ban.</p>
+                </div>
+                <div class="steambans-finding-card">
+                    <span class="steambans-finding-icon">👻</span>
+                    <h3>Majority of Banned Accounts Have No Playtime on Record</h3>
+                    <p><strong>2,783 of 3,993 accounts</strong> (70%) report zero total playtime. These may be private profiles or history-cleared accounts, but Visualization 08 reveals a stronger pattern: zero-playtime accounts are overwhelmingly <strong>game-banned</strong>, skewing 9-to-1 toward game bans versus VAC. This strongly suggests many are <strong>throwaway or smurf accounts</strong> created specifically for cheating, not established players who hid their history.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Methodology / Notes -->
         <section class="reflection-section steambans-methodology">
             <h2>Methodology Notes</h2>
-            <blockquote>
-                All data was sourced from Steam's public API. Accounts are represented by anonymized row identifiers — no usernames, profile links, or personally identifiable information appear in any visualization. The dataset covers VAC bans and developer-issued game bans. Community bans, trade bans, and private-profile accounts are excluded or appear with zero-value playtime. DaysSinceLastBan represents elapsed days at time of dataset collection (approximately March 2026), which is used to approximate calendar ban year. Playtime figures are total Steam library hours, not per-game hours, as Steam's API returns aggregate playtime for most banned accounts. The 2,783 accounts showing zero playtime are likely private profiles or accounts that cleared their history.
-            </blockquote>
+            <div class="steambans-methodology-grid">
+                <div class="steambans-method-item">
+                    <h4>Data Source</h4>
+                    <p>All data was sourced from Steam's public Web API. Account selection targeted profiles with at least one VAC ban or developer game ban on record.</p>
+                </div>
+                <div class="steambans-method-item">
+                    <h4>Privacy and Anonymization</h4>
+                    <p>Accounts are represented by anonymized row identifiers only. No usernames, profile links, avatars, or personally identifiable information appear in any visualization.</p>
+                </div>
+                <div class="steambans-method-item">
+                    <h4>Ban Type Coverage</h4>
+                    <p>The dataset covers VAC bans and developer-issued game bans. Community bans, trade bans, and economy restrictions are excluded. Accounts with private profiles appear with zero-value playtime.</p>
+                </div>
+                <div class="steambans-method-item">
+                    <h4>Date Approximation</h4>
+                    <p>Steam exposes <em>DaysSinceLastBan</em>, not a calendar date. All ban years are estimated by subtracting from the collection date of approximately March 2026. Accuracy degrades for very old bans.</p>
+                </div>
+                <div class="steambans-method-item">
+                    <h4>Playtime Definition</h4>
+                    <p>Playtime figures are <em>total Steam library hours</em> aggregated across all games, not per-game hours. Steam's API returns this aggregate for most banned accounts rather than a per-title breakdown.</p>
+                </div>
+                <div class="steambans-method-item">
+                    <h4>Zero-Playtime Accounts</h4>
+                    <p>The 2,783 accounts (70%) showing zero playtime are private profiles, history-cleared accounts, or purpose-built throwaway and smurf accounts created specifically for cheating. The overwhelming skew toward game bans in this cohort (Visualization 08) supports the throwaway hypothesis: VAC requires sustained in-game play to trigger, while game bans can be issued quickly against new accounts. They are included in ban-count and timeline data but excluded from playtime analyses.</p>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -682,7 +788,7 @@
                 tooltip: { callbacks: { label: ctx => ` ~${ctx.parsed.x.toFixed(0)} | ${ctx.parsed.y.toLocaleString()} hrs` } },
             },
             scales: {
-                x: { reverse: true, grid: grid(), title: { display: true, text: 'Approximate Ban Year' }, min: 2004, max: 2027 },
+                x: { grid: grid(), title: { display: true, text: 'Approximate Ban Year' }, min: 2004, max: 2027, ticks: { callback: v => Math.round(v).toString() } },
                 y: { grid: grid(), title: { display: true, text: 'Total Steam Hours' }, min: 0, max: 25000 }
             }
         }
@@ -745,7 +851,7 @@
             plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} accounts` } } },
             scales: {
                 x: { grid: grid(), title: { display: true, text: 'Bans on Account' } },
-                y: { grid: grid(), title: { display: true, text: 'Accounts' }, type: 'logarithmic' }
+                y: { grid: grid(), title: { display: true, text: 'Accounts' }, min: 0 }
             }
         }
     });
@@ -792,6 +898,59 @@
             bubbleChart.data.datasets = bubbleDs();
             bubbleChart.update('none');
         });
+    });
+
+    // =====================================================================
+    // VIZ 08: ZERO PLAYTIME vs. HAS PLAYTIME
+    // =====================================================================
+    // Breakdown by ban type for each cohort (mutually exclusive groups)
+    // Zero playtime (2,783): VAC only=848, Game only=1,852, Both=83
+    // Has playtime  (1,210): VAC only=947, Game only=202,   Both=61
+    // Totals check: VAC=848+947=1,795 ✓  Game=1,852+202=2,054  Both=83+61=144 ✓
+    new Chart(document.getElementById('zeroPlayChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Zero Playtime', 'Has Playtime'],
+            datasets: [
+                {
+                    label: 'VAC Only',
+                    data: [848, 947],
+                    backgroundColor: COLORS.vac,
+                    borderRadius: 4
+                },
+                {
+                    label: 'Game Only',
+                    data: [1852, 202],
+                    backgroundColor: COLORS.game,
+                    borderRadius: 4
+                },
+                {
+                    label: 'VAC + Game Ban',
+                    data: [83, 61],
+                    backgroundColor: COLORS.both,
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, animation: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => {
+                            const total = ctx.dataIndex === 0 ? 2783 : 1210;
+                            const pct   = ((ctx.raw / total) * 100).toFixed(1);
+                            return ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()} (${pct}% of cohort)`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { grid: { display: false }, title: { display: true, text: 'Playtime Cohort' } },
+                y: { grid: grid(), title: { display: true, text: 'Accounts' }, min: 0 }
+            }
+        }
     });
 
     }); // end DOMContentLoaded

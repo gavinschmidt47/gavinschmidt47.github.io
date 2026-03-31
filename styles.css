@@ -4428,18 +4428,126 @@ footer {
 
 /* Methodology section */
 .steambans-methodology {
-    background: rgba(255, 255, 255, 0.88);
-    border-left: 4px solid rgba(180, 0, 60, 0.35);
+    background: linear-gradient(135deg, rgba(27, 35, 48, 0.97) 0%, rgba(18, 22, 35, 0.97) 100%) !important;
+    border-left: 4px solid rgba(220, 60, 100, 0.6);
+    border-radius: 16px;
 }
 
 .steambans-methodology h2 {
-    color: #1a0010;
+    color: #dce6f0;
+    margin-bottom: 1.5rem;
 }
 
-.steambans-methodology blockquote {
-    color: #444;
+.steambans-methodology-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.steambans-method-item {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+}
+
+.steambans-method-item h4 {
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(255, 130, 155, 0.95);
+    margin-bottom: 0.5rem;
+}
+
+.steambans-method-item p {
     font-size: 0.9rem;
-    line-height: 1.75;
+    line-height: 1.7;
+    color: #b0bfd0;
+    margin: 0;
+}
+
+/* Key findings section */
+.steambans-findings-section {
+    background: linear-gradient(135deg, rgba(27, 35, 48, 0.97) 0%, rgba(18, 22, 35, 0.97) 100%);
+    border-radius: 16px;
+}
+
+.steambans-findings-section .steambans-zone-header h2 {
+    color: #dce6f0;
+}
+
+.steambans-findings-section .steambans-zone-label {
+    color: #4db8ff;
+    background: rgba(77, 184, 255, 0.1);
+    border-color: rgba(77, 184, 255, 0.25);
+}
+
+.steambans-findings-section .steambans-zone-desc {
+    color: #8a9ab0;
+}
+
+.steambans-findings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 0 1.5rem 1.75rem;
+}
+
+.steambans-finding-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(77, 184, 255, 0.12);
+    border-radius: 10px;
+    padding: 1.15rem 1.2rem 1.1rem;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.steambans-finding-card:hover {
+    background: rgba(77, 184, 255, 0.06);
+    border-color: rgba(77, 184, 255, 0.28);
+}
+
+.steambans-finding-icon {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 0.55rem;
+    line-height: 1;
+}
+
+.steambans-finding-card h3 {
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4db8ff;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+}
+
+.steambans-finding-card p {
+    font-size: 0.84rem;
+    color: #98aabf;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.steambans-finding-card p strong {
+    color: #dce6f0;
+}
+
+.steambans-finding-card p em {
+    color: #b8c8d8;
+    font-style: italic;
+}
+
+@media (max-width: 640px) {
+    .steambans-findings-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem 1.25rem;
+    }
+    .steambans-methodology-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Responsive: collapse split to single column on mobile */
@@ -4878,6 +4986,97 @@ footer {
     }
     .steambans-tg-control {
         padding: 0.25rem 1rem 1.25rem;
+    }
+}
+
+/* =============================================
+   VIZ 08: ZERO PLAYTIME vs. HAS PLAYTIME
+   ============================================= */
+
+.steambans-zp-compare-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.steambans-zp-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 0.25rem;
+}
+
+.steambans-zp-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    border-radius: 10px;
+    flex: 1;
+    max-width: 260px;
+}
+
+.steambans-zp-stat-ghost {
+    background: rgba(130, 140, 160, 0.08);
+    border: 1px solid rgba(130, 140, 160, 0.2);
+}
+
+.steambans-zp-stat-active {
+    background: rgba(255, 64, 96, 0.06);
+    border: 1px solid rgba(255, 64, 96, 0.2);
+}
+
+.steambans-zp-stat-num {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    line-height: 1.1;
+}
+
+.steambans-zp-stat-ghost .steambans-zp-stat-num {
+    color: #8090a0;
+}
+
+.steambans-zp-stat-active .steambans-zp-stat-num {
+    color: #ff4060;
+}
+
+.steambans-zp-stat-lbl {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #555;
+    margin-top: 0.25rem;
+}
+
+.steambans-zp-stat-sub {
+    font-size: 0.68rem;
+    color: #999;
+    margin-top: 0.1rem;
+}
+
+.steambans-zp-divider {
+    width: 1px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0 1rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 520px) {
+    .steambans-zp-stat-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .steambans-zp-divider {
+        width: 60px;
+        height: 1px;
+    }
+    .steambans-zp-stat {
+        max-width: 100%;
+        padding: 0.75rem 1.5rem;
     }
 }
 
