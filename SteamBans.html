@@ -141,6 +141,38 @@
         </section>
 
         <!-- ============================================================
+             INTERACTIVE: Top 5 Games Across Time
+             ============================================================ -->
+        <section class="steambans-artifact-zone steambans-zone-full" id="viz-top-games-time">
+            <div class="steambans-zone-header">
+                <span class="steambans-zone-label">INTERACTIVE FEATURE</span>
+                <h2>Top 5 Games: A Leaderboard Through Time</h2>
+                <p class="steambans-zone-desc">Drag the slider to travel through time. As the cutoff year advances, banned players accumulate and the leaderboard evolves. Which game dominated each era?</p>
+            </div>
+
+            <div id="tg-loading" class="steambans-tg-loading">
+                <div class="steambans-tg-spinner"></div>
+                <span>Loading player data...</span>
+            </div>
+
+            <div class="steambans-tg-cards" id="tg-cards"></div>
+
+            <div class="steambans-tg-control" id="tg-control" style="display:none;">
+                <div class="steambans-tg-meta-row">
+                    <span class="steambans-tg-year-label">UP TO YEAR</span>
+                    <span class="steambans-tg-year-num" id="tg-year-num">2026</span>
+                    <span class="steambans-tg-player-pill" id="tg-player-pill">— accounts</span>
+                </div>
+                <div class="steambans-tg-slider-row">
+                    <span class="steambans-tg-edge">2004</span>
+                    <input type="range" id="tg-slider" class="steambans-range steambans-tg-range" min="2004" max="2026" step="1" value="2026">
+                    <span class="steambans-tg-edge">2026</span>
+                </div>
+                <p class="steambans-chart-note">Cumulative leaderboard: shows top 5 games by banned player count up to the selected year. Images from Steam CDN.</p>
+            </div>
+        </section>
+
+        <!-- ============================================================
              VISUALIZATION 01: Ban Timeline Explorer
              ============================================================ -->
         <section class="steambans-artifact-zone steambans-zone-full">
@@ -763,4 +795,168 @@
     });
 
     }); // end DOMContentLoaded
+
+    // =====================================================================
+    // INTERACTIVE: TOP 5 GAMES ACROSS TIME  (loads CSVs at runtime)
+    // =====================================================================
+    (function () {
+        const REF_YEAR   = 2026;
+        const slider     = document.getElementById('tg-slider');
+        const yearNumEl  = document.getElementById('tg-year-num');
+        const pillEl     = document.getElementById('tg-player-pill');
+        const cardsEl    = document.getElementById('tg-cards');
+        const loadingEl  = document.getElementById('tg-loading');
+        const controlEl  = document.getElementById('tg-control');
+
+        let playerDays  = {};   // rowId -> daysAgo
+        let playerGames = {};   // rowId -> [{appId, name, minutes}]
+        let dataReady   = false;
+
+        function parseCSV(text) {
+            const rows    = text.trim().split('\n');
+            const headers = rows[0].split(',').map(s => s.trim());
+            return rows.slice(1).map(row => {
+                const vals = row.split(',');
+                const obj  = {};
+                headers.forEach((h, i) => { obj[h] = vals[i] !== undefined ? vals[i].trim() : ''; });
+                return obj;
+            });
+        }
+
+        async function loadData() {
+            try {
+                const [pdRes, pgRes] = await Promise.all([
+                    fetch('Media/Pieces/SteamBanned/PlayerData_clean.csv'),
+                    fetch('Media/Pieces/SteamBanned/PlayerGames_long.csv')
+                ]);
+                const [pdText, pgText] = await Promise.all([pdRes.text(), pgRes.text()]);
+
+                parseCSV(pdText).forEach(p => {
+                    playerDays[p.PlayerRowId] = parseInt(p.DaysSinceLastBan) || 0;
+                });
+
+                parseCSV(pgText).forEach(g => {
+                    if (!g.AppId || g.AppId === '0' || !g.GameName || g.GameName === 'Unknown') return;
+                    if (!playerGames[g.PlayerRowId]) playerGames[g.PlayerRowId] = [];
+                    playerGames[g.PlayerRowId].push({
+                        appId:   g.AppId,
+                        name:    g.GameName,
+                        minutes: parseFloat(g.PlaytimeMinutes) || 0
+                    });
+                });
+
+                dataReady = true;
+                loadingEl.style.display  = 'none';
+                controlEl.style.display = '';
+                renderCards(parseInt(slider.value));
+            } catch (err) {
+                loadingEl.innerHTML = '<span style="color:#cc4444;">Could not load player data.</span>';
+            }
+        }
+
+        function getTopGames(year) {
+            // cutoffDays: players whose daysAgo >= cutoffDays were banned AT OR BEFORE `year`
+            const cutoffDays = Math.round((REF_YEAR - year) * 365.25);
+            const agg = {};   // appId -> {name, count, totalMins}
+            let playerCount = 0;
+
+            for (const [pid, days] of Object.entries(playerDays)) {
+                if (year < REF_YEAR && days < cutoffDays) continue;
+                playerCount++;
+                const games = playerGames[pid];
+                if (!games) continue;
+                games.forEach(g => {
+                    if (!agg[g.appId]) agg[g.appId] = { name: g.name, count: 0, totalMins: 0 };
+                    agg[g.appId].count++;
+                    agg[g.appId].totalMins += g.minutes;
+                });
+            }
+
+            const top5 = Object.entries(agg)
+                .sort((a, b) => b[1].count - a[1].count)
+                .slice(0, 5);
+
+            return { top5, playerCount };
+        }
+
+        const RANK_CLASSES = ['rank-1','rank-2','rank-3','rank-4','rank-5'];
+        const RANK_LABELS  = ['#1','#2','#3','#4','#5'];
+
+        function esc(s) {
+            return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function renderCards(year) {
+            const { top5, playerCount } = getTopGames(year);
+            yearNumEl.textContent = year;
+            pillEl.textContent    = playerCount.toLocaleString() + ' accounts';
+
+            cardsEl.innerHTML = '';
+
+            if (top5.length === 0) {
+                cardsEl.innerHTML = '<div class="steambans-tg-empty">No play data available for this period.</div>';
+                return;
+            }
+
+            const maxCount = top5[0][1].count;
+
+            top5.forEach(([appId, data], i) => {
+                const avgHrs  = data.totalMins > 0
+                    ? Math.round(data.totalMins / 60 / data.count).toLocaleString()
+                    : '—';
+                const barPct  = Math.round((data.count / maxCount) * 100);
+                const sharePct = Math.round((data.count / playerCount) * 100);
+                const imgBase = 'https://cdn.akamai.steamstatic.com/steam/apps/' + appId;
+
+                const card = document.createElement('div');
+                card.className = 'steambans-tg-card';
+                card.innerHTML =
+                    '<span class="steambans-tg-rank-badge ' + RANK_CLASSES[i] + '">' + RANK_LABELS[i] + '</span>' +
+                    '<div class="steambans-tg-img-wrap">' +
+                        '<img class="steambans-tg-img"' +
+                            ' src="' + imgBase + '/header.jpg"' +
+                            ' alt="' + esc(data.name) + '"' +
+                            ' onload="this.classList.add(\'loaded\')"' +
+                            ' onerror="this.src=\'' + imgBase + '/capsule_231x87.jpg\';this.onerror=null;this.classList.add(\'loaded\');">' +
+                    '</div>' +
+                    '<div class="steambans-tg-info">' +
+                        '<div class="steambans-tg-game-name" title="' + esc(data.name) + '">' + esc(data.name) + '</div>' +
+                        '<div class="steambans-tg-stats">' +
+                            '<div class="steambans-tg-stat">' +
+                                '<span class="steambans-tg-stat-num">' + data.count.toLocaleString() + '</span>' +
+                                '<span class="steambans-tg-stat-lbl">Banned</span>' +
+                            '</div>' +
+                            '<div class="steambans-tg-stat">' +
+                                '<span class="steambans-tg-stat-num">' + avgHrs + 'h</span>' +
+                                '<span class="steambans-tg-stat-lbl">Avg Hrs</span>' +
+                            '</div>' +
+                            '<div class="steambans-tg-stat">' +
+                                '<span class="steambans-tg-stat-num">' + sharePct + '%</span>' +
+                                '<span class="steambans-tg-stat-lbl">Share</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="steambans-tg-bar-outer">' +
+                            '<div class="steambans-tg-bar-inner" style="width:' + barPct + '%"></div>' +
+                        '</div>' +
+                    '</div>';
+
+                cardsEl.appendChild(card);
+            });
+        }
+
+        let pendingRaf = null;
+        slider.addEventListener('input', function () {
+            const val = parseInt(this.value);
+            if (pendingRaf) cancelAnimationFrame(pendingRaf);
+            pendingRaf = requestAnimationFrame(function () {
+                pendingRaf = null;
+                if (dataReady) renderCards(val);
+            });
+        });
+
+        loadData();
+    }());
+
     </script>
+</body>
+</html>
