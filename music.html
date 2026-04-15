@@ -98,6 +98,18 @@
             <section class="music-featured-section">
                 <h2 class="music-featured-heading">Featured Compositions</h2>
                 <p class="music-featured-intro">A selection of my most polished and personal work spanning game soundtracks, contract compositions, and original pieces.</p>
+
+                <div class="music-steam-banner">
+                    <div class="music-steam-banner-text">
+                        <strong>COLDSNAP: Coming Soon on Steam</strong>
+                        <span>The full 5-track original soundtrack is included at launch. Wishlist now to get notified.</span>
+                    </div>
+                    <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="steam-launch-btn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.132-3.337-2.675L.783 17.176C2.195 21.245 5.861 24 11.979 24c6.624 0 11.993-5.395 12-12.007.007-6.617-5.361-11.993-12.001-11.993z"/></svg>
+                        Wishlist on Steam
+                    </a>
+                </div>
+
                 <div class="music-featured-grid">
 
                     <div class="music-featured-card">
@@ -116,27 +128,31 @@
                         <h3>Cor Reclamare</h3>
                         <em class="music-featured-date">March 2026</em>
                         <p>An epic battle piece scoring the climactic final mission: the assault on a colossal spider-shaped mech. Driving rhythms and soaring brass carry the desperation and triumph of the endgame.</p>
-                        <audio controls>
+                        <div class="cs-preview-player" data-audio="audio-feat-CorReclamare" data-start="112.3" data-end="150.6">
+                            <button class="cs-pp-btn">&#9654; Play</button>
+                            <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                            <span class="cs-pp-time">0:00 / 0:38</span>
+                        </div>
+                        <audio id="audio-feat-CorReclamare" preload="metadata">
                             <source src="Media/Music/Cor Reclamare.mp3" type="audio/mpeg">
                             <source src="Media/Music/Cor Reclamare.wav" type="audio/wav">
-                            Your browser does not support the audio element.
                         </audio>
+                        <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                     </div>
-
-                    <div class="music-featured-card">
-                        <span class="music-tag music-tag--coldsnap">COLDSNAP</span>
                         <h3>Frozen Rust and Greed's Dust</h3>
                         <em class="music-featured-date">February 2026</em>
                         <p>A dramatic composition weaving together themes of decay and desire for Icebreak Studios. Written to underscore tense, morally fraught gameplay moments.</p>
-                        <audio controls>
+                        <div class="cs-preview-player" data-audio="audio-feat-FrozenRust" data-start="120.3" data-end="164.5">
+                            <button class="cs-pp-btn">&#9654; Play</button>
+                            <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                            <span class="cs-pp-time">0:00 / 0:44</span>
+                        </div>
+                        <audio id="audio-feat-FrozenRust" preload="metadata">
                             <source src="Media/Music/Frozen Rust and Greed's Dust.mp3" type="audio/mpeg">
                             <source src="Media/Music/Frozen Rust and Greed's Dust.wav" type="audio/wav">
-                            Your browser does not support the audio element.
                         </audio>
+                        <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                     </div>
-
-                    <div class="music-featured-card">
-                        <span class="music-tag music-tag--game">Campfire Cryptid</span>
                         <h3>Horrors in the Lovely Woods</h3>
                         <em class="music-featured-date">June 2025</em>
                         <p>Written to capture the feeling of a lovely forest slowly corrupted by darkness — whimsical on the surface, deeply unsettling underneath.</p>
@@ -152,15 +168,17 @@
                         <h3>Infernic Flare</h3>
                         <em class="music-featured-date">February 2026</em>
                         <p>An intense, high-energy track with driving rhythms and powerful instrumentation built for climactic combat sequences.</p>
-                        <audio controls>
+                        <div class="cs-preview-player" data-audio="audio-feat-InfernicFlare" data-start="185.8" data-end="218.0">
+                            <button class="cs-pp-btn">&#9654; Play</button>
+                            <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                            <span class="cs-pp-time">0:00 / 0:32</span>
+                        </div>
+                        <audio id="audio-feat-InfernicFlare" preload="metadata">
                             <source src="Media/Music/Infernic Flare.mp3" type="audio/mpeg">
                             <source src="Media/Music/Infernic Flare.wav" type="audio/wav">
-                            Your browser does not support the audio element.
                         </audio>
+                        <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                     </div>
-
-                    <div class="music-featured-card">
-                        <span class="music-tag music-tag--game">Ink.exe</span>
                         <h3>Inked</h3>
                         <em class="music-featured-date">April 2025</em>
                         <p>The main musical composition for Ink.exe, a 2D wave-based hack and slash game. Dark energy with melodic hooks to keep the player locked in.</p>
@@ -175,15 +193,16 @@
                         <h3>Insulatus Cadmus</h3>
                         <em class="music-featured-date">February 2026</em>
                         <p>An atmospheric opener establishing the game's mood through haunting melodies and slowly evolving layered textures.</p>
-                        <audio controls>
+                        <div class="cs-preview-player" data-audio="audio-feat-InsulatusCadmus" data-start="58.3" data-end="97.0">
+                            <button class="cs-pp-btn">&#9654; Play</button>
+                            <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                            <span class="cs-pp-time">0:00 / 0:38</span>
+                        </div>
+                        <audio id="audio-feat-InsulatusCadmus" preload="metadata">
                             <source src="Media/Music/Insulatus Cadmus.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
                         </audio>
+                        <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                     </div>
-
-                    <div class="music-featured-card">
-                        <span class="music-tag music-tag--personal">Personal</span>
-                        <h3>JESxT</h3>
                         <em class="music-featured-date">June 2025</em>
                         <p>A personal piece written during a difficult time, reflecting on obsessive thoughts and the experience of living with OCD.</p>
                         <audio controls>
@@ -294,11 +313,16 @@
                 <div class="song">
                     <strong>Cor Reclamare</strong> <em>(March 2026)</em>
                     <p>An epic battle composition created for <a href="COLDSNAP.html" style="color: #3b82f6; text-decoration: none; font-weight: 600;">COLDSNAP</a>, written to score the climactic final mission assault on a giant spider-shaped mech.</p>
-                    <audio controls>
+                    <div class="cs-preview-player" data-audio="audio-cat-CorReclamare" data-start="112.3" data-end="150.6">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:38</span>
+                    </div>
+                    <audio id="audio-cat-CorReclamare" preload="metadata">
                         <source src="Media/Music/Cor Reclamare.mp3" type="audio/mpeg">
                         <source src="Media/Music/Cor Reclamare.wav" type="audio/wav">
-                        Your browser does not support the audio element.
                     </audio>
+                    <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                 </div>
                 <div class="song">
                     <strong>FPS Game Theme</strong> <em>(September 2024)</em>
@@ -312,11 +336,16 @@
                 <div class="song">
                     <strong>Frozen Rust and Greed's Dust</strong> <em>(February 2026)</em>
                     <p>A dramatic composition created for <a href="COLDSNAP.html" style="color: #3b82f6; text-decoration: none; font-weight: 600;">COLDSNAP</a>, weaving together themes of decay and desire for Icebreak Studios.</p>
-                    <audio controls>
+                    <div class="cs-preview-player" data-audio="audio-cat-FrozenRust" data-start="120.3" data-end="164.5">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:44</span>
+                    </div>
+                    <audio id="audio-cat-FrozenRust" preload="metadata">
                         <source src="Media/Music/Frozen Rust and Greed's Dust.mp3" type="audio/mpeg">
                         <source src="Media/Music/Frozen Rust and Greed's Dust.wav" type="audio/wav">
-                        Your browser does not support the audio element.
                     </audio>
+                    <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                 </div>
                 <div class="song">
                     <strong>Heroic</strong> <em>(March 2022)</em>
@@ -338,11 +367,16 @@
                 <div class="song">
                     <strong>Infernic Flare</strong> <em>(February 2026)</em>
                     <p>An intense, high-energy track created for <a href="COLDSNAP.html" style="color: #3b82f6; text-decoration: none; font-weight: 600;">COLDSNAP</a> with driving rhythms and powerful instrumentation for climactic sequences.</p>
-                    <audio controls>
+                    <div class="cs-preview-player" data-audio="audio-cat-InfernicFlare" data-start="185.8" data-end="218.0">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:32</span>
+                    </div>
+                    <audio id="audio-cat-InfernicFlare" preload="metadata">
                         <source src="Media/Music/Infernic Flare.mp3" type="audio/mpeg">
                         <source src="Media/Music/Infernic Flare.wav" type="audio/wav">
-                        Your browser does not support the audio element.
                     </audio>
+                    <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                 </div>
                 <div class="song">
                     <strong>Inked</strong> <em>(April 2025)</em>
@@ -355,10 +389,15 @@
                 <div class="song">
                     <strong>Insulatus Cadmus</strong> <em>(February 2026)</em>
                     <p>An atmospheric piece created for <a href="COLDSNAP.html" style="color: #3b82f6; text-decoration: none; font-weight: 600;">COLDSNAP</a> as part of my contract work for Icebreak Studios.</p>
-                    <audio controls>
+                    <div class="cs-preview-player" data-audio="audio-cat-InsulatusCadmus" data-start="58.3" data-end="97.0">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:38</span>
+                    </div>
+                    <audio id="audio-cat-InsulatusCadmus" preload="metadata">
                         <source src="Media/Music/Insulatus Cadmus.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
                     </audio>
+                    <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="music-steam-link">Full soundtrack on Steam ↗</a>
                 </div>
                 <div class="song">
                     <strong>JESxT</strong> <em>(June 2025)</em>
@@ -436,6 +475,10 @@
                     </audio>
                 </div>
                 <div class="song">
+                    <strong>The SNAP Epic Begins</strong> <em>(April 2026)</em>
+                    <p>The fifth and final track of the <a href="COLDSNAP.html" style="color: #3b82f6; text-decoration: none; font-weight: 600;">COLDSNAP</a> soundtrack, available exclusively in-game. <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" style="color: #1a9fff; text-decoration: none; font-weight: 600;">Get on Steam ↗</a></p>
+                </div>
+                <div class="song">
                     <strong>Together in Afar</strong> <em>(May 2025)</em>
                     <p>A duet dedicated to my mom, commemorating our bond even as I moved away for college.</p>
                     <audio controls>
@@ -496,5 +539,6 @@
     <!-- Mobile Menu Script -->
     <script src="header.js"></script>
     <script src="lightbox.js"></script>
+    <script src="coldsnap-preview.js"></script>
 </body>
 </html>

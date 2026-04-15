@@ -4011,6 +4011,11 @@ footer {
     outline: none;
 }
 
+.coldsnap-showcase .coming-soon-badge {
+    color: #87ceeb;
+    font-weight: 600;
+}
+
 .coldsnap-showcase .coming-soon {
     font-size: 1.1rem;
     color: #87ceeb;
@@ -4020,6 +4025,117 @@ footer {
     background: rgba(135, 206, 235, 0.1);
     border-radius: 8px;
     margin-top: 1rem;
+}
+
+/* Steam CTA & Buttons — COLDSNAP */
+.steam-launch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #1a9fff 0%, #0055aa 100%);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.steam-launch-btn:hover {
+    background: linear-gradient(135deg, #2db0ff 0%, #0066cc 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(26, 159, 255, 0.4);
+    color: #fff;
+}
+
+.hero-steam-cta {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.coldsnap-showcase .steam-soundtrack-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.95) 0%, rgba(26, 58, 92, 0.8) 100%);
+    border: 1px solid rgba(26, 159, 255, 0.35);
+    border-radius: 12px;
+    padding: 1.25rem 1.75rem;
+    margin-bottom: 1.75rem;
+}
+
+.steam-cta-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.steam-cta-text strong {
+    font-size: 1rem;
+    color: #87ceeb;
+}
+.steam-cta-text span {
+    font-size: 0.875rem;
+    color: #aac4d8;
+}
+
+.coldsnap-showcase .steam-unlock-card {
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.9) 0%, rgba(26, 58, 92, 0.6) 100%);
+    border: 1px solid rgba(26, 159, 255, 0.3);
+    position: relative;
+}
+
+.coldsnap-showcase .steam-unlock-card h3 {
+    color: #e8f4fd;
+}
+
+.coldsnap-showcase .steam-unlock-card .music-description {
+    color: #aac4d8;
+}
+
+.music-unlock-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(26, 159, 255, 0.15);
+    border: 1px solid rgba(26, 159, 255, 0.4);
+    color: #87ceeb;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.steam-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    background: linear-gradient(135deg, #1a9fff 0%, #0055aa 100%);
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.steam-card-btn:hover {
+    background: linear-gradient(135deg, #2db0ff 0%, #0066cc 100%);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .coldsnap-showcase .steam-soundtrack-cta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 .back-to-projects {
@@ -5115,7 +5231,54 @@ footer {
     color: #8a9ab0;
     font-size: 0.95rem;
     line-height: 1.6;
-    margin: 0 0 1.75rem;
+    margin: 0 0 1.25rem;
+}
+
+.music-steam-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.92) 0%, rgba(26, 58, 92, 0.75) 100%);
+    border: 1px solid rgba(26, 159, 255, 0.35);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.music-steam-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.music-steam-banner-text strong {
+    font-size: 0.95rem;
+    color: #87ceeb;
+}
+.music-steam-banner-text span {
+    font-size: 0.8rem;
+    color: #8a9ab0;
+}
+
+.music-steam-link {
+    display: inline-block;
+    margin-top: 0.6rem;
+    color: #1a9fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.music-steam-link:hover {
+    color: #2db0ff;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .music-steam-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 .music-featured-grid {
@@ -5207,5 +5370,48 @@ footer {
     .music-featured-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* COLDSNAP CUSTOM PREVIEW PLAYER */
+.cs-preview-player {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #111827;
+    border: 1px solid rgba(135, 206, 235, 0.18);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    margin-top: 0.75rem;
+}
+.cs-pp-btn {
+    background: #1f6feb;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+.cs-pp-btn:hover { background: #388bfd; }
+.cs-pp-seek {
+    flex: 1;
+    min-width: 0;
+    height: 4px;
+    accent-color: #87ceeb;
+    cursor: pointer;
+    appearance: none;
+    background: transparent;
+}
+.cs-pp-time {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #8b949e;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: right;
 }
 

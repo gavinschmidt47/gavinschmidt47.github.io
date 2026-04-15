@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Preview Picker</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #e0e0e0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        h1 { color: #87ceeb; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #aaa; font-size: 0.9rem; margin-bottom: 1.25rem; }
+        .instructions {
+            background: rgba(135, 206, 235, 0.08);
+            border: 1px solid rgba(135, 206, 235, 0.3);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #c8d8e8;
+        }
+        .instructions strong { color: #87ceeb; }
+        .instructions ol { padding-left: 1.25rem; margin-top: 0.5rem; }
+        .instructions li { margin-bottom: 0.25rem; }
+
+        .song-entry {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.2s;
+        }
+        .song-entry.has-times { border-color: rgba(135, 206, 235, 0.4); }
+        .song-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .song-name {
+            font-weight: 600;
+            color: #87ceeb;
+            font-size: 1rem;
+        }
+        .current-time-badge {
+            background: #21262d;
+            border: 1px solid #444;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #ccc;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .player-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .play-pause-btn {
+            background: #1f6feb;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s;
+            flex-shrink: 0;
+        }
+        .play-pause-btn:hover { background: #388bfd; }
+        .seek-bar {
+            flex: 1;
+            height: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            appearance: none;
+            background: #30363d;
+            accent-color: #87ceeb;
+        }
+        .duration-display {
+            font-size: 0.8rem;
+            color: #666;
+            white-space: nowrap;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .marker-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .marker-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .marker-group label {
+            font-size: 0.8rem;
+            color: #8b949e;
+            white-space: nowrap;
+        }
+        .marker-input {
+            width: 72px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            color: #e0e0e0;
+            padding: 0.28rem 0.5rem;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+        .marker-input:focus { outline: 1px solid #87ceeb; border-color: #87ceeb; }
+        .set-btn {
+            background: #21262d;
+            color: #87ceeb;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 0.28rem 0.65rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+        .set-btn:hover { background: #2d333b; }
+        .preview-len {
+            font-size: 0.8rem;
+            color: #5f9ea0;
+        }
+        .preview-range-btn {
+            background: linear-gradient(135deg, #1a4a2e 0%, #1f6feb 100%);
+            color: #87ceeb;
+            border: 1px solid #2ea043;
+            border-radius: 4px;
+            padding: 0.28rem 0.75rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s, border-color 0.15s;
+            margin-left: auto;
+        }
+        .preview-range-btn:hover { background: linear-gradient(135deg, #2ea043 0%, #388bfd 100%); border-color: #3fb950; }
+        .preview-range-btn.playing { background: linear-gradient(135deg, #6e2020 0%, #b91c1c 100%); border-color: #f87171; color: #fca5a5; }
+
+        /* Export sticky bar */
+        .export-bar {
+            position: sticky;
+            bottom: 0;
+            background: #0d1117;
+            border-top: 1px solid #30363d;
+            padding: 1rem 0 0.5rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .export-btn {
+            background: linear-gradient(135deg, #87ceeb 0%, #3a8fc2 100%);
+            color: #00072D;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .export-btn:hover { opacity: 0.9; }
+        .copy-btn {
+            background: #21262d;
+            color: #87ceeb;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 0.6rem 1.25rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: none;
+        }
+        .copy-btn:hover { background: #2d333b; }
+        .config-output {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #87ceeb;
+            white-space: pre;
+            overflow: auto;
+            max-height: 280px;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .status-msg {
+            font-size: 0.85rem;
+            color: #8b949e;
+        }
+    </style>
+</head>
+<body>
+    <h1>COLDSNAP Preview Picker</h1>
+    <p class="subtitle">Local tool &mdash; not deployed to the site</p>
+
+    <div class="instructions">
+        <strong>How to use:</strong> Pick a 20&ndash;45 second clip from each COLDSNAP track. These will be the embedded previews on the music page and COLDSNAP project page.
+        <ol>
+            <li>Press <strong>Play</strong> on a track and listen.</li>
+            <li>When you hear where you want the preview to <em>start</em>, click <strong>Set Start</strong>.</li>
+            <li>When you hear where you want it to <em>end</em>, click <strong>Set End</strong>.</li>
+            <li>You can also type times directly into the number fields (in seconds).</li>
+            <li>Click <strong>Preview Range</strong> to hear exactly your selected start-to-end clip. Click again to stop early.</li>
+            <li>When all four are set, click <strong>Export Config</strong>, copy the output, and paste it back to Copilot.</li>
+        </ol>
+    </div>
+
+    <div id="songs-list"></div>
+
+    <div class="export-bar">
+        <button class="export-btn" onclick="exportConfig()">Export Config</button>
+        <button class="copy-btn" id="copy-btn" onclick="copyConfig()">Copy to Clipboard</button>
+        <span class="status-msg" id="status-msg"></span>
+        <pre class="config-output" id="config-output"></pre>
+    </div>
+
+    <script>
+        const songs = [
+            { id: "InsulatusCadmus", name: "Insulatus Cadmus",             src: "Media/Music/Insulatus Cadmus.mp3" },
+            { id: "FrozenRust",    name: "Frozen Rust and Greed's Dust",   src: "Media/Music/Frozen Rust and Greed's Dust.mp3" },
+            { id: "InfernicFlare", name: "Infernic Flare",                 src: "Media/Music/Infernic Flare.mp3" },
+            { id: "CorReclamare",  name: "Cor Reclamare",                  src: "Media/Music/Cor Reclamare.mp3" },
+        ];
+
+        // Store times: start defaults 0, end defaults 30
+        const times = {};
+        songs.forEach(s => { times[s.id] = { start: 0, end: 30 }; });
+
+        // Track currently playing audio
+        let currentAudio = null;
+
+        // Track preview-range playback per song
+        const previewIntervals = {};
+
+        const container = document.getElementById('songs-list');
+
+        songs.forEach(song => {
+            const div = document.createElement('div');
+            div.className = 'song-entry';
+            div.id = `entry-${song.id}`;
+            div.innerHTML = `
+                <div class="song-header">
+                    <span class="song-name">${song.name}</span>
+                    <span class="current-time-badge" id="badge-${song.id}">0:00</span>
+                </div>
+                <div class="player-row">
+                    <button class="play-pause-btn" id="playbtn-${song.id}" onclick="togglePlay('${song.id}')">&#9654; Play</button>
+                    <input type="range" class="seek-bar" id="seek-${song.id}" value="0" min="0" max="100" step="0.1" oninput="seekTo('${song.id}')">
+                    <span class="duration-display" id="dur-${song.id}">0:00</span>
+                </div>
+                <div class="marker-row">
+                    <div class="marker-group">
+                        <label>Start (s):</label>
+                        <input type="number" class="marker-input" id="start-${song.id}" value="0" min="0" step="0.5" oninput="onTimeInput('${song.id}')">
+                        <button class="set-btn" onclick="setMarker('${song.id}', 'start')">Set Start</button>
+                    </div>
+                    <div class="marker-group">
+                        <label>End (s):</label>
+                        <input type="number" class="marker-input" id="end-${song.id}" value="30" min="0" step="0.5" oninput="onTimeInput('${song.id}')">
+                        <button class="set-btn" onclick="setMarker('${song.id}', 'end')">Set End</button>
+                    </div>
+                    <span class="preview-len" id="len-${song.id}">30.0s preview</span>
+                    <button class="preview-range-btn" id="prevbtn-${song.id}" onclick="previewRange('${song.id}')">&#9654; Preview Range</button>
+                </div>
+                <audio id="audio-${song.id}" src="${song.src}" preload="metadata"></audio>
+            `;
+            container.appendChild(div);
+
+            const audio = document.getElementById(`audio-${song.id}`);
+
+            audio.addEventListener('loadedmetadata', () => {
+                const d = audio.duration;
+                document.getElementById(`seek-${song.id}`).max = d;
+                document.getElementById(`dur-${song.id}`).textContent = fmtTime(d);
+                // Default end to min(30, duration)
+                const defaultEnd = Math.min(30, d);
+                document.getElementById(`end-${song.id}`).value = defaultEnd.toFixed(1);
+                times[song.id].end = defaultEnd;
+                updateLen(song.id);
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                const t = audio.currentTime;
+                document.getElementById(`badge-${song.id}`).textContent = fmtTime(t);
+                document.getElementById(`seek-${song.id}`).value = t;
+            });
+
+            audio.addEventListener('ended', () => {
+                document.getElementById(`playbtn-${song.id}`).innerHTML = '&#9654; Play';
+                currentAudio = null;
+            });
+        });
+
+        function fmtTime(s) {
+            const m = Math.floor(s / 60);
+            const sec = String(Math.floor(s % 60)).padStart(2, '0');
+            return `${m}:${sec}`;
+        }
+
+        function togglePlay(id) {
+            const audio = document.getElementById(`audio-${id}`);
+            if (!audio.paused) {
+                audio.pause();
+                document.getElementById(`playbtn-${id}`).innerHTML = '&#9654; Play';
+                currentAudio = null;
+            } else {
+                // Pause any currently playing audio
+                if (currentAudio && currentAudio !== audio) {
+                    const oldId = currentAudio.id.replace('audio-', '');
+                    currentAudio.pause();
+                    document.getElementById(`playbtn-${oldId}`).innerHTML = '&#9654; Play';
+                }
+                audio.play();
+                document.getElementById(`playbtn-${id}`).innerHTML = '&#9646;&#9646; Pause';
+                currentAudio = audio;
+            }
+        }
+
+        function seekTo(id) {
+            const audio = document.getElementById(`audio-${id}`);
+            const val = parseFloat(document.getElementById(`seek-${id}`).value);
+            audio.currentTime = val;
+        }
+
+        function setMarker(id, type) {
+            const audio = document.getElementById(`audio-${id}`);
+            const t = parseFloat(audio.currentTime.toFixed(1));
+            document.getElementById(`${type}-${id}`).value = t;
+            times[id][type] = t;
+            updateLen(id);
+            markDone(id);
+        }
+
+        function onTimeInput(id) {
+            times[id].start = parseFloat(document.getElementById(`start-${id}`).value) || 0;
+            times[id].end = parseFloat(document.getElementById(`end-${id}`).value) || 30;
+            updateLen(id);
+            markDone(id);
+        }
+
+        function updateLen(id) {
+            const start = parseFloat(document.getElementById(`start-${id}`).value) || 0;
+            const end = parseFloat(document.getElementById(`end-${id}`).value) || 30;
+            const len = Math.max(0, end - start);
+            document.getElementById(`len-${id}`).textContent = `${len.toFixed(1)}s preview`;
+        }
+
+        function markDone(id) {
+            document.getElementById(`entry-${id}`).classList.add('has-times');
+        }
+
+        function stopPreviewRange(id) {
+            if (previewIntervals[id]) {
+                clearInterval(previewIntervals[id]);
+                previewIntervals[id] = null;
+            }
+            const btn = document.getElementById(`prevbtn-${id}`);
+            if (btn) { btn.classList.remove('playing'); btn.innerHTML = '&#9654; Preview Range'; }
+        }
+
+        function previewRange(id) {
+            const audio = document.getElementById(`audio-${id}`);
+            const btn = document.getElementById(`prevbtn-${id}`);
+
+            // If already previewing this range, stop it
+            if (previewIntervals[id]) {
+                audio.pause();
+                stopPreviewRange(id);
+                return;
+            }
+
+            const start = parseFloat(document.getElementById(`start-${id}`).value) || 0;
+            const end = parseFloat(document.getElementById(`end-${id}`).value) || 30;
+            if (end <= start) {
+                document.getElementById('status-msg').textContent = 'End must be after start.';
+                return;
+            }
+
+            // Stop any currently playing audio (full play or other range preview)
+            if (currentAudio && currentAudio !== audio) {
+                const oldId = currentAudio.id.replace('audio-', '');
+                currentAudio.pause();
+                document.getElementById(`playbtn-${oldId}`).innerHTML = '&#9654; Play';
+                stopPreviewRange(oldId);
+            }
+            // Stop full-play on this track if active
+            if (!audio.paused) {
+                audio.pause();
+                document.getElementById(`playbtn-${id}`).innerHTML = '&#9654; Play';
+                currentAudio = null;
+            }
+
+            audio.currentTime = start;
+            audio.play();
+            btn.classList.add('playing');
+            btn.innerHTML = '&#9646;&#9646; Stop Preview';
+            currentAudio = null; // range preview is independent
+
+            previewIntervals[id] = setInterval(() => {
+                if (audio.currentTime >= end) {
+                    audio.pause();
+                    stopPreviewRange(id);
+                }
+            }, 50);
+
+            audio.addEventListener('ended', () => { stopPreviewRange(id); }, { once: true });
+        }
+
+        function exportConfig() {
+            songs.forEach(song => {
+                times[song.id].start = parseFloat(document.getElementById(`start-${song.id}`).value) || 0;
+                times[song.id].end = parseFloat(document.getElementById(`end-${song.id}`).value) || 30;
+            });
+            const out = JSON.stringify(times, null, 2);
+            const el = document.getElementById('config-output');
+            el.textContent = out;
+            el.style.display = 'block';
+            document.getElementById('copy-btn').style.display = 'inline-block';
+            document.getElementById('status-msg').textContent = 'Config ready. Copy and paste it to Copilot.';
+        }
+
+        function copyConfig() {
+            const text = document.getElementById('config-output').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(() => { btn.textContent = 'Copy to Clipboard'; }, 2500);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -86,36 +86,54 @@
             <div class="project-info-bar">
                 <span class="project-detail">❄️ Contract Composition Work</span>
                 <span class="project-separator">•</span>
-                <span class="project-detail">🎵 5 Original Tracks (3 Complete, 2 In Progress)</span>
+                <span class="project-detail">🎵 5 Original Tracks</span>
                 <span class="project-separator">•</span>
                 <span class="project-detail">🎮 Composer for Icebreak Studios</span>
+                <span class="project-separator">•</span>
+                <span class="project-detail coming-soon-badge">🕐 Coming Soon</span>
+            </div>
+            <div class="hero-steam-cta">
+                <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="steam-launch-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.132-3.337-2.675L.783 17.176C2.195 21.245 5.861 24 11.979 24c6.624 0 11.993-5.395 12-12.007.007-6.617-5.361-11.993-12.001-11.993z"/></svg>
+                    Wishlist on Steam
+                </a>
             </div>
         </div>
 
         <section class="project-overview-section">
             <h2>Project Overview</h2>
             <p class="overview-text">
-                COLDSNAP is an upcoming game project from <strong>Icebreak Studios</strong>, for which I serve as 
-                <strong>Contract Composer</strong> from February 2026 to April 2026. This role challenges me to balance 
+                COLDSNAP is an upcoming game from <strong>Icebreak Studios</strong>, for which I served as 
+                <strong>Contract Composer</strong> from February 2026 to April 2026. This role challenged me to balance 
                 creative expression with professional deadlines, creating atmospheric and thematic music that enhances 
                 the player experience while meeting studio milestones.
             </p>
             <p class="overview-text">
-                The project scope includes <strong>five original tracks</strong>, with three completed and two more in 
-                progress before the April deadline. Each composition is crafted with careful attention to seamless looping, 
-                maintaining a cohesive musical identity across the entire soundtrack while ensuring the music never feels 
-                repetitive or intrusive during extended gameplay. The first track was completed in one week, the second in 
-                two weeks, and the third in nine days, demonstrating efficient creative workflows under professional deadlines.
+                The project delivered <strong>five original tracks</strong>, all complete and ready for launch. 
+                Each composition was crafted with careful attention to seamless looping, maintaining a cohesive musical identity 
+                across the entire soundtrack while ensuring the music never feels repetitive or intrusive during extended gameplay. 
+                The first track was completed in one week, the second in two weeks, and the third in nine days, 
+                demonstrating efficient creative workflows under professional deadlines.
             </p>
         </section>
 
         <section class="music-showcase-section">
             <h2>Original Soundtrack</h2>
             <p class="section-intro">
-                Below are the compositions I've created for COLDSNAP. Each track is designed to loop seamlessly during 
-                gameplay, maintaining the game's atmosphere without becoming repetitive or distracting. Four tracks are 
-                complete, with one more scheduled for April 2026.
+                Below are the compositions I created for COLDSNAP. Each track is designed to loop seamlessly during 
+                gameplay, maintaining the game's atmosphere without becoming repetitive or distracting. The full soundtrack 
+                will be included with the game at launch.
             </p>
+            <div class="steam-soundtrack-cta">
+                <div class="steam-cta-text">
+                    <strong>Full Soundtrack Included at Launch</strong>
+                    <span>Wishlist COLDSNAP to get notified when the game releases with all five tracks.</span>
+                </div>
+                <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="steam-launch-btn">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.132-3.337-2.675L.783 17.176C2.195 21.245 5.861 24 11.979 24c6.624 0 11.993-5.395 12-12.007.007-6.617-5.361-11.993-12.001-11.993z"/></svg>
+                    Wishlist on Steam
+                </a>
+            </div>
             
             <div class="music-grid">
                 <div class="music-card">
@@ -124,9 +142,13 @@
                     <p class="music-description">
                         An atmospheric piece that establishes the game's mood with haunting melodies and layered textures. <em>Completed in 1 week.</em>
                     </p>
-                    <audio controls class="music-player">
+                    <div class="cs-preview-player" data-audio="audio-cs-InsulatusCadmus" data-start="58.3" data-end="97.0">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:38</span>
+                    </div>
+                    <audio id="audio-cs-InsulatusCadmus" preload="metadata">
                         <source src="Media/Music/Insulatus Cadmus.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
                     </audio>
                 </div>
 
@@ -136,10 +158,14 @@
                     <p class="music-description">
                         A dramatic composition that weaves together themes of decay and desire, perfect for tense gameplay moments. <em>Completed in 2 weeks.</em>
                     </p>
-                    <audio controls class="music-player">
+                    <div class="cs-preview-player" data-audio="audio-cs-FrozenRust" data-start="120.3" data-end="164.5">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:44</span>
+                    </div>
+                    <audio id="audio-cs-FrozenRust" preload="metadata">
                         <source src="Media/Music/Frozen Rust and Greed's Dust.mp3" type="audio/mpeg">
                         <source src="Media/Music/Frozen Rust and Greed's Dust.wav" type="audio/wav">
-                        Your browser does not support the audio element.
                     </audio>
                 </div>
 
@@ -149,10 +175,14 @@
                     <p class="music-description">
                         An intense, high-energy track with driving rhythms and powerful instrumentation for climactic sequences. <em>Completed in 9 days.</em>
                     </p>
-                    <audio controls class="music-player">
+                    <div class="cs-preview-player" data-audio="audio-cs-InfernicFlare" data-start="185.8" data-end="218.0">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:32</span>
+                    </div>
+                    <audio id="audio-cs-InfernicFlare" preload="metadata">
                         <source src="Media/Music/Infernic Flare.mp3" type="audio/mpeg">
                         <source src="Media/Music/Infernic Flare.wav" type="audio/wav">
-                        Your browser does not support the audio element.
                     </audio>
                 </div>
 
@@ -162,20 +192,27 @@
                     <p class="music-description">
                         An epic battle piece scoring the climactic final mission: the assault on a colossal spider-shaped mech. Driving rhythms and soaring brass carry the desperation and triumph of the endgame. <em>Completed in 2 weeks.</em>
                     </p>
-                    <audio controls class="music-player">
+                    <div class="cs-preview-player" data-audio="audio-cs-CorReclamare" data-start="112.3" data-end="150.6">
+                        <button class="cs-pp-btn">&#9654; Play</button>
+                        <input type="range" class="cs-pp-seek" value="0" min="0" max="1" step="0.001">
+                        <span class="cs-pp-time">0:00 / 0:38</span>
+                    </div>
+                    <audio id="audio-cs-CorReclamare" preload="metadata">
                         <source src="Media/Music/Cor Reclamare.mp3" type="audio/mpeg">
                         <source src="Media/Music/Cor Reclamare.wav" type="audio/wav">
-                        Your browser does not support the audio element.
                     </audio>
                 </div>
 
-                <div class="music-card">
-                    <div class="music-icon">🎵</div>
-                    <h3>Track 5</h3>
+                <div class="music-card steam-unlock-card">
+                    <span class="music-unlock-tag">🎵 Main Menu Song</span>
+                    <div class="music-icon">🎮</div>
+                    <h3>The SNAP Epic Begins</h3>
                     <p class="music-description">
-                        Final track scheduled for April 2026, balancing thematic consistency with fresh musical ideas to complete the soundtrack.
+                        The fifth and final track of the COLDSNAP soundtrack, serving as the main menu theme. Wishlist the game on Steam to hear it at launch.
                     </p>
-                    <p class="coming-soon">Coming April 2026</p>
+                    <a href="https://store.steampowered.com/app/4598810/COLDSNAP/" target="_blank" rel="noopener noreferrer" class="steam-card-btn">
+                        Wishlist on Steam
+                    </a>
                 </div>
             </div>
         </section>
@@ -189,7 +226,7 @@
                 </div>
                 <div class="feature-card">
                     <h3>Cohesive Musical Identity</h3>
-                    <p>Maintained consistent thematic elements across all six tracks while exploring diverse emotional ranges</p>
+                    <p>Maintained consistent thematic elements across all five tracks while exploring diverse emotional ranges</p>
                 </div>
                 <div class="feature-card">
                     <h3>Non-Repetitive Design</h3>
@@ -231,7 +268,7 @@
         <section class="reflection-section">
             <h2>Composer Reflection</h2>
             <blockquote>
-                Composing for COLDSNAP has been a masterclass in balancing creative ambition with professional deadlines. 
+                Composing for COLDSNAP was a masterclass in balancing creative ambition with professional deadlines. 
                 Working on five tracks with an April 2026 delivery date taught me how to manage my creative process: knowing 
                 when to iterate, when to commit, and how to maintain quality while respecting the studio's timeline. The first 
                 three tracks were completed in one week, two weeks, and nine days respectively, demonstrating my ability to 
@@ -331,5 +368,6 @@
         });
     </script>
     <script src="lightbox.js"></script>
+    <script src="coldsnap-preview.js"></script>
 </body>
 </html>

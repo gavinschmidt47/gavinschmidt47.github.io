@@ -35,6 +35,7 @@ Static portfolio website hosted on GitHub Pages (gavinschmidt47.github.io) showc
 - **Project info uses inline SVG icons** for team size, role, time, engine (see [projects.html](../projects.html) lines 71-115)
 - **Prism.js integration**: Detail pages load `prism-okaidia.min.css` + language-specific component (`prism-csharp.min.js` or `prism-cpp.min.js`)
 - **Code examples in collapsible `<details>`**: Code wrapped in `<pre><code class="language-csharp">` for syntax highlighting
+- **Source code protection — Annotated Architecture Skeletons**: For projects that are intended for commercial release or sale on a marketplace (e.g. Steam, itch.io), do NOT show full implementation bodies in code blocks. Instead use the **skeleton pattern**: show real class/function signatures, then replace all implementation bodies with rich inline comments explaining the algorithm, data flow, and design decisions. The `<details>` summary label should use a concept name (e.g. "Attack Resolution Logic") rather than a filename. For school/jam projects with no commercial intent, full source code is fine. **When unsure whether a project is commercial, ask before writing any code blocks.**
 - **Gameplay videos**: Use `<video autoplay loop muted playsinline>` with MP4/WebM sources in `.video-container-gameplay` divs (see [SolarScavenger.html](../SolarScavenger.html) for reference implementation)
 - **Lightbox**: Every detail page and projects.html must include `<script src="lightbox.js"></script>` before `</body>`. The script auto-attaches a click-to-expand lightbox to every `<img>` inside `<main>` — no extra markup or attributes needed. Never omit this script from detail pages.
 - **Back to Projects button**: Every project detail page must have a `<section class="back-to-projects">` containing `<a href="projects.html" class="btn btn-primary">← Back to All Projects</a>` as the last element inside `<main>`, after the reflection section. A global `.back-to-projects` CSS rule handles centering and spacing — do not add page-scoped overrides unless necessary.
@@ -128,6 +129,43 @@ The `<a href="{Project}.html" class="button">Learn More</a>` button **must be pl
   - All four use `viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"`
 - **Prism.js**: For code syntax highlighting, load `prism-okaidia.min.css` + language component in `<head>`, wrap code in `<details><summary>` pattern
 
+### Steam Launch Pattern (for games with original music)
+When a project that has associated music compositions is released on or heading to Steam, apply this full pattern consistently across the project detail page, [music.html](../music.html), and [styles.css](../styles.css):
+
+**Phase 1: Coming Soon (game announced but not yet released)**
+1. **Project detail page hero**: Add a "Coming Soon" badge to the `.project-info-bar` (use `.coming-soon-badge` class), change Steam button label to "Wishlist on Steam"
+2. **Soundtrack CTA** (inside the music showcase section): Text should read "Wishlist [Game] to get notified when the game releases with all [N] tracks." Button says "Wishlist on Steam"
+3. **music.html banner**: Add a `.music-steam-banner` block above the `.music-featured-grid` with text "COLDSNAP: Coming Soon on Steam" / "Wishlist now to get notified." Button says "Wishlist on Steam"
+4. **music.html COLDSNAP entries**: Add a `.music-steam-link` ("Full soundtrack on Steam ↗") after each audio element in both the featured cards and the catalog entries
+5. **Unreleased tracks**: Use the `.steam-unlock-card` dark card variant (dark bg, light text enforced via scoped CSS) with a `.music-unlock-tag` pill badge for any special role (e.g. "Main Menu Song"), and a "Wishlist on Steam" button. Never show a "Coming [date]" placeholder — use Steam wishlist CTA instead.
+
+**Phase 2: Released (game is live on Steam)**
+1. Remove the "Coming Soon" badge from the hero bar
+2. Change all Steam button labels from "Wishlist on Steam" to "Play [Game] on Steam" or "Get on Steam"
+3. Update soundtrack CTA text to "Download [Game] to experience all [N] tracks in-game"
+4. Update music.html banner text to "[Game] is now on Steam"
+5. Update overview/section intro prose to past tense ("delivered", "included with the game")
+
+**Preview Picker tool ([preview-picker.html](../preview-picker.html))**
+- A local-only HTML tool (not deployed, not linked from the site) for picking audio preview clips
+- When previews are needed for COLDSNAP tracks (or any future Steam game tracks), open it in Live Server
+- The user listens and sets start/end timestamps for each track (aim for 20-45 second clips)
+- On export it produces a JSON config; paste back to Copilot to apply `#t=start,end` media fragment URLs to the audio `<source>` elements on both the project detail page and music.html
+- To update the picker for a new game: replace the `songs` array in the `<script>` block with only that game's tracks
+
+**CSS classes for Steam integration** (defined in [styles.css](../styles.css)):
+- `.steam-launch-btn` — primary Steam button (blue gradient, SVG Steam logo, hover lift)
+- `.hero-steam-cta` — centered wrapper for the hero button
+- `.steam-soundtrack-cta` — flex banner inside a music showcase section (dark bg, border, text + button)
+- `.steam-cta-text` — text column inside `.steam-soundtrack-cta`
+- `.steam-card-btn` — smaller Steam button inside a music card
+- `.steam-unlock-card` — dark card variant for tracks only available in-game; requires scoped `h3` and `.music-description` color overrides in the project's CSS block
+- `.music-unlock-tag` — pill badge for special track roles (e.g. "Main Menu Song")
+- `.music-steam-banner` — banner on music.html above the featured grid
+- `.music-steam-banner-text` — text column inside the banner
+- `.music-steam-link` — small inline "Full soundtrack on Steam ↗" link appended after audio players
+- `.coming-soon-badge` — highlighted span in the `.project-info-bar` for pre-release status
+
 ### Common Maintenance Tasks
 - **Update resume**: Replace `Media/Schmidt, Gavin_Resume.pdf` with new version (filename must match exactly)
 - **Add new music track**: Add `<audio>` element to [music.html](../music.html) following existing pattern, maintaining alphabetical order by song title
@@ -158,6 +196,89 @@ The hamburger menu logic exists in [header.js](../header.js) but is **currently 
 - **Escape key**: Closes menu on `keydown` event
 - **Smooth scroll**: Anchor links scroll with offset for sticky header
 - **Refactoring needed**: Replace inline scripts with `<script src="header.js"></script>` on all pages for centralized maintenance
+
+## Project Repository References
+
+Each project detail page may optionally be linked to a source repository. When a repo reference exists, Copilot can fetch live code from it to auto-generate fresh code snippets or architecture skeletons without manual copy-paste.
+
+### Where References Are Stored
+
+Repository references live in [memories/repo/project-repos.md](../memories/repo/project-repos.md) (created on first use). Each entry follows this exact format:
+
+```
+## {ProjectName}
+- **repo**: {owner}/{repo}  (GitHub shorthand, e.g. gavinschmidt47/Reconnection)
+- **branch**: {branch}  (default: main)
+- **language**: {cpp|csharp|gdscript|...}
+- **commercial**: {yes|no}
+- **key_paths**: comma-separated globs for the most important source files
+  (e.g. Source/Reconnection/Public/UFighter.h, Source/Reconnection/Private/UFighter.cpp)
+```
+
+Example entry:
+```
+## Reconnection
+- **repo**: gavinschmidt47/Reconnection
+- **branch**: main
+- **language**: cpp
+- **commercial**: yes
+- **key_paths**: Source/Reconnection/Public/AFighter.h, Source/Reconnection/Public/UFighter.h, Source/Reconnection/Public/UEnemy.h, Source/Reconnection/Public/UTurnManager.h, Source/Reconnection/Private/AFighter.cpp, Source/Reconnection/Private/UFighter.cpp, Source/Reconnection/Private/UEnemy.cpp, Source/Reconnection/Private/UTurnManager.cpp
+```
+
+### How to Add or Update a Reference
+
+Say any of the following:
+- "Link {ProjectName} to repo {owner}/{repo}"
+- "Update the repo reference for {ProjectName}"
+- "Remove the repo reference for {ProjectName}"
+
+Copilot will read [memories/repo/project-repos.md](../memories/repo/project-repos.md) (creating it if absent), apply the change, and confirm. No other files are modified at that point.
+
+### Fetching Code and Generating Output
+
+When working on a project detail page, say one of:
+
+- **"Pull code for {ProjectName}"** — Copilot reads the entry, fetches each file listed in `key_paths` from the GitHub raw content URL (`https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}`), and holds the content in context for the session.
+- **"Refresh code for {ProjectName}"** — Same as pull but re-fetches even if content was already retrieved this session.
+- **"Generate snippets for {ProjectName}"** — Pulls code (if not already fetched), then writes `<details>` code blocks on the detail page using live file content. Respects the `commercial` flag: commercial projects get architecture skeletons; non-commercial projects get full source.
+- **"Generate skeletons for {ProjectName}"** — Always produces architecture skeletons regardless of the `commercial` flag. Use this when a non-commercial project still needs to protect specific files.
+- **"Update code blocks for {ProjectName} from repo"** — Fetches the latest code and replaces all existing code blocks on the page in one pass. Concept-name labels and `<details>` structure are preserved; only the code body changes.
+
+### Decision Logic When Generating Output
+
+After fetching source files, Copilot selects which functions/classes to showcase using this priority:
+1. **Functions already on the page**: match by name and refresh them first.
+2. **key_paths files only**: do not spider the full repo; only files explicitly listed are used.
+3. **Header files first**: public interfaces (`.h`) establish the skeleton/snippet structure; `.cpp` files fill in the bodies or algorithm comments.
+4. **Group by system, not by file**: a single `<details>` block covers one logical concept (e.g. "Turn Advancement") even if it spans multiple files. Never create one block per file unless the user requests it.
+5. **Commercial flag**: if `commercial: yes`, produce skeletons unconditionally; if `commercial: no`, produce full snippets unless the user says "generate skeletons".
+
+### Handling Private or Inaccessible Repos
+
+If a fetch returns a 404 or authorization error:
+1. Inform the user which paths failed.
+2. Ask whether to: (a) use already-cached content from the current session, (b) paste code manually, or (c) skip those files and work with what is available.
+Do not fabricate code or silently fall back to guessing. Always confirm missing content with the user before generating output.
+
+### Prism Language Class Mapping
+
+The `language` field maps directly to the Prism.js class used in `<code>` blocks:
+
+| language value | Prism class | CDN component |
+|---|---|---|
+| cpp | language-cpp | prism-cpp.min.js |
+| csharp | language-csharp | prism-csharp.min.js |
+| gdscript | language-gdscript | prism-gdscript.min.js |
+| python | language-python | prism-python.min.js |
+| javascript | language-javascript | (included in prism core) |
+
+If the page does not already load the correct Prism component, add it to `<head>` when generating code blocks.
+
+### Keeping References Current
+
+- When a project ships or moves from a private to a public repo, update the `repo` field.
+- When `commercial` status changes (e.g. a jam game gets a Steam listing), update the flag and re-run "Generate skeletons" to protect the code.
+- The `key_paths` list should be updated whenever significant new systems are added to the project that you want showcased on the portfolio page.
 
 ## Important Notes
 - **No package manager**: This project intentionally avoids npm, yarn, webpack, etc. for GitHub Pages simplicity
