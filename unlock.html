@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #f12a55;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* ---- HEARTS ---- */
+        .heart {
+            position: fixed;
+            z-index: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #ff5a8c;
+            pointer-events: none;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff5a8c;
+            border-radius: 50%;
+        }
+        .heart::before { left: -10px; }
+        .heart::after  { top: -10px; }
+
+        @keyframes falling-heart {
+            0%   { transform: translateY(-10vh) translateX(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(110vh) translateX(80px) rotate(45deg); opacity: 0; }
+        }
+
+        /* ---- GAME SCREEN ---- */
+        #game-screen {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px 16px;
+        }
+
+        #game-screen h1 {
+            color: #fff;
+            font-size: 2rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.95rem;
+        }
+
+        /* ---- GRID ---- */
+        #grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .grid-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .cell {
+            width: 52px;
+            height: 52px;
+            border: 3px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            border-radius: 6px;
+            transition: border-color 0.1s;
+            perspective: 250px;
+        }
+
+        .cell.filled {
+            border-color: rgba(255,255,255,0.9);
+            animation: pop 0.1s ease;
+        }
+
+        .cell.correct  { background: #c0375a; border-color: #c0375a; }
+        .cell.present  { background: #e87a9a; border-color: #e87a9a; }
+        .cell.absent   { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.15); }
+
+        .cell.flip {
+            animation: flip 0.5s ease forwards;
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes flip {
+            0%   { transform: rotateX(0deg); }
+            49%  { transform: rotateX(-90deg); }
+            50%  { transform: rotateX(-90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            20%,60% { transform: translateX(-6px); }
+            40%,80% { transform: translateX(6px); }
+        }
+
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            40%      { transform: translateY(-14px); }
+        }
+
+        .shake { animation: shake 0.4s ease; }
+        .bounce { animation: bounce 0.5s ease; }
+
+        /* ---- MESSAGE ---- */
+        #message {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            height: 1.4em;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        /* ---- KEYBOARD ---- */
+        #keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .kb-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .key {
+            height: 44px;
+            min-width: 36px;
+            padding: 0 6px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.85);
+            color: #333;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .key.wide { min-width: 58px; font-size: 0.75rem; }
+        .key.correct { background: #c0375a; color: #fff; }
+        .key.present { background: #e87a9a; color: #fff; }
+        .key.absent  { background: rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
+
+        /* ---- REVEAL ---- */
+        #reveal-screen {
+            display: none;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        #reveal-screen h2 {
+            color: #fff;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        #reveal-screen picture img {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-screen">
+        <h1>Guess the word!</h1>
+        <p class="subtitle">6 letters &nbsp;|&nbsp; 6 tries</p>
+        <div id="grid"></div>
+        <div id="message"></div>
+        <div id="keyboard"></div>
+    </div>
+
+    <div id="reveal-screen">
+        <h2>You got it!</h2>
+        <picture>
+            <source srcset="Media/A/WeatherReportStatue.webp" type="image/webp">
+            <img src="Media/A/WeatherReportStatue.jpg" alt="Weather Report Statue">
+        </picture>
+    </div>
+
+    <script>
+        const ANSWER = 'POOKIE';
+        const MAX_GUESSES = 6;
+        const WORD_LEN = 6;
+
+        let currentRow = 0;
+        let currentCol = 0;
+        let currentGuess = [];
+        let gameOver = false;
+
+        const keyStates = {};
+
+        // Build grid
+        const grid = document.getElementById('grid');
+        const cells = [];
+        for (let r = 0; r < MAX_GUESSES; r++) {
+            const row = document.createElement('div');
+            row.classList.add('grid-row');
+            cells.push([]);
+            for (let c = 0; c < WORD_LEN; c++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                row.appendChild(cell);
+                cells[r].push(cell);
+            }
+            grid.appendChild(row);
+        }
+
+        // Build keyboard
+        const KB_ROWS = [
+            ['Q','W','E','R','T','Y','U','I','O','P'],
+            ['A','S','D','F','G','H','J','K','L'],
+            ['ENTER','Z','X','C','V','B','N','M','DEL']
+        ];
+        const keyEls = {};
+        const keyboard = document.getElementById('keyboard');
+        KB_ROWS.forEach(rowKeys => {
+            const row = document.createElement('div');
+            row.classList.add('kb-row');
+            rowKeys.forEach(k => {
+                const btn = document.createElement('button');
+                btn.classList.add('key');
+                if (k === 'ENTER' || k === 'DEL') btn.classList.add('wide');
+                btn.textContent = k;
+                btn.addEventListener('click', () => handleKey(k));
+                row.appendChild(btn);
+                keyEls[k] = btn;
+            });
+            keyboard.appendChild(row);
+        });
+
+        function setMessage(text) {
+            document.getElementById('message').textContent = text;
+        }
+
+        function handleKey(key) {
+            if (gameOver) return;
+
+            if (key === 'ENTER') {
+                submitGuess();
+            } else if (key === 'DEL' || key === 'BACKSPACE') {
+                if (currentCol > 0) {
+                    currentCol--;
+                    currentGuess.pop();
+                    cells[currentRow][currentCol].textContent = '';
+                    cells[currentRow][currentCol].classList.remove('filled');
+                }
+            } else if (/^[A-Z]$/.test(key) && currentCol < WORD_LEN) {
+                cells[currentRow][currentCol].textContent = key;
+                cells[currentRow][currentCol].classList.add('filled');
+                currentGuess.push(key);
+                currentCol++;
+            }
+        }
+
+        function submitGuess() {
+            if (currentCol < WORD_LEN) {
+                shakeRow(currentRow);
+                setMessage('Not enough letters!');
+                setTimeout(() => setMessage(''), 1500);
+                return;
+            }
+
+            const guess = currentGuess.join('');
+            const result = scoreGuess(guess);
+
+            revealRow(currentRow, result, () => {
+                updateKeyboard(guess, result);
+
+                if (guess === ANSWER) {
+                    gameOver = true;
+                    setTimeout(showReveal, 800);
+                    return;
+                }
+
+                currentRow++;
+                currentCol = 0;
+                currentGuess = [];
+
+                if (currentRow >= MAX_GUESSES) {
+                    gameOver = true;
+                    setMessage(`It was ${ANSWER}!`);
+                }
+            });
+        }
+
+        function scoreGuess(guess) {
+            const result = Array(WORD_LEN).fill('absent');
+            const answerArr = ANSWER.split('');
+            const guessArr = guess.split('');
+            const used = Array(WORD_LEN).fill(false);
+
+            for (let i = 0; i < WORD_LEN; i++) {
+                if (guessArr[i] === answerArr[i]) {
+                    result[i] = 'correct';
+                    used[i] = true;
+                }
+            }
+            for (let i = 0; i < WORD_LEN; i++) {
+                if (result[i] === 'correct') continue;
+                for (let j = 0; j < WORD_LEN; j++) {
+                    if (!used[j] && guessArr[i] === answerArr[j]) {
+                        result[i] = 'present';
+                        used[j] = true;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        function revealRow(row, result, onDone) {
+            result.forEach((state, i) => {
+                setTimeout(() => {
+                    const cell = cells[row][i];
+                    cell.style.animationDelay = '';
+                    cell.classList.add('flip');
+                    setTimeout(() => {
+                        cell.classList.remove('filled');
+                        cell.classList.add(state);
+                    }, 250);
+                    if (i === WORD_LEN - 1) {
+                        setTimeout(onDone, 500);
+                    }
+                }, i * 120);
+            });
+        }
+
+        function updateKeyboard(guess, result) {
+            const priority = { correct: 3, present: 2, absent: 1 };
+            for (let i = 0; i < WORD_LEN; i++) {
+                const letter = guess[i];
+                const state = result[i];
+                if ((priority[state] || 0) > (priority[keyStates[letter]] || 0)) {
+                    keyStates[letter] = state;
+                    const el = keyEls[letter];
+                    if (el) {
+                        el.classList.remove('correct', 'present', 'absent');
+                        el.classList.add(state);
+                    }
+                }
+            }
+        }
+
+        function shakeRow(row) {
+            const rowEl = grid.children[row];
+            rowEl.classList.add('shake');
+            rowEl.addEventListener('animationend', () => rowEl.classList.remove('shake'), { once: true });
+        }
+
+        function showReveal() {
+            document.getElementById('game-screen').style.display = 'none';
+            const reveal = document.getElementById('reveal-screen');
+            reveal.style.display = 'flex';
+        }
+
+        // Physical keyboard
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter') handleKey('ENTER');
+            else if (e.key === 'Backspace') handleKey('BACKSPACE');
+            else if (/^[a-zA-Z]$/.test(e.key)) handleKey(e.key.toUpperCase());
+        });
+
+        // Falling hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const left = Math.random() * 100;
+            const duration = Math.random() * 6 + 4;
+            heart.style.left = `${left}vw`;
+            heart.style.top = '-20px';
+            heart.style.animation = `falling-heart ${duration}s linear 1`;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+
+        for (let i = 0; i < 20; i++) createHeart();
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
