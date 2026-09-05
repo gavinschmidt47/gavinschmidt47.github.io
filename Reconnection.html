@@ -18,6 +18,8 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
 </head>
 <body class="reconnection-page">
     
@@ -100,15 +102,478 @@
                 complex world of conquest, identity, survival, and resistance through tactical combat and narrative choice.
             </p>
             <p class="overview-text">
-                As <strong>Lead Engineer</strong>, I architected the entire combat system in C++, implementing 
-                dice-roll mechanics, stat-based calculations, and AI decision-making. The project was developed 
-                from <strong>August 2025 to February 2026</strong> and is currently on hiatus until <strong>May 2026</strong>, 
-                when production will resume under a new title with a significantly expanded team.
+                As <strong>Lead Engineer</strong>, I architected the original combat system in C++, implementing
+                dice-roll mechanics, stat-based calculations, and AI decision-making. That first production ran
+                from <strong>August 2025 to February 2026</strong>, followed by a development hiatus.
+            </p>
+            <p class="overview-text">
+                Production <strong>resumed on May 27, 2026</strong> under <strong>Mystic Die LLC</strong> with a
+                significantly expanded team, rebuilt from a clean repository. My focus in this phase has shifted from
+                gameplay systems alone to the <strong>engine-level foundations and the tooling the whole team commits
+                through</strong>: a nullable vector type that removed a recurring class of sentinel-value bugs, the
+                module architecture and written C++ standard the team codes against, a Blueprint diffing pipeline that
+                made binary assets reviewable in pull requests, and an in-house version control application.
+            </p>
+            <p class="overview-text">
+                The expansion also changed the scope of my responsibilities. I serve as <strong>Producer</strong>
+                alongside co-producer Jadyn Englett, coordinating a team of <strong>more than 30 people</strong>
+                across engineering, art, design, narrative, and audio, and as <strong>Technical Director</strong>,
+                reviewing every change that enters the codebase. I additionally hold the <strong>narrative
+                lead</strong> position on an interim basis while the role is filled permanently, and I lead the
+                <strong>backend of the studio's web presence</strong>.
             </p>
         </section>
 
         <section class="key-features-section">
+            <h2>Role on the Project</h2>
+            <p class="overview-text">
+                Four responsibilities on this production are mine. The engineering and tooling work documented
+                below follows directly from the other three. I carry all four alongside a full-time engineering
+                role at <strong><a href="experience.html">Starchild PBC</a></strong>.
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Producer</h3>
+                    <p>Co-producing <strong>more than 30 people</strong> across eight departments on a six-sprint schedule, with a board of <strong>over 200 tracked tasks</strong> measured against dated milestones</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Technical Director</h3>
+                    <p>Every change entering the project is reviewed by me. I authored the C++ standard, restructured the module layout, and built the pipeline that renders binary Blueprint changes readable in a diff</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Interim Narrative Lead</h3>
+                    <p>Directing campaign beat sheets, character profiles, and the branching dialogue pipeline until the position is filled permanently, under the cultural responsibility this setting carries</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Backend Web Lead</h3>
+                    <p>Responsible for the studio's web backend: the public site, an employee dashboard built on Django and React, and the internal applications the production depends on</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="key-features-section">
             <h2>Technical Highlights</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Nullable Vector Type</h3>
+                    <p>FPRVector mirrors the full FVector API while letting a vector be meaningfully absent, with a complete Blueprint surface</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Reviewable Blueprint Diffs</h3>
+                    <p>A pre-commit pipeline that mirrors every binary .uasset into committed Markdown so pull requests show what actually changed</p>
+                </div>
+                <div class="feature-card">
+                    <h3>In-House Version Control</h3>
+                    <p>A desktop application wrapping build, editor launch, time tracking, and an admin dashboard over Git for a non-programmer team</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="code-showcase-section">
+            <h2>Engine Systems &amp; Team Tooling (2026)</h2>
+            <p class="overview-text">
+                When production resumed under Mystic Die LLC, the bottleneck was no longer combat logic; it was
+                everything around it. A nine-person engineering group inside a team of thirty was committing binary
+                Unreal assets that nobody could review, writing C++ against no shared standard, and losing work to a
+                version control workflow most of them were not comfortable with. As Technical Director I am the final
+                reviewer before any change lands, which makes an unreviewable diff a failure of process rather than
+                an inconvenience. These four systems were built to address that.
+            </p>
+
+            <div class="code-feature">
+                <h3>FPRVector: A Nullable Vector Type</h3>
+                <p class="code-description">
+                    Unreal has no way to say "this vector is absent." Code either overloads
+                    <code>FVector::ZeroVector</code> to mean "none" (which breaks the moment the origin is a valid
+                    answer) or carries a parallel <code>bool</code> that drifts out of step with the value it
+                    guards. <code>FPRVector</code> makes absence part of the value. The API mirrors
+                    <code>FVector</code> in full, governed by three rules that let null propagate predictably
+                    instead of requiring a check at every call site.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Null Propagation Rules &amp; Core Interface</summary>
+                        <pre><code class="language-cpp">
+//A nullable FVector, so a vector can be meaningfully absent instead of overloading
+//FVector::ZeroVector or a sentinel like (MAX_flt, MAX_flt, MAX_flt) to mean "none".
+//Null is the default state.
+//
+//The API mirrors FVector. Three rules cover the whole surface:
+//  - anything FVector returns as a vector comes back as an FPRVector that is null
+//    if any operand was null
+//  - anything FVector returns as a scalar comes back as a TOptional&lt;double&gt; that is
+//    unset if any operand was null
+//  - anything FVector answers with a bool answers false when an operand is null,
+//    except Equals and operator==, which treat two nulls as equal and a null as
+//    never equal to a set vector
+//
+//Mutators do nothing while null, so a null vector cannot be half-written into a set
+//one. Construction from FVector is implicit, so every function also accepts a plain
+//FVector.
+USTRUCT( BlueprintType, meta = ( HasNativeMake = "...MakePRVector", HasNativeBreak = "...BreakPRVector" ) )
+struct PROJECTRECONNECTION_API FPRVector
+{
+    GENERATED_BODY()
+public:
+    //The one constant FVector has no counterpart for.
+    static FPRVector Null();
+
+    bool IsSet() const;
+    bool IsNull() const;
+
+    //Asserts when null. Prefer Get( Default ) or TryGet() unless the value is
+    //already known to be set.
+    const FVector&amp; GetValue() const;
+    const FVector&amp; Get( const FVector&amp; DefaultValue ) const;
+
+    //Leaves OutValue untouched when null.
+    bool TryGet( FVector&amp; OutValue ) const;
+
+    //Component access returns TOptional rather than a reference. FVector's
+    //reference-returning overloads have no counterpart here, because handing out a
+    //reference into a null vector would let a caller write one component and leave
+    //the other two undefined.
+    TOptional&lt;double&gt; GetX() const;
+    TOptional&lt;double&gt; Component( int32 Index ) const;
+
+    //Vector in, vector out: null if either operand is null.
+    FPRVector operator+( const FPRVector&amp; V ) const;
+    FPRVector Cross( const FPRVector&amp; V ) const;
+
+    //Vector in, scalar out: unset if either operand is null.
+    TOptional&lt;double&gt; Dot( const FPRVector&amp; V ) const;
+    TOptional&lt;double&gt; Size() const;
+    static TOptional&lt;double&gt; Dist( const FPRVector&amp; V1, const FPRVector&amp; V2 );
+
+    //Two nulls are equal. A null never equals a set vector, whatever the set one holds.
+    bool operator==( const FPRVector&amp; V ) const;
+    bool Equals( const FPRVector&amp; V, double Tolerance = UE_KINDA_SMALL_NUMBER ) const;
+
+    //ResultIfZero defaults to null, so an unnormalizable vector reports itself as one
+    //rather than quietly reporting itself as zero.
+    FPRVector GetSafeNormal( double Tolerance = UE_SMALL_NUMBER,
+                             const FPRVector&amp; ResultIfZero = FPRVector() ) const;
+
+private:
+    //Only meaningful when bIsSet, and kept zeroed while null so serialized data
+    //stays stable.
+    UPROPERTY( EditAnywhere, BlueprintReadOnly, meta = ( EditCondition = "bIsSet" ) )
+    FVector Value = FVector::ZeroVector;
+
+    UPROPERTY( EditAnywhere, BlueprintReadOnly, meta = ( DisplayName = "Has Value" ) )
+    bool bIsSet = false;
+};
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>Blueprint Surface &amp; Branching On Null</summary>
+                        <pre><code class="language-cpp">
+//Blueprints have no unset float and no TOptional, so the struct's C++ surface cannot
+//map one to one. Two shapes cover the gap: scalar results come back as a bool plus an
+//out parameter, and functions that mutate the vector take it as a ref parameter.
+//
+//Only the members Blueprints genuinely cannot represent are missing: GetValue (it
+//asserts on null, so Get Or Default and Try Get stand in), ToOptional and FromOptional,
+//the compound assignment operators (a node output feeding a Set does the same job),
+//and NetSerialize and GetTypeHash, which the engine calls directly.
+UCLASS()
+class PROJECTRECONNECTION_API UPRVectorLibrary : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+public:
+    //Registered as the struct's NativeMakeFunc and NativeBreakFunc, so the standard
+    //Make and Break nodes work on FPRVector exactly as they do on FVector.
+    static FPRVector MakePRVector( FVector Value );
+    static void BreakPRVector( const FPRVector&amp; PRVector, FVector&amp; Value, bool&amp; bHasValue );
+
+    //BlueprintAutocast, so a plain FVector pin connects straight into an FPRVector pin.
+    static FPRVector Conv_VectorToPRVector( FVector Value );
+};
+
+//Paired with the library so a graph can branch on null as execution flow rather than
+//threading a bool through every downstream node.
+UENUM( BlueprintType )
+enum class EPRVectorBranch : uint8
+{
+    HasValue,
+    Null
+};
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>Adoption: Click-To-Move Destination Caching</summary>
+                        <pre><code class="language-cpp">
+//The first real adoption site. Click to move needs to answer "has the player chosen a
+//destination yet?" on every tick of a held input. The previous shape was an FVector
+//plus a separate bHasDestination flag, which is two things to keep in agreement.
+class PROJECTRECONNECTION_API AExplorationPlayerController : public APlayerController
+{
+protected:
+    void HandleSetDestinationStarted();
+    void HandleSetDestinationTriggered();
+    void HandleSetDestinationReleased();
+
+    //Runs a cursor trace and writes the hit location, leaving the destination null
+    //when the trace lands on nothing.
+    void UpdateDestinationFromCursor();
+
+    //Null until a cursor trace lands somewhere, so "no destination yet" is part of the
+    //value rather than a separate flag that can drift out of step with it.
+    FPRVector CachedDestination;
+
+    float FollowTime = 0.0f;
+};
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Module Architecture &amp; A Written C++ Standard</h3>
+                <p class="code-description">
+                    With several engineers landing C++ on this project for the first time, "follow the surrounding
+                    file" was not a usable rule, because the surrounding files disagreed. I restructured the module
+                    and wrote <code>STYLE.md</code> at the repository root as the authority the team codes against.
+                    The layout change is the part with real teeth: dropping Unreal's conventional
+                    <code>Public/</code> and <code>Private/</code> split depends on a single build setting, so the
+                    document records why, and nobody removes the line and breaks every include in the module.
+                    That document is what makes review tractable at this team size: 121 lines covering file layout,
+                    naming, comment style, and formatting, so that a review comment cites a rule the team has
+                    already agreed to rather than a reviewer's personal preference.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Feature-Folder Layout &amp; The Build Setting It Rests On</summary>
+                        <pre><code class="language-bash">
+# One type per file. Every enum, struct, class, and function library gets its own
+# header, including a helper enum that exists only for the type beside it.
+#
+# No Public/ and Private/ split. A header and its .cpp sit next to each other in a
+# folder named for the feature. The module root is the include root.
+
+Source/ProjectReconnection/
+    Math/
+        PRVector.h            # the struct
+        PRVector.cpp
+        PRVectorBranch.h      # the enum it is used with
+        PRVectorLibrary.h     # the Blueprint function library for it
+        PRVectorLibrary.cpp
+    Player/
+        ExplorationPlayerController.h
+        ExplorationPlayerController.cpp
+    UI/
+        Subsystem/
+            UIMenuManager.h
+            UIMenuManager.cpp
+
+# This layout depends on PublicIncludePaths.Add( ModuleDirectory ) in
+# ProjectReconnection.Build.cs. Unreal Build Tool only adds the module root
+# automatically through its legacy include paths, which modern build settings turn
+# off, so removing that line breaks every include in the module.
+#
+# Include your own headers by their path from the module root:
+#   #include "Math/PRVector.h"        yes
+#   #include "../Math/PRVector.h"     no
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>Type Prefix Convention</summary>
+                        <pre><code class="language-cpp">
+//Keep Unreal's type prefixes (F, U, A, E, I). On top of that:
+//
+//Types that do not extend an Unreal class are prefixed PR. Plain structs, plain
+//classes, and enums we author are project types and carry the project prefix.
+struct FPRVector { ... };               //ours, no Unreal base
+enum class EPRVectorBranch : uint8 {};  //ours
+
+//Types that extend an Unreal class do not take the PR prefix. They are named for
+//what they are.
+class UUIMenuManager : public UEnhancedInputLocalPlayerSubsystem { ... };
+class AExplorationPlayerController : public APlayerController { ... };
+
+//The one place PR appears on an Unreal-derived class is when it is part of the name
+//of the project type the class serves, not a prefix on the class itself:
+//UPRVectorLibrary is the function library for FPRVector.
+
+//Comments are written //words here, with no space after the slashes. This applies to
+//documentation comments too; a multi-line comment is several // lines, never a block
+//comment.
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Blueprint Digests: Making Binary Assets Reviewable</h3>
+                <p class="code-description">
+                    A <code>.uasset</code> is binary, so every pull request touching a Blueprint showed
+                    <code>Binary file differs</code> and went through unreviewed. Git can be taught to diff binary
+                    files with a <code>textconv</code> driver, but that only works on a machine that can run the
+                    converter, and GitHub renders pull request diffs on its own servers with no Unreal Engine
+                    available. Converting ahead of time and committing the result is what makes the diff visible
+                    where review actually happens. There are now <strong>78 digests</strong> committed beside their
+                    assets, regenerated automatically so a digest can never disagree with the Blueprint it describes.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Digest Output: What A Reviewer Actually Reads</summary>
+                        <pre><code class="language-markdown">
+# WBP_Objectives
+
+- Path: `/Game/UI/Widgets/WBP_Objectives.WBP_Objectives`
+- Parent: `UserWidget`
+
+## Variables
+
+- **Objective**: `text` = `"Get to the Chopper!"` - editable
+
+## Functions
+
+### UpdateObjectiveText()
+
+    Set Text  (Text &lt;- Get Objective, self &lt;- Get ObjectiveText)
+
+## Graphs
+
+### EventGraph (Ubergraph)
+
+    Event Construct
+    Event Pre Construct
+    UpdateObjectiveText
+    Event Tick
+
+## Asset dependencies
+
+- `/Game/UI/Widgets/WBP_Objectives.WBP_Objectives_C`
+                        </code></pre>
+                    </details>
+                </div>
+                <div class="code-container">
+                    <details>
+                        <summary>Pre-Commit Generation &amp; Cost Control</summary>
+                        <pre><code class="language-bash">
+# For every Content/**/BP_Thing.uasset there is a Content/**/BP_Thing.bp.md committed
+# beside it. Git diffs the Markdown; GitHub renders it in the PR.
+#
+#   Content/TurnManagerAssets/
+#     BP_CombatManager.uasset      binary, unreviewable
+#     BP_CombatManager.bp.md       what a reviewer actually reads
+
+git add Content/TurnManagerAssets/BP_CombatManager.uasset
+git commit -m "combat: end turn when enemies are cleared"
+  [bp-digest] serializing 1 Blueprint(s) via Unreal (this takes a minute)
+  [bp-digest] updated 1 digest(s)
+  [bp-digest] staged them
+
+# Staging a Blueprint regenerates and stages its digest in the same commit, so the two
+# can never disagree. Commits that touch no Blueprints skip Unreal entirely and cost
+# about 0.3s: the generator reads .uasset headers directly to decide whether starting
+# the editor is worth it.
+#
+# The hook also declines to run mid-merge, mid-rebase, mid-cherry-pick, and mid-revert.
+# Those commits are resolving history that already exists, and rewriting a tracked file
+# underneath them would fight the operation.
+
+python Tools/BlueprintDigest/generate.py --staged --stage   # what the hook runs
+python Tools/BlueprintDigest/generate.py --all              # rebuild everything
+BP_DIGEST_SKIP=1 git commit ...                             # skip for one commit
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="code-feature">
+                <h3>Unreal Version Control: A Git Front End For The Whole Team</h3>
+                <p class="code-description">
+                    Most of the team are artists, designers, and narrative writers for whom a Git command line is a
+                    daily obstacle rather than a tool. <strong>UVC</strong> is a Python and CustomTkinter desktop
+                    application that puts the operations they actually need behind buttons: compile the project's
+                    C++ and open it in Unreal, clock in and out with a background activity monitor, and, for
+                    admins, review users, roles, and time data on a dashboard. Two files,
+                    <code>.uvc_config.json</code> and <code>.uvc_timeclock.json</code>, are committed so the whole
+                    team shares them, which creates a merge problem that the pre-commit hook solves.
+                </p>
+                <div class="code-container">
+                    <details>
+                        <summary>Shared Timeclock Reconciliation</summary>
+                        <pre><code class="language-bash">
+# Two jobs before a commit is created:
+#   1. Reconcile .uvc_timeclock.json with origin/main so parallel sessions from
+#      different teammates merge instead of clobbering each other.
+#   2. Regenerate the readable .bp.md digest beside any staged Blueprint, so
+#      pull requests show what changed instead of "Binary file differs".
+#
+# Escape hatches:
+#   UVC_TIMECLOCK_SKIP=1 git commit ...      skip the timeclock merge
+#   UVC_TIMECLOCK_NO_FETCH=1 git commit ...  merge against the cached ref, no network
+#   BP_DIGEST_SKIP=1 git commit ...          skip Blueprint digests
+#   git commit --no-verify ...               skip all hooks
+
+# Git for Windows ships its own sh but no python, so the hook probes the usual names
+# rather than assuming an interpreter is on PATH. If none is found it warns and exits
+# clean, because a missing interpreter should not block a teammate's commit.
+for candidate in python3 python py; do
+    if command -v "$candidate" >/dev/null 2>&1; then
+        PYTHON="$candidate"
+        break
+    fi
+done
+                        </code></pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section class="key-features-section">
+            <h2>Production &amp; Studio Tooling</h2>
+            <p class="overview-text">
+                Producing a team of this size and leading the studio's web backend impose the same requirement:
+                coordination holds only when the tools the team uses daily are dependable. The following
+                applications are the ones I built and maintain outside the engine, each deployed to a studio
+                subdomain.
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Issue Kanban</h3>
+                    <p>A PHP front end over the studio's GitHub Projects board, providing drag-and-drop columns, a sprint selector, per-person completion and story-point statistics, and full issue editing. GitHub remains the source of truth, so the board cannot drift from it, and the OAuth token is held server-side rather than exposed to the browser</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Employee Dashboard</h3>
+                    <p>A Django REST and React dashboard for the studio. I built the founding version on both sides, covering GitHub OAuth, a bridge into the Kanban board, and the contribution tracking API, and I lead it as another engineer continues its development</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Mood Board</h3>
+                    <p>A shared drawing surface for the concept art department, supporting image upload and resizing, shapes, text, and freehand sketching, stored server-side so boards can be reopened and extended. Built on PHP and Fabric.js with flat JSON storage and no database</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Roll for Inspiration</h3>
+                    <p>A Slack-native gacha in which the collectibles are the studio's actual reference material, each card annotated with where it applies to the project. Built in Python and SQLAlchemy, synchronized from a producer-authored sheet, with a two-currency economy and pity rules across every rarity tier</p>
+                </div>
+            </div>
+            <p class="overview-text">
+                Each of these follows the same constraint: no database where flat files are sufficient, and no
+                build step. A deployment consists of pulling the repository onto a subdomain, which keeps every one
+                of them transferable to another maintainer without a toolchain to install first.
+            </p>
+        </section>
+
+        <section class="code-showcase-section">
+            <h2>Original Production (2025 to 2026)</h2>
+            <p class="overview-text">
+                The first build of Reconnection ran from August 2025 to February 2026. I was Lead Engineer and
+                wrote the combat system in C++ from scratch: a d20 resolution layer, an initiative-driven turn
+                manager, and a utility-scored enemy AI. That codebase was retired when production restarted from a
+                clean repository in May 2026, and the current game is being built on a different combat
+                architecture. The work below is preserved as a record of that first production rather than a
+                description of the game as it stands today.
+            </p>
             <div class="features-grid">
                 <div class="feature-card">
                     <h3>D&D Combat System</h3>
@@ -135,10 +600,7 @@
                     <p>Player-driven narrative with branching conversations</p>
                 </div>
             </div>
-        </section>
 
-        <section class="code-showcase-section">
-            <h2>Code Showcase</h2>
 
             <div class="code-feature">
                 <h3>Blueprint Integration & Designer Tools</h3>
@@ -156,57 +618,6 @@
                             <li><strong>Action selection</strong> - Choose between Attack, Heal, Block, or special abilities</li>
                             <li><strong>Difficulty scaling</strong> - Adjust AI aggression and strategy per encounter</li>
                         </ul>
-						<!-- <div class="code-container">
-							<details>
-								<summary>BP_HighLevelEnemyActions - Enemy General Conditional logic</summary>
-								<pre><code class="language-cpp">
-		// C++ provides the foundation... 
-		void UEnemy::StartTurn()
-		{
-			Super::StartTurn();
-			ChooseAction();  // Calls Blueprint implementation
-		}
-
-		// ... Blueprints implement the behavior
-		void UEnemy::ChooseAction_Implementation()
-		{
-			// In Blueprint Visual Scripting: 
-			// 1. Get Player Fighter reference
-			// 2. Check Player Health percentage
-			// 3. If Player Health < 30%:
-			//      - Aggressive: Call Attack() 80% of time
-			//      - Defensive: Call Block() 20% of time
-			// 4. If Player Health > 70%:
-			//      - Call Heal() if Enemy Health < 50%
-			//      - Call Attack() otherwise
-			// 5. Apply buffs based on turn count
-			// 6. Consider special ability cooldowns
-		}
-
-		// Event Delegates allow Blueprint responses
-		UFUNCTION()
-		void OnPlayerHit(UFighter* Target)
-		{
-			// Blueprint can respond: 
-			// - Spawn damage number widget
-			// - Play hit sound
-			// - Trigger camera shake
-			// - Update health bar UI
-			// - Check for low health warnings
-		}
-
-		// Dialogue integration example
-		UFUNCTION(BlueprintCallable)
-		void ProcessDialogueChoice(int32 ChoiceID)
-		{
-			// Blueprint logic: 
-			// - Choice 1 (Intimidate): AddBuff(5, "Attack")
-			// - Choice 2 (Persuade): Enemy may flee or join party
-			// - Choice 3 (Taunt): Enemy focuses attacks on player
-		}
-								</code></pre>
-							</details>
-						</div> -->
                     </div>
                     
                     <div class="blueprint-feature">
@@ -217,57 +628,6 @@
                             <li><strong>Block()</strong> - Defensive stance animations</li>
                             <li><strong>Die()</strong> - Death sequences, loot drops, victory conditions</li>
                         </ul>
-						<!-- <div class="code-container">
-							<details>
-								<summary>BP_PlayerActions - Implemented player actions</summary>
-								<pre><code class="language-cpp">
-		// C++ provides the foundation... 
-		void UEnemy::StartTurn()
-		{
-			Super::StartTurn();
-			ChooseAction();  // Calls Blueprint implementation
-		}
-
-		// ... Blueprints implement the behavior
-		void UEnemy::ChooseAction_Implementation()
-		{
-			// In Blueprint Visual Scripting: 
-			// 1. Get Player Fighter reference
-			// 2. Check Player Health percentage
-			// 3. If Player Health < 30%:
-			//      - Aggressive: Call Attack() 80% of time
-			//      - Defensive: Call Block() 20% of time
-			// 4. If Player Health > 70%:
-			//      - Call Heal() if Enemy Health < 50%
-			//      - Call Attack() otherwise
-			// 5. Apply buffs based on turn count
-			// 6. Consider special ability cooldowns
-		}
-
-		// Event Delegates allow Blueprint responses
-		UFUNCTION()
-		void OnPlayerHit(UFighter* Target)
-		{
-			// Blueprint can respond: 
-			// - Spawn damage number widget
-			// - Play hit sound
-			// - Trigger camera shake
-			// - Update health bar UI
-			// - Check for low health warnings
-		}
-
-		// Dialogue integration example
-		UFUNCTION(BlueprintCallable)
-		void ProcessDialogueChoice(int32 ChoiceID)
-		{
-			// Blueprint logic: 
-			// - Choice 1 (Intimidate): AddBuff(5, "Attack")
-			// - Choice 2 (Persuade): Enemy may flee or join party
-			// - Choice 3 (Taunt): Enemy focuses attacks on player
-		}
-								</code></pre>
-							</details>
-						</div> -->
                     </div>
                     
                     <div class="blueprint-feature">
@@ -288,57 +648,6 @@
                             <li><strong>Combat triggers</strong> - Dialogue can start/end encounters</li>
                             <li><strong>Character relationships</strong> - Track player decisions for story outcomes</li>
                         </ul>
-						<!--<div class="code-container">
-							<details>
-								<summary>BP_DialogueStruct - Structure for setting new dialogue options</summary>
-								<pre><code class="language-cpp">
-		// C++ provides the foundation... 
-		void UEnemy::StartTurn()
-		{
-			Super::StartTurn();
-			ChooseAction();  // Calls Blueprint implementation
-		}
-
-		// ... Blueprints implement the behavior
-		void UEnemy::ChooseAction_Implementation()
-		{
-			// In Blueprint Visual Scripting: 
-			// 1. Get Player Fighter reference
-			// 2. Check Player Health percentage
-			// 3. If Player Health < 30%:
-			//      - Aggressive: Call Attack() 80% of time
-			//      - Defensive: Call Block() 20% of time
-			// 4. If Player Health > 70%:
-			//      - Call Heal() if Enemy Health < 50%
-			//      - Call Attack() otherwise
-			// 5. Apply buffs based on turn count
-			// 6. Consider special ability cooldowns
-		}
-
-		// Event Delegates allow Blueprint responses
-		UFUNCTION()
-		void OnPlayerHit(UFighter* Target)
-		{
-			// Blueprint can respond: 
-			// - Spawn damage number widget
-			// - Play hit sound
-			// - Trigger camera shake
-			// - Update health bar UI
-			// - Check for low health warnings
-		}
-
-		// Dialogue integration example
-		UFUNCTION(BlueprintCallable)
-		void ProcessDialogueChoice(int32 ChoiceID)
-		{
-			// Blueprint logic: 
-			// - Choice 1 (Intimidate): AddBuff(5, "Attack")
-			// - Choice 2 (Persuade): Enemy may flee or join party
-			// - Choice 3 (Taunt): Enemy focuses attacks on player
-		}
-								</code></pre>
-							</details>
-						</div> -->
                     </div>
                 </div>
             </div>
@@ -352,7 +661,7 @@
                 </p>
                 <div class="code-container">
                     <details>
-                        <summary>Fighter Base Class — Properties &amp; Public Interface</summary>
+                        <summary>Fighter Base Class: Properties &amp; Public Interface</summary>
                         <pre><code class="language-cpp">
 // Base class for every combatant. Both player characters and enemies
 // inherit from AFighter so UTurnManager can drive them identically.
@@ -519,7 +828,7 @@ void UFighter::RemoveBuff(float BuffAmount, const FString& stat);
                 </p>
                 <div class="code-container">
                     <details>
-                        <summary>Enemy Class — Architecture &amp; Designer-Facing Properties</summary>
+                        <summary>Enemy Class: Architecture &amp; Designer-Facing Properties</summary>
                         <pre><code class="language-cpp">
 // Weapon type determines which attack utility scorer is preferred.
 // Designers set this per enemy in the Details panel; no code change required.
@@ -734,7 +1043,7 @@ void UFighter::Die_Implementation();
                 </p>
                 <div class="code-container">
                     <details>
-                        <summary>Turn Manager — Delegates &amp; Public Interface</summary>
+                        <summary>Turn Manager: Delegates &amp; Public Interface</summary>
                         <pre><code class="language-cpp">
 // Five multicast delegates give Blueprint full observability over combat state.
 // UI, cameras, audio, and narrative systems bind to these without any C++ changes.
@@ -882,53 +1191,55 @@ void UTurnManager::HandleFighterDeath(UFighter* DeadFighter);
             </div>
         </section>
 
-        <section class="blueprint-images-section">
-            <h2>Blueprint Showcases</h2>
-            <p class="overview-text">Unreal Engine Blueprint graphs built on top of the C++ foundation, handling AI decision-making, movement validation, and input processing.</p>
-            <div class="blueprint-gallery-grid">
-                <div class="blueprint-gallery-item">
-                    <img src="Media/Pieces/Reconnection/AI State Tree.png" alt="Enemy AI State Tree Blueprint" loading="lazy">
-                    <p class="blueprint-gallery-caption">AI State Tree</p>
-                    <p class="blueprint-gallery-description">The central thinking loop for every enemy. This Blueprint reads utility scores calculated in <code>UEnemy.cpp</code> and drives the State Tree that determines which action each enemy takes on their turn.</p>
-                </div>
-                <div class="blueprint-gallery-item">
-                    <img src="Media/Pieces/Reconnection/Enemy Brain 1.png" alt="Enemy Brain Blueprint - Part 1" loading="lazy">
-                    <p class="blueprint-gallery-caption">Enemy Brain (Part 1 of 2)</p>
-                    <p class="blueprint-gallery-description">The Enemy Brain graph initializes State Tree thoughts and instructs each enemy how to act upon them, translating the utility AI system into concrete in-world decisions.</p>
-                </div>
-                <div class="blueprint-gallery-item">
-                    <img src="Media/Pieces/Reconnection/Enemy Brain 2.png" alt="Enemy Brain Blueprint - Part 2" loading="lazy">
-                    <p class="blueprint-gallery-caption">Enemy Brain (Part 2 of 2)</p>
-                    <p class="blueprint-gallery-description">Continuation of the Enemy Brain graph, showing the downstream action execution after the State Tree has resolved which behavior scores highest for that turn.</p>
-                </div>
-                <div class="blueprint-gallery-item">
-                    <img src="Media/Pieces/Reconnection/Ghost Mover.png" alt="Ghost Mover Blueprint" loading="lazy">
-                    <p class="blueprint-gallery-caption">Ghost Mover</p>
-                    <p class="blueprint-gallery-description">A ghost mesh that pathfinds to the player's clicked destination and validates whether the target position is reachable within the player's movement constraints before committing the move.</p>
-                </div>
-                <div class="blueprint-gallery-item">
-                    <img src="Media/Pieces/Reconnection/Player Mouse Tracker.png" alt="Player Mouse Tracker Blueprint" loading="lazy">
-                    <p class="blueprint-gallery-caption">Player Mouse Tracker</p>
-                    <p class="blueprint-gallery-description">Line traces the mouse cursor on click to determine what was hit in the world, then routes that hit information back to Blueprint for downstream gameplay logic such as targeting and movement commands.</p>
-                </div>
-            </div>
-        </section>
-
         <section class="reconnection-future-section">
-            <h2>What's Next: A New Title, A Bigger Team</h2>
+            <h2>Production Resumed: A New Studio, A Bigger Team</h2>
             <div class="reconnection-future-highlight">
                 <p class="reconnection-future-text">
-                    Reconnection is on hiatus from February 2026 until <strong>late May 2026</strong>, when full 
-                    production resumes under a new title. The scope of what we are building has grown dramatically 
-                    and deserves a name that reflects the story we are telling.
+                    Reconnection was on hiatus from February 2026 until <strong>May 27, 2026</strong>, when full
+                    production resumed under <strong>Mystic Die LLC</strong> from a clean repository. The scope
+                    of what we are building grew dramatically over the break, and the rebuild was a chance to put
+                    real engineering foundations underneath it before the team scaled up.
                 </p>
                 <p class="reconnection-future-text">
-                    At <strong>GDC 2026</strong>, Producer <a href="https://jadynenglett.weebly.com" target="_blank" rel="noopener noreferrer">Jadyn Englett</a> 
-                    and I recruited <strong>nearly 30 people</strong> to join the project. We spoke with 
-                    <strong>Josh Labelle</strong>, Creative Director of <em>Disney Dreamlight Valley</em>, about 
-                    managing creative vision and maintaining design coherence across a team of this scale. His 
-                    insight on aligning a large, distributed team around a shared emotional core was invaluable 
-                    as we prepare to scale up following the hiatus.
+                    At <strong>GDC 2026</strong>, co-producer <a href="https://jadynenglett.weebly.com" target="_blank" rel="noopener noreferrer">Jadyn Englett</a>
+                    and I recruited <strong>nearly 30 people</strong> to join the project. We spoke with
+                    <strong>Josh Labelle</strong>, Creative Director of <em>Disney Dreamlight Valley</em>, about
+                    managing creative vision and maintaining design coherence across a team of this scale. Their
+                    insight on aligning a large, distributed team around a shared emotional core directly shaped
+                    how we structured the resumed production.
+                </p>
+                <p class="reconnection-future-text">
+                    The growth from a small group to <strong>more than 30 contributors</strong> is what moved my
+                    role from engineering into production. Jadyn and I <strong>co-produce</strong> the project across
+                    eight departments: 2D art, 3D art, engineering, level design, UI, narrative, web, and leadership.
+                    Coordination runs through a board of <strong>over 200 tracked tasks</strong> organized into
+                    <strong>six sprints</strong>, from pre-production through a testable build, measured against
+                    dated milestones the studio commits to. My responsibility is determining what each department
+                    owns and resolving the dependencies between them before they block work.
+                </p>
+                <p class="reconnection-future-text">
+                    I also serve as <strong>Technical Director</strong>. Every change entering the project is
+                    reviewed by me, and the standards those changes are measured against are ones I authored: a
+                    <strong>121-line C++ style guide</strong> committed at the repository root, a module layout that
+                    replaces Unreal's conventional folder split, and a digest pipeline that makes the contents of a
+                    Blueprint legible in a pull request. Reviewing an entire team's Unreal work is only feasible
+                    when the diffs are readable, which is why the diff tooling came first.
+                </p>
+                <p class="reconnection-future-text">
+                    Two further responsibilities accompanied the expansion. I hold the <strong>interim narrative
+                    lead</strong> position while we search for a permanent lead, directing campaign and region beat
+                    sheets, character profiles for both the party and the antagonist, and the Ink-authored dialogue
+                    that feeds the progression table tracking story state. The story of Duns must remain coherent
+                    across multiple writers and aligned with the cultural care the setting demands. I also lead the
+                    <strong>backend of the studio's web presence</strong>: the public-facing site, the employee
+                    dashboard, and a browser interface for the version control application, which together support
+                    recruitment, press, and eventually the Steam release.
+                </p>
+                <p class="reconnection-future-text">
+                    That scale is also what drove the tooling work above. Onboarding a team this size onto a
+                    binary-asset Unreal project meant that code review, C++ conventions, and version control could
+                    not stay informal, so I spent the first months of the new production making those three things
+                    dependable before they became the constraint on everyone else's work.
                 </p>
                 <p class="reconnection-future-text">
                     We are actively planning a meeting with <strong>indigenous American cultural representatives</strong>
@@ -939,9 +1250,9 @@ void UTurnManager::HandleFighterDeath(UFighter* DeadFighter);
                     singular, and imaginative.
                 </p>
                 <p class="reconnection-future-text">
-                    We will have a <strong>table at UCF's Digital Media Workshop Showcase 2026</strong>, where we 
-                    plan to debut a playable demo and recruit additional talented people to the team. Our goal is 
-                    to grow the project further and bring Reconnection to a shippable state on <strong>Steam</strong>.
+                    We will have a <strong>table at UCF's Digital Media Workshop Showcase 2026</strong>, where we
+                    plan to debut a playable demo and recruit additional talented people to the team. Our goal is
+                    to grow the project further and bring it to a shippable state on <strong>Steam</strong>.
                 </p>
             </div>
         </section>
@@ -952,38 +1263,8 @@ void UTurnManager::HandleFighterDeath(UFighter* DeadFighter);
                 <a href="https://jadynenglett.weebly.com" class="team-member" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
                     <div class="team-icon">🎬</div>
                     <strong>Jadyn Englett</strong>
-                    <span>Producer & Level Design</span>
+                    <span>Co-Producer & Level Design</span>
                 </a>
-                <div class="team-member">
-                    <div class="team-icon">🖌️</div>
-                    <strong>Waldemar Morales</strong>
-                    <span>Character Art, UI Art, Art Lead</span>
-                </div>
-                <div class="team-member">
-                    <div class="team-icon">🎮</div>
-                    <strong>Wesley Yates</strong>
-                    <span>Front-End Blueprints, Level Design, and Tech Lead</span>
-                </div>
-                <div class="team-member">
-                    <div class="team-icon">🎨</div>
-                    <strong>Olin Britt-Tores</strong>
-                    <span>Character Art & 3D Environment</span>
-                </div>
-                <div class="team-member">
-                    <div class="team-icon">📖</div>
-                    <strong>Matthew Polfer</strong>
-                    <span>Narrative & Level Design</span>
-                </div>
-                <div class="team-member">
-                    <div class="team-icon">📷</div>
-                    <strong>David Diaz</strong>
-                    <span>Camera & Post-Processing</span>
-                </div>
-                <div class="team-member">
-                    <div class="team-icon">✨</div>
-                    <strong>Daniel Roa</strong>
-                    <span>VFX & Animations</span>
-                </div>
             </div>
         </section>
 
